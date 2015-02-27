@@ -6,24 +6,24 @@
 
 namespace axy\sourcemap\tests\errors;
 
-use axy\sourcemap\errors\InvalidField;
+use axy\sourcemap\errors\InvalidSection;
 
 /**
- * coversDefaultClass axy\sourcemap\errors\InvalidFieldTest
+ * coversDefaultClass axy\sourcemap\errors\InvalidSection
  */
-class InvalidFieldTest extends \PHPUnit_Framework_TestCase
+class InvalidSectionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * covers ::__construct
-     * covers ::getField
+     * covers ::getSection
      * covers ::getErrorMessage
      */
     public function testError()
     {
         $ep = new \RuntimeException();
-        $e = new InvalidField('source', 'must be an array', $ep);
-        $this->assertSame('Source map field "source" is invalid: "must be an array"', $e->getMessage());
-        $this->assertSame('source', $e->getField());
+        $e = new InvalidSection('source', 'must be an array', $ep);
+        $this->assertSame('Source map section "source" is invalid: "must be an array"', $e->getMessage());
+        $this->assertSame('source', $e->getSection());
         $this->assertSame('must be an array', $e->getErrorMessage());
         $this->assertSame($ep, $e->getPrevious());
     }

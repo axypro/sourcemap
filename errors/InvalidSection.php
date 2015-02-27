@@ -9,27 +9,27 @@ namespace axy\sourcemap\errors;
 use axy\errors\Runtime;
 
 /**
- * The source map field has an invalid format
+ * The source map section has an invalid format
  */
-final class InvalidField extends Runtime implements InvalidFormat
+final class InvalidSection extends Runtime implements InvalidFormat
 {
     /**
      * {@inheritdoc}
      */
-    protected $defaultMessage = 'Source map field "{{ field }}" is invalid: "{{ errorMessage }}"';
+    protected $defaultMessage = 'Source map section "{{ section }}" is invalid: "{{ errorMessage }}"';
 
     /**
-     * @param string $field
+     * @param string $section
      * @param string $errorMessage
      * @param \Exception $previous [optional]
      * @param mixed $thrower [optional]
      */
-    public function __construct($field = null, $errorMessage = null, \Exception $previous = null, $thrower = null)
+    public function __construct($section = null, $errorMessage = null, \Exception $previous = null, $thrower = null)
     {
-        $this->field = $field;
+        $this->section = $section;
         $this->errorMessage = $errorMessage;
         $message = [
-            'field' => $field,
+            'section' => $section,
             'errorMessage' => $errorMessage,
         ];
         parent::__construct($message, 0, $previous, $thrower);
@@ -38,9 +38,9 @@ final class InvalidField extends Runtime implements InvalidFormat
     /**
      * @return string
      */
-    public function getField()
+    public function getSection()
     {
-        return $this->field;
+        return $this->section;
     }
 
     /**
@@ -54,7 +54,7 @@ final class InvalidField extends Runtime implements InvalidFormat
     /**
      * @var string
      */
-    private $field;
+    private $section;
 
     /**
      * @var string
