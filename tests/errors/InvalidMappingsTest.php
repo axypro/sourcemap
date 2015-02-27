@@ -15,7 +15,7 @@ class InvalidMappingsTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * covers ::__construct
-     * covers ::getVersion
+     * covers ::getErrorMessage
      */
     public function testError()
     {

@@ -15,7 +15,8 @@ class InvalidFieldTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * covers ::__construct
-     * covers ::getVersion
+     * covers ::getField
+     * covers ::getErrorMessage
      */
     public function testError()
     {
