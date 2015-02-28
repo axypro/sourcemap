@@ -61,6 +61,25 @@ class SourceMapTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('/js/', $data['sourceRoot']);
     }
 
+    public function testPropertySourcesNames()
+    {
+        $data = [
+            'version' => 3,
+            'sources' => ['a.js', 'b.js'],
+            'names' => ['one', 'two', 'three'],
+            'mappings' => 'A',
+        ];
+        $map = new SourceMap($data);
+        $this->assertTrue(isset($map->sources));
+        $this->assertTrue(isset($map->names));
+        $this->assertInstanceOf('axy\sourcemap\indexed\Sources', $map->sources);
+        $this->assertInstanceOf('axy\sourcemap\indexed\Names', $map->names);
+        $this->assertEquals(['a.js', 'b.js'], $map->sources->getNames());
+        $this->assertEquals(['one', 'two', 'three'], $map->names->getNames());
+        $this->setExpectedException('axy\errors\PropertyReadOnly');
+        $map->sources = ['c.js'];
+    }
+
     /**
      * covers ::__get
      * @expectedException \axy\errors\FieldNotExist
@@ -95,5 +114,6 @@ class SourceMapTest extends \PHPUnit_Framework_TestCase
     {
         $map = new SourceMap();
         $this->assertFalse(isset($map->abc));
+        $this->assertFalse(isset($map->sourcesContent));
     }
 }

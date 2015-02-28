@@ -6,21 +6,28 @@
 
 namespace axy\sourcemap;
 
-use axy\errors\ContainerReadOnly;
 use axy\sourcemap\parsing\FormatChecker;
 use axy\sourcemap\parsing\Context;
+use axy\sourcemap\indexed\Sources;
+use axy\sourcemap\indexed\Names;
 use axy\sourcemap\errors\UnsupportedVersion;
 use axy\errors\FieldNotExist;
+use axy\errors\ContainerReadOnly;
+use axy\errors\PropertyReadOnly;
 
 /**
  * The Source Map Class
  *
- * @property-read int $version
- *                the version of the file format
- * @property-read string $file
- *                the "file" section
- * @property-read string $sourceRoot
- *                the "sourceRoot" section
+ * @property int $version
+ *           the version of the file format
+ * @property string $file
+ *           the "file" section
+ * @property string $sourceRoot
+ *           the "sourceRoot" section
+ * @property-read \axy\sourcemap\indexed\Sources $sources
+ *                the "sources" section (wrapper)
+ * @property-read \axy\sourcemap\indexed\Names $names
+ *                the "names" section (wrapper)
  */
 class SourceMap
 {
@@ -33,6 +40,8 @@ class SourceMap
     public function __construct(array $data = null)
     {
         $this->context = new Context(FormatChecker::check($data));
+        $this->sources = new Sources($this->context);
+        $this->names = new Names($this->context);
     }
 
     /**
@@ -53,7 +62,7 @@ class SourceMap
      */
     public function __isset($key)
     {
-        return array_key_exists($key, $this->context->data);
+        return in_array($key, ['version', 'file', 'sourceRoot', 'sources', 'names', 'mappings']);
     }
 
     /**
@@ -71,6 +80,10 @@ class SourceMap
             case 'file':
             case 'sourceRoot':
                 return $this->context->data[$key];
+            case 'sources':
+                return $this->sources;
+            case 'names':
+                return $this->names;
         }
         throw new FieldNotExist($key, $this, null, $this);
     }
@@ -81,6 +94,7 @@ class SourceMap
      * @param string $key
      * @param mixed $value
      * @throws \axy\errors\FieldNotExist
+     * @throws \axy\errors\PropertyReadOnly
      */
     public function __set($key, $value)
     {
@@ -94,6 +108,9 @@ class SourceMap
             case 'sourceRoot':
                 $this->context->data[$key] = $value;
                 break;
+            case 'sources':
+            case 'names':
+                throw new PropertyReadOnly($this, $key, null, $this);
             default:
                 throw new FieldNotExist($key, $this, null, $this);
         }
@@ -122,4 +139,14 @@ class SourceMap
      * @var \axy\sourcemap\parsing\Context
      */
     private $context;
+
+    /**
+     * @var \axy\sourcemap\indexed\Sources
+     */
+    private $sources;
+
+    /**
+     * @var \axy\sourcemap\indexed\Names
+     */
+    private $names;
 }
