@@ -24,6 +24,7 @@ abstract class Base
         $this->context = $context;
         $key = $this->contextKey;
         $this->names = $context->$key;
+        $this->indexes = array_flip($this->names);
     }
 
     /**
@@ -37,7 +38,7 @@ abstract class Base
     }
 
     /**
-     * Returns a name by a index (or NULL if index is not found)
+     * Returns a name by an index (or NULL if index is not found)
      *
      * @param int $index
      * @return string|null
@@ -45,6 +46,17 @@ abstract class Base
     public function getNameByIndex($index)
     {
         return isset($this->names[$index]) ? $this->names[$index] : null;
+    }
+
+    /**
+     * Returns an index by a name (or NULL if index is not found)
+     *
+     * @param string $name
+     * @return int
+     */
+    public function getIndexByName($name)
+    {
+        return isset($this->indexes[$name]) ? $this->indexes[$name] : null;
     }
 
     /**
@@ -59,6 +71,11 @@ abstract class Base
      * @var string[]
      */
     private $names;
+
+    /**
+     * @var int[]
+     */
+    private $indexes;
 
     /**
      * @var \axy\sourcemap\parsing\Context
