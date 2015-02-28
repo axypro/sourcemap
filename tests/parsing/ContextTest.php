@@ -27,6 +27,8 @@ class ContextTest extends \PHPUnit_Framework_TestCase
         ];
         $context = new Context($data);
         $this->assertEquals($data, $context->data);
+        $this->assertEquals($data['sources'], $context->sources);
+        $this->assertEquals($data['names'], $context->names);
     }
 
     /**
