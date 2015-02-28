@@ -37,6 +37,17 @@ abstract class Base
     }
 
     /**
+     * Returns a name by a index (or NULL if index is not found)
+     *
+     * @param int $index
+     * @return string|null
+     */
+    public function getNameByIndex($index)
+    {
+        return isset($this->names[$index]) ? $this->names[$index] : null;
+    }
+
+    /**
      * A key from the context (contains the names list)
      * (for override)
      *
