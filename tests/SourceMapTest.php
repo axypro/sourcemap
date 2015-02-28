@@ -50,6 +50,17 @@ class SourceMapTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('new.js', $data['file']);
     }
 
+    public function testPropertySourceRoot()
+    {
+        $map = new SourceMap();
+        $this->assertNull($map->sourceRoot);
+        $map->sourceRoot = '/js/';
+        $this->assertTrue(isset($map->sourceRoot));
+        $this->assertSame('/js/', $map->sourceRoot);
+        $data = $map->getData();
+        $this->assertSame('/js/', $data['sourceRoot']);
+    }
+
     /**
      * covers ::__get
      * @expectedException \axy\errors\FieldNotExist
