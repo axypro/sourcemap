@@ -17,6 +17,8 @@ use axy\errors\FieldNotExist;
  *
  * @property-read int $version
  *                the version of the file format
+ * @property-read string $file
+ *                the "file" section
  */
 class SourceMap
 {
@@ -64,6 +66,8 @@ class SourceMap
         switch ($key) {
             case 'version':
                 return 3;
+            case 'file':
+                return $this->context->data['file'];
         }
         throw new FieldNotExist($key, $this, null, $this);
     }
@@ -83,8 +87,12 @@ class SourceMap
                     return;
                 }
                 throw new UnsupportedVersion($value);
+            case 'file':
+                $this->context->data['file'] = $value;
+                break;
+            default:
+                throw new FieldNotExist($key, $this, null, $this);
         }
-        throw new FieldNotExist($key, $this, null, $this);
     }
 
     /**

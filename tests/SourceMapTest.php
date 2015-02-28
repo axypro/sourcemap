@@ -39,6 +39,17 @@ class SourceMapTest extends \PHPUnit_Framework_TestCase
         $map->version = 5;
     }
 
+    public function testPropertyFile()
+    {
+        $map = new SourceMap(['version' => 3, 'file' => 'out.js', 'sources' => [], 'mappings' => 'A']);
+        $this->assertTrue(isset($map->file));
+        $this->assertSame('out.js', $map->file);
+        $map->file = 'new.js';
+        $this->assertSame('new.js', $map->file);
+        $data = $map->getData();
+        $this->assertSame('new.js', $data['file']);
+    }
+
     /**
      * covers ::__get
      * @expectedException \axy\errors\FieldNotExist
