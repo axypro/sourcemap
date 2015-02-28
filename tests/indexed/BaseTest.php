@@ -64,4 +64,20 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(3, $indexed->getIndexByName('four'));
         $this->assertNull($indexed->getIndexByName('five'));
     }
+
+    /**
+     * covers ::add
+     */
+    public function testAdd()
+    {
+        $indexed = $this->createIndexed();
+        $this->assertSame(0, $indexed->add('one'));
+        $this->assertSame(4, $indexed->add('five'));
+        $this->assertSame(1, $indexed->add('two'));
+        $this->assertSame(4, $indexed->add('five'));
+        $this->assertSame(4, $indexed->getIndexByName('five'));
+        $this->assertSame(0, $indexed->getIndexByName('one'));
+        $this->assertSame('five', $indexed->getNameByIndex(4));
+        $this->assertEquals(['one', 'two', 'three', 'four', 'five'], $indexed->getNames());
+    }
 }

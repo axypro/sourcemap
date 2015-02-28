@@ -60,6 +60,25 @@ abstract class Base
     }
 
     /**
+     * Adds a name in the list and returns an index
+     * If name is exists then returns its index
+     *
+     * @param array $name
+     * @return int
+     *
+     */
+    public function add($name)
+    {
+        if (isset($this->indexes[$name])) {
+            return $this->indexes[$name];
+        }
+        $index = count($this->names);
+        $this->names[] = $name;
+        $this->indexes[$name] = $index;
+        return $index;
+    }
+
+    /**
      * A key from the context (contains the names list)
      * (for override)
      *
