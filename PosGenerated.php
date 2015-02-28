@@ -4,7 +4,7 @@
  * @author Oleg Grigoriev <go.vasac@gmail.com>
  */
 
-namespace ayx\sourcemap;
+namespace axy\sourcemap;
 
 /**
  * Position in the generated content
