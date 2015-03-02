@@ -123,4 +123,18 @@ class PosMapTest extends \PHPUnit_Framework_TestCase
     {
         return new PosMap(3);
     }
+
+    /**
+     * covers ::__clone
+     */
+    public function testClone()
+    {
+        $map = new PosMap(['line' => 5], ['line' => 10, 'nameIndex' => 15]);
+        $mapC = clone $map;
+        $this->assertNotSame($map, $mapC);
+        $this->assertNotSame($map->generated, $mapC->generated);
+        $this->assertNotSame($map->source, $mapC->source);
+        $this->assertEquals($map->generated, $mapC->generated);
+        $this->assertEquals($map->source, $mapC->source);
+    }
 }

@@ -45,6 +45,15 @@ class PosMap
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function __clone()
+    {
+        $this->generated = clone $this->generated;
+        $this->source = clone $this->source;
+    }
+
+    /**
      * @param object $item
      * @param mixed $data
      */
