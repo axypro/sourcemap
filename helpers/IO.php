@@ -7,6 +7,7 @@
 namespace axy\sourcemap\helpers;
 
 use axy\sourcemap\errors\IOError;
+use axy\sourcemap\errors\InvalidJSON;
 
 /**
  * Helpers for I/O file operations
@@ -44,6 +45,39 @@ class IO
         if (!@file_put_contents($filename, $content)) {
             self::throwNativeError($filename);
         }
+    }
+
+    /**
+     * Loads a data from a JSON file
+     *
+     * @param string $filename
+     * @return string
+     * @throws \axy\sourcemap\errors\IOError
+     * @throws \axy\sourcemap\errors\InvalidJSON
+     */
+    public static function loadJSON($filename)
+    {
+        $content = self::load($filename);
+        $data = json_decode($content, true);
+        if ($data === null) {
+            throw new InvalidJSON();
+        }
+        return $data;
+    }
+
+    /**
+     * Saves a data to a JSON file
+     *
+     * @param mixed $data
+     * @param string $filename
+     * @param int $jsonFlag [optional]
+     * @return string
+     * @throws \axy\sourcemap\errors\IOError
+     */
+    public static function saveJSON($data, $filename, $jsonFlag = 0)
+    {
+        $content = json_encode($data, $jsonFlag);
+        self::save($filename, $content);
     }
 
     /**

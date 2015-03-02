@@ -11,6 +11,7 @@ use axy\sourcemap\parsing\FormatChecker;
 use axy\sourcemap\parsing\Context;
 use axy\sourcemap\indexed\Sources;
 use axy\sourcemap\indexed\Names;
+use axy\sourcemap\helpers\IO;
 use axy\sourcemap\errors\UnsupportedVersion;
 use axy\sourcemap\errors\IOError;
 use axy\errors\FieldNotExist;
@@ -56,22 +57,7 @@ class SourceMap
      */
     public static function loadFromFile($filename)
     {
-        if (!is_readable($filename)) {
-            throw new IOError($filename, 'File not found or is not readable');
-        }
-        $content = @file_get_contents($filename);
-        if ($content === false) {
-            $error = error_get_last();
-            if (isset($error['message'])) {
-                $error = $error['message'];
-            }
-            throw new IOError($filename, $error);
-        }
-        $data = json_decode($content, true);
-        if ($data === null) {
-            throw new InvalidJSON();
-        }
-        return new self($data);
+        return new self(IO::loadJSON($filename));
     }
 
     /**
