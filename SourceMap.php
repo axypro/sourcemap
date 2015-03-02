@@ -75,7 +75,7 @@ class SourceMap
      * @throws \axy\sourcemap\errors\IOError
      * @throws \axy\sourcemap\errors\OutFileNotSpecified
      */
-    public function save($filename = null, $jsonFlag = 0)
+    public function save($filename = null, $jsonFlag = JSON_UNESCAPED_SLASHES)
     {
         if ($filename === null) {
             if ($this->outFileName === null) {
