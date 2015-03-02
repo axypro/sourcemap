@@ -12,7 +12,7 @@ use axy\sourcemap\parsing\Context;
 use axy\sourcemap\indexed\Sources;
 use axy\sourcemap\indexed\Names;
 use axy\sourcemap\errors\UnsupportedVersion;
-use axy\sourcemap\errors\IO;
+use axy\sourcemap\errors\IOError;
 use axy\errors\FieldNotExist;
 use axy\errors\ContainerReadOnly;
 use axy\errors\PropertyReadOnly;
@@ -57,7 +57,7 @@ class SourceMap
     public static function loadFromFile($filename)
     {
         if (!is_readable($filename)) {
-            throw new IO($filename, 'File not found or is not readable');
+            throw new IOError($filename, 'File not found or is not readable');
         }
         $content = @file_get_contents($filename);
         if ($content === false) {
@@ -65,7 +65,7 @@ class SourceMap
             if (isset($error['message'])) {
                 $error = $error['message'];
             }
-            throw new IO($filename, $error);
+            throw new IOError($filename, $error);
         }
         $data = json_decode($content, true);
         if ($data === null) {

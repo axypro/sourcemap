@@ -78,7 +78,7 @@ class CommonTest extends \PHPUnit_Framework_TestCase
 
     /**
      * covers ::loadFromFile
-     * @expectedException \axy\sourcemap\errors\IO
+     * @expectedException \axy\sourcemap\errors\IOError
      * @return \axy\sourcemap\SourceMap
      */
     public function testLoadFromFileNotFound()

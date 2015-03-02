@@ -11,7 +11,7 @@ use axy\errors\Runtime;
 /**
  * I/O error
  */
-class IO extends Runtime implements Error
+class IOError extends Runtime implements Error
 {
     /**
      * {@inheritdoc}
