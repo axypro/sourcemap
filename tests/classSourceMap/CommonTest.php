@@ -148,7 +148,7 @@ class CommonTest extends \PHPUnit_Framework_TestCase
         $map3 = SourceMap::loadFromFile($fn);
         $this->assertSame($fn, $map3->outFileName);
         $this->assertSame('/root/js/', $map3->sourceRoot);
-        $fn2 = __DIR__.'/../test2.map';
+        $fn2 = __DIR__.'/../tmp/test2.map';
         if (is_file($fn2)) {
             unlink($fn2);
         }
