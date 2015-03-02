@@ -61,6 +61,18 @@ class SourceMap
     }
 
     /**
+     * Saves the map file
+     *
+     * @param string $filename
+     * @param int $jsonFlag [optional]
+     * @throws \axy\sourcemap\errors\IOError
+     */
+    public function save($filename, $jsonFlag = 0)
+    {
+        IO::saveJSON($this->getData(), $filename, $jsonFlag);
+    }
+
+    /**
      * Returns the data of the json file
      *
      * @return array

@@ -105,4 +105,29 @@ class CommonTest extends \PHPUnit_Framework_TestCase
     {
         return SourceMap::loadFromFile(__DIR__.'/../tst/version4.js.map');
     }
+
+    /**
+     * covers ::save
+     */
+    public function testSave()
+    {
+        $data = [
+            'version' => 3,
+            'file' => 'script.js',
+            'sourceRoot' => '',
+            'sources' => ['a.js', 'b.js'],
+            'names' => ['one'],
+            'mappings' => 'A',
+        ];
+        $map = new SourceMap($data);
+        $fn = __DIR__.'/../tmp/test.map';
+        if (is_file($fn)) {
+            unlink($fn);
+        }
+        $map->save($fn);
+        $this->assertFileExists($fn);
+        $this->assertEquals($data, json_decode(file_get_contents($fn), true));
+        $this->setExpectedException('axy\sourcemap\errors\IOError', 'und/und.map');
+        $map->save(__DIR__.'/../tmp/und/und.map');
+    }
 }
