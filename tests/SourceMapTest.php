@@ -7,7 +7,6 @@
 namespace axy\sourcemap\tests;
 
 use axy\sourcemap\SourceMap;
-use axy\sourcemap\parsing\FormatChecker;
 
 /**
  * coversDefaultClass axy\sourcemap\SourceMap

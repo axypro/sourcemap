@@ -8,7 +8,6 @@ namespace axy\sourcemap\parsing;
 
 use axy\sourcemap\errors\UnsupportedVersion;
 use axy\sourcemap\errors\InvalidSection;
-use axy\sourcemap\errors\InvalidMappings;
 
 /**
  * Checking and normalization of source map data

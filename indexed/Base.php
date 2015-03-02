@@ -63,7 +63,7 @@ abstract class Base
      * Adds a name in the list and returns an index
      * If name is exists then returns its index
      *
-     * @param array $name
+     * @param string $name
      * @return int
      *
      */
