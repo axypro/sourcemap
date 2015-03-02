@@ -6,14 +6,13 @@
 
 namespace axy\sourcemap;
 
-use axy\sourcemap\errors\InvalidJSON;
+use axy\sourcemap\errors\OutFileNotSpecified;
 use axy\sourcemap\parsing\FormatChecker;
 use axy\sourcemap\parsing\Context;
 use axy\sourcemap\indexed\Sources;
 use axy\sourcemap\indexed\Names;
 use axy\sourcemap\helpers\IO;
 use axy\sourcemap\errors\UnsupportedVersion;
-use axy\sourcemap\errors\IOError;
 use axy\errors\FieldNotExist;
 use axy\errors\ContainerReadOnly;
 use axy\errors\PropertyReadOnly;
@@ -31,6 +30,8 @@ use axy\errors\PropertyReadOnly;
  *                the "sources" section (wrapper)
  * @property-read \axy\sourcemap\indexed\Names $names
  *                the "names" section (wrapper)
+ * @property string $outFileName
+ *           the default file name of the map
  */
 class SourceMap
 {
@@ -38,13 +39,18 @@ class SourceMap
      * The constructor
      *
      * @param array $data [optional]
+     *        the map data
+     * @param string $filename [optional]
+     *        the default file name of the map
      * @throws \axy\sourcemap\errors\InvalidFormat
+     *         the map has an invalid format
      */
-    public function __construct(array $data = null)
+    public function __construct(array $data = null, $filename = null)
     {
         $this->context = new Context(FormatChecker::check($data));
         $this->sources = new Sources($this->context);
         $this->names = new Names($this->context);
+        $this->outFileName = $filename;
     }
 
     /**
@@ -57,19 +63,28 @@ class SourceMap
      */
     public static function loadFromFile($filename)
     {
-        return new self(IO::loadJSON($filename));
+        return new self(IO::loadJSON($filename), $filename);
     }
 
     /**
      * Saves the map file
      *
-     * @param string $filename
+     * @param string $filename [optional]
+     *        the map file name (by default used outFileName)
      * @param int $jsonFlag [optional]
      * @throws \axy\sourcemap\errors\IOError
+     * @throws \axy\sourcemap\errors\OutFileNotSpecified
      */
-    public function save($filename, $jsonFlag = 0)
+    public function save($filename = null, $jsonFlag = 0)
     {
+        if ($filename === null) {
+            if ($this->outFileName === null) {
+                throw new OutFileNotSpecified();
+            }
+            $filename = $this->outFileName;
+        }
         IO::saveJSON($this->getData(), $filename, $jsonFlag);
+        $this->outFileName = $filename;
     }
 
     /**
@@ -98,7 +113,7 @@ class SourceMap
      */
     public function __isset($key)
     {
-        return in_array($key, ['version', 'file', 'sourceRoot', 'sources', 'names', 'mappings']);
+        return in_array($key, ['version', 'file', 'sourceRoot', 'sources', 'names', 'mappings', 'outFileName']);
     }
 
     /**
@@ -120,6 +135,8 @@ class SourceMap
                 return $this->sources;
             case 'names':
                 return $this->names;
+            case 'outFileName':
+                return $this->outFileName;
         }
         throw new FieldNotExist($key, $this, null, $this);
     }
@@ -147,6 +164,9 @@ class SourceMap
             case 'sources':
             case 'names':
                 throw new PropertyReadOnly($this, $key, null, $this);
+            case 'outFileName':
+                $this->outFileName = $value;
+                break;
             default:
                 throw new FieldNotExist($key, $this, null, $this);
         }
@@ -185,4 +205,9 @@ class SourceMap
      * @var \axy\sourcemap\indexed\Names
      */
     private $names;
+
+    /**
+     * @var string
+     */
+    private $outFileName;
 }

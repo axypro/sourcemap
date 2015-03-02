@@ -130,4 +130,40 @@ class CommonTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('axy\sourcemap\errors\IOError', 'und/und.map');
         $map->save(__DIR__.'/../tmp/und/und.map');
     }
+
+    public function testOutFileName()
+    {
+        $map1 = new SourceMap();
+        $this->assertNull($map1->outFileName);
+        $fn = __DIR__.'/../tmp/test.map';
+        if (is_file($fn)) {
+            unlink($fn);
+        }
+        $map1->sourceRoot = '/root/js/';
+        $map1->outFileName = $fn;
+        $this->assertSame($fn, $map1->outFileName);
+        $map2 = new SourceMap(null, $fn);
+        $this->assertSame($fn, $map2->outFileName);
+        $map1->save();
+        $map3 = SourceMap::loadFromFile($fn);
+        $this->assertSame($fn, $map3->outFileName);
+        $this->assertSame('/root/js/', $map3->sourceRoot);
+        $fn2 = __DIR__.'/../test2.map';
+        if (is_file($fn2)) {
+            unlink($fn2);
+        }
+        $map3->outFileName = $fn2;
+        $this->assertSame($fn2, $map3->outFileName);
+        unlink($fn);
+        $map3->save();
+        $map3->save($fn);
+        $this->assertSame($fn, $map3->outFileName);
+        $json1 = json_decode(file_get_contents($fn), true);
+        $json2 = json_decode(file_get_contents($fn2), true);
+        $this->assertSame('/root/js/', $json1['sourceRoot']);
+        $this->assertSame('/root/js/', $json2['sourceRoot']);
+        $map3->outFileName = null;
+        $this->setExpectedException('axy\sourcemap\errors\OutFileNotSpecified');
+        $map3->save();
+    }
 }
