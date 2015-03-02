@@ -21,9 +21,40 @@ class SourceMapTest extends \PHPUnit_Framework_TestCase
     public function testCreate()
     {
         $map = new SourceMap();
-        $this->assertEquals(['version' => 3], $map->getData());
+        $expected = [
+            'version' => 3,
+            'file' => '',
+            'sourceRoot' => '',
+            'sources' => [],
+            'names' => [],
+            'mappings' => '',
+        ];
+        $this->assertEquals($expected, $map->getData());
         $this->setExpectedException('axy\sourcemap\errors\InvalidFormat');
         return new SourceMap(['version' => 5]);
+    }
+
+    /**
+     * covers ::getData
+     */
+    public function testGetData()
+    {
+        $data = [
+            'version' => 3,
+            'file' => 'out.js',
+            'sources' => ['a.js'],
+            'mappings' => 'A;C',
+        ];
+        $expected = [
+            'version' => 3,
+            'file' => 'out.js',
+            'sourceRoot' => '',
+            'sources' => ['a.js'],
+            'names' => [],
+            'mappings' => 'A;C',
+        ];
+        $map = new SourceMap($data);
+        $this->assertSame($expected, $map->getData());
     }
 
     public function testPropertyVersion()

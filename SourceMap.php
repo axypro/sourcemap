@@ -51,7 +51,15 @@ class SourceMap
      */
     public function getData()
     {
-        return $this->context->getOutData();
+        $data = $this->context->data;
+        return [
+            'version' => 3,
+            'file' => $data['file'] ?: '',
+            'sourceRoot' => $data['sourceRoot'] ?: '',
+            'sources' => $this->sources->getNames(),
+            'names' => $this->names->getNames(),
+            'mappings' => $data['mappings'], // @todo
+        ];
     }
 
     /**
