@@ -58,7 +58,7 @@ class SourceMap
      *
      * @param string $filename
      * @return \axy\sourcemap\SourceMap
-     * @throws \axy\sourcemap\errors\IO
+     * @throws \axy\sourcemap\errors\IOError
      * @throws \axy\sourcemap\errors\InvalidFormat
      */
     public static function loadFromFile($filename)
