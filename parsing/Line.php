@@ -22,6 +22,21 @@ class Line
     }
 
     /**
+     * Loads the positions list from a numeric array
+     *
+     * @param \axy\sourcemap\PosMap[] $positions
+     * @return \axy\sourcemap\parsing\Line
+     */
+    public static function loadFromPlainList(array $positions)
+    {
+        $rPositions = [];
+        foreach ($positions as $pos) {
+            $rPositions[$pos->generated->line] = $pos;
+        }
+        return new self($rPositions);
+    }
+
+    /**
      * Returns the positions list
      *
      * @return \axy\sourcemap\PosMap[]
