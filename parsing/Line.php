@@ -13,27 +13,42 @@ class Line
 {
     /**
      * The constructor
+     *
+     * @param int $num
+     *        the line number
      * @param \axy\sourcemap\PosMap[] $positions [optional]
      *        a list of ordered positions
      */
-    public function __construct(array $positions = null)
+    public function __construct($num, array $positions = null)
     {
+        $this->num = $num;
         $this->positions = $positions ?: [];
     }
 
     /**
      * Loads the positions list from a numeric array
      *
+     * @param int $num
      * @param \axy\sourcemap\PosMap[] $positions
      * @return \axy\sourcemap\parsing\Line
      */
-    public static function loadFromPlainList(array $positions)
+    public static function loadFromPlainList($num, array $positions)
     {
         $rPositions = [];
         foreach ($positions as $pos) {
-            $rPositions[$pos->generated->line] = $pos;
+            $rPositions[$pos->generated->column] = $pos;
         }
-        return new self($rPositions);
+        return new self($num, $rPositions);
+    }
+
+    /**
+     * Returns the line number
+     *
+     * @return int
+     */
+    public function getNum()
+    {
+        return $this->num;
     }
 
     /**
@@ -45,6 +60,11 @@ class Line
     {
         return $this->positions;
     }
+
+    /**
+     * @var int
+     */
+    private $num;
 
     /**
      * @var \axy\sourcemap\PosMap[]
