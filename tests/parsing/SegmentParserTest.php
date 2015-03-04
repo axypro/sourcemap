@@ -7,6 +7,7 @@
 namespace axy\sourcemap\tests\parsing;
 
 use axy\sourcemap\parsing\SegmentParser;
+use axy\sourcemap\PosMap;
 
 /**
  * coversDefaultClass axy\sourcemap\parsing\SegmentParser
@@ -99,5 +100,64 @@ class SegmentParserTest extends \PHPUnit_Framework_TestCase
             'base64' => ['AA*A'],
             'vlq' => ['AAAz'],
         ];
+    }
+
+    /**
+     * covers ::pack
+     * covers ::nextLine
+     */
+    public function testPack()
+    {
+        $parser = new SegmentParser();
+        $parser->nextLine(0);
+        $params1 = [
+            [
+                'line' => 0,
+                'column' => 0,
+            ],
+            [
+                'fileIndex' => 0,
+                'fileName' => null,
+                'line' => 0,
+                'column' => 0,
+                'nameIndex' => null,
+                'name' => null,
+            ],
+        ];
+        $pos1 = new PosMap($params1[0], $params1[1]);
+        $this->assertSame('AAAA', $parser->pack($pos1));
+        $params2 = [
+            [
+                'line' => 0,
+                'column' => 1,
+            ],
+            [
+                'fileIndex' => 1,
+                'fileName' => null,
+                'line' => 1,
+                'column' => 2,
+                'nameIndex' => 1,
+                'name' => null,
+            ],
+        ];
+        $pos2 = new PosMap($params2[0], $params2[1]);
+        $this->assertSame('CCCEC', $parser->pack($pos2));
+        $parser->nextLine(3);
+        $params3 = [
+            [
+                'line' => 3,
+                'column' => 3,
+            ],
+            [
+                'fileIndex' => 1,
+                'fileName' => null,
+                'line' => 2,
+                'column' => 1,
+                'nameIndex' => null,
+                'name' => null,
+            ],
+        ];
+        $pos3 = new PosMap($params3[0], $params3[1]);
+        $this->assertSame('GACD', $parser->pack($pos3));
     }
 }

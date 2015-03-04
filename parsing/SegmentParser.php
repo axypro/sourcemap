@@ -79,6 +79,33 @@ class SegmentParser
     }
 
     /**
+     * Packs a position to the mappings segment
+     *
+     * @param \axy\sourcemap\PosMap $pos
+     * @return string
+     */
+    public function pack(PosMap $pos)
+    {
+        $generated = $pos->generated;
+        $source = $pos->source;
+        $offsets = [$generated->column - $this->gColumn];
+        $this->gColumn = $generated->column;
+        if ($source->fileIndex !== null) {
+            $offsets[] = $source->fileIndex - $this->sFile;
+            $offsets[] = $source->line - $this->sLine;
+            $offsets[] = $source->column - $this->sColumn;
+            $this->sFile = $source->fileIndex;
+            $this->sLine = $source->line;
+            $this->sColumn = $source->column;
+            if ($source->nameIndex !== null) {
+                $offsets[] = $source->nameIndex - $this->sName;
+                $this->sName = $source->nameIndex;
+            }
+        }
+        return $this->encoder->encode($offsets);
+    }
+
+    /**
      * The line number of the generated content (zero-based)
      *
      * @var int
