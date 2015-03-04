@@ -61,7 +61,7 @@ class SegmentParserTest extends \PHPUnit_Framework_TestCase
         $expected3 = [
             [
                 'line' => 3,
-                'column' => 4,
+                'column' => 3,
             ],
             [
                 'fileIndex' => 1,

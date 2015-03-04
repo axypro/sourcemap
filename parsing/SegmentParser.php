@@ -35,6 +35,7 @@ class SegmentParser
     public function nextLine($num)
     {
         $this->gLine = $num;
+        $this->gColumn = 0;
     }
 
     /**
