@@ -8,6 +8,7 @@ namespace axy\sourcemap\tests;
 
 use axy\sourcemap\PosMap;
 use axy\sourcemap\parsing\Line;
+use axy\sourcemap\parsing\Mappings;
 
 /**
  * Representation of the library objects as arrays for tests
@@ -35,6 +36,19 @@ class Represent
         $result = [];
         foreach ($line->getPositions() as $column => $position) {
             $result[$column] = self::posMap($position);
+        }
+        return $result;
+    }
+
+    /**
+     * @param \axy\sourcemap\parsing\Mappings $mappings
+     * @return array
+     */
+    public static function mappings(Mappings $mappings)
+    {
+        $result = [];
+        foreach ($mappings->getLines() as $num => $line) {
+            $result[$num] = self::line($line);
         }
         return $result;
     }
