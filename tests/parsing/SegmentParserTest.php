@@ -117,11 +117,8 @@ class SegmentParserTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 'fileIndex' => 0,
-                'fileName' => null,
                 'line' => 0,
                 'column' => 0,
-                'nameIndex' => null,
-                'name' => null,
             ],
         ];
         $pos1 = new PosMap($params1[0], $params1[1]);
@@ -133,11 +130,9 @@ class SegmentParserTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 'fileIndex' => 1,
-                'fileName' => null,
                 'line' => 1,
                 'column' => 2,
                 'nameIndex' => 1,
-                'name' => null,
             ],
         ];
         $pos2 = new PosMap($params2[0], $params2[1]);
@@ -150,11 +145,8 @@ class SegmentParserTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 'fileIndex' => 1,
-                'fileName' => null,
                 'line' => 2,
                 'column' => 1,
-                'nameIndex' => null,
-                'name' => null,
             ],
         ];
         $pos3 = new PosMap($params3[0], $params3[1]);

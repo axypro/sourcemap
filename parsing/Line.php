@@ -106,21 +106,6 @@ class Line
     }
 
     /**
-     * @return array
-     */
-    public function getTestPositions()
-    {
-        $result = [];
-        foreach ($this->positions as $k => $pos) {
-            $result[$k] = [
-                'generated' => (array)$pos->generated,
-                'source' => (array)$pos->source,
-            ];
-        }
-        return $result;
-    }
-
-    /**
      * @var int
      */
     private $num;

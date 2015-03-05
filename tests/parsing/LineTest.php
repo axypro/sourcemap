@@ -10,6 +10,7 @@ use axy\sourcemap\parsing\Line;
 use axy\sourcemap\parsing\SegmentParser;
 use axy\sourcemap\parsing\Context;
 use axy\sourcemap\PosMap;
+use axy\sourcemap\tests\Represent;
 
 /**
  * coversDefaultClass axy\sourcemap\parsing\Line
@@ -113,7 +114,7 @@ class LineTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
         ];
-        $this->assertSame($expected1, $line1->getTestPositions());
+        $this->assertSame($expected1, Represent::line($line1));
         $lMappings2 = 'AAEb,IAAOC,GAAG,WAAWE';
         $line2 = Line::loadFromMappings(8, $lMappings2, $parser, $context);
         $this->assertInstanceOf('axy\sourcemap\parsing\Line', $line2);
@@ -175,7 +176,7 @@ class LineTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
         ];
-        $this->assertSame($expected2, $line2->getTestPositions());
+        $this->assertSame($expected2, Represent::line($line2));
     }
 
     /**
