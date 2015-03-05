@@ -47,6 +47,9 @@ class Mappings
      */
     public function addPosition(PosMap $position)
     {
+        if ($this->lines === null) {
+            $this->parse();
+        }
         $generated = $position->generated;
         $nl = $generated->line;
         if (isset($this->lines[$nl])) {
@@ -55,6 +58,32 @@ class Mappings
             $this->lines[$nl] = new Line($nl, [$generated->column => $position]);
         }
         $this->sMappings = null;
+    }
+
+    /**
+     * Removes a position
+     *
+     * @param int $line
+     *        the generated line number
+     * @param int $column
+     *        the generated column number
+     * @return bool
+     *         the position was found and removed
+     */
+    public function removePosition($line, $column)
+    {
+        if ($this->lines === null) {
+            $this->parse();
+        }
+        $removed = false;
+        if (isset($this->lines[$line])) {
+            $l = $this->lines[$line];
+            $removed = $l->removePosition($column);
+            if ($removed && $l->isEmpty()) {
+                unset($this->lines[$line]);
+            }
+        }
+        return $removed;
     }
 
     /**

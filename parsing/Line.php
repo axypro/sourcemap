@@ -133,6 +133,33 @@ class Line
     }
 
     /**
+     * Removes a position
+     *
+     * @param int $column
+     *        the generated column number
+     * @return bool
+     *         the position was found and removed
+     */
+    public function removePosition($column)
+    {
+        $removed = isset($this->positions[$column]);
+        if ($removed) {
+             unset($this->positions[$column]);
+        }
+        return $removed;
+    }
+
+    /**
+     * Checks if the line is empty
+     *
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return empty($this->positions);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function __clone()

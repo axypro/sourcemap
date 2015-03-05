@@ -162,4 +162,22 @@ class MappingsTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertEquals($this->struct, Represent::mappings($mappings));
     }
+
+    public function testRemovePosition()
+    {
+        $data = [
+            'version' => 3,
+            'sources' => ['a.js', 'b.js'],
+            'names' => ['one', 'two', 'three', 'four', 'five'],
+            'mappings' => 'A',
+        ];
+        $context = new Context($data);
+        $mappings = new Mappings('AAAA,YAAY,CAAC;;;;;;;;AAEb,IAAOC,GAAG,WAAWE', $context);
+        $this->assertFalse($mappings->removePosition(3, 5));
+        $this->assertTrue($mappings->removePosition(8, 4));
+        $this->assertFalse($mappings->removePosition(8, 4));
+        $expected = $this->struct;
+        unset($expected[8][4]);
+        $this->assertEquals($expected, Represent::mappings($mappings));
+    }
 }
