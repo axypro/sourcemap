@@ -210,4 +210,23 @@ class LineTest extends \PHPUnit_Framework_TestCase
             'indexed' => ['AZAA'],
         ];
     }
+
+    /**
+     * covers ::__clone
+     */
+    public function testClone()
+    {
+        $positions = [
+            10 => new PosMap(['line' => 10, 'column' => 10], null),
+            15 => new PosMap(['line' => 10, 'column' => 15], null),
+        ];
+        $line = new Line(5, $positions);
+        $line2 = clone $line;
+        $this->assertSame(5, $line2->getNum());
+        $this->assertSame(Represent::line($line), Represent::line($line2));
+        $positions2 = $line2->getPositions();
+        $this->assertInstanceOf('axy\sourcemap\PosMap', $positions2[15]);
+        $this->assertEquals($positions[15], $positions2[15]);
+        $this->assertNotSame($positions[15], $positions2[15]);
+    }
 }

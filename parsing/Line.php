@@ -106,6 +106,17 @@ class Line
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function __clone()
+    {
+        foreach ($this->positions as &$pos) {
+            $pos = clone $pos;
+        }
+        unset($pos);
+    }
+
+    /**
      * @var int
      */
     private $num;
