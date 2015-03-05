@@ -229,4 +229,128 @@ class LineTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($positions[15], $positions2[15]);
         $this->assertNotSame($positions[15], $positions2[15]);
     }
+
+    /**
+     * covers ::pack
+     */
+    public function testPack()
+    {
+        $parser = new SegmentParser();
+        $positions1 = [
+            0 => [
+                'generated' => [
+                    'line' => 0,
+                    'column' => 0,
+                ],
+                'source' => [
+                    'fileIndex' => 0,
+                    'fileName' => 'a.js',
+                    'line' => 0,
+                    'column' => 0,
+                    'nameIndex' => null,
+                    'name' => null,
+                ],
+            ],
+            12 => [
+                'generated' => [
+                    'line' => 0,
+                    'column' => 12,
+                ],
+                'source' => [
+                    'fileIndex' => 0,
+                    'fileName' => 'a.js',
+                    'line' => 0,
+                    'column' => 12,
+                    'nameIndex' => null,
+                    'name' => null,
+                ],
+            ],
+            13 => [
+                'generated' => [
+                    'line' => 0,
+                    'column' => 13,
+                ],
+                'source' => [
+                    'fileIndex' => 0,
+                    'fileName' => 'a.js',
+                    'line' => 0,
+                    'column' => 13,
+                    'nameIndex' => null,
+                    'name' => null,
+                ],
+            ],
+        ];
+        foreach ($positions1 as &$pos) {
+            $pos = new PosMap($pos['generated'], $pos['source']);
+        }
+        unset($pos);
+        $line1 = new Line(0, $positions1);
+        $parser->nextLine(0);
+        $this->assertSame('AAAA,YAAY,CAAC', $line1->pack($parser));
+        $positions2 = [
+            4 => [
+                'generated' => [
+                    'line' => 8,
+                    'column' => 4,
+                ],
+                'source' => [
+                    'fileIndex' => 0,
+                    'fileName' => 'a.js',
+                    'line' => 2,
+                    'column' => 7,
+                    'nameIndex' => 1,
+                    'name' => 'two',
+                ],
+            ],
+            0 => [
+                'generated' => [
+                    'line' => 8,
+                    'column' => 0,
+                ],
+                'source' => [
+                    'fileIndex' => 0,
+                    'fileName' => 'a.js',
+                    'line' => 2,
+                    'column' => 0,
+                    'nameIndex' => null,
+                    'name' => null,
+                ],
+            ],
+            7 => [
+                'generated' => [
+                    'line' => 8,
+                    'column' => 7,
+                ],
+                'source' => [
+                    'fileIndex' => 0,
+                    'fileName' => 'a.js',
+                    'line' => 2,
+                    'column' => 10,
+                    'nameIndex' => null,
+                    'name' => null,
+                ],
+            ],
+            18 => [
+                'generated' => [
+                    'line' => 8,
+                    'column' => 18,
+                ],
+                'source' => [
+                    'fileIndex' => 0,
+                    'fileName' => 'a.js',
+                    'line' => 2,
+                    'column' => 21,
+                    'nameIndex' => 3,
+                    'name' => 'four',
+                ],
+            ],
+        ];
+        foreach ($positions2 as &$pos) {
+            $pos = new PosMap($pos['generated'], $pos['source']);
+        }
+        unset($pos);
+        $line2 = new Line(8, $positions2);
+        $parser->nextLine(8);
+        $this->assertSame('AAEb,IAAOC,GAAG,WAAWE', $line2->pack($parser));
+    }
 }

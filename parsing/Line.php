@@ -106,6 +106,22 @@ class Line
     }
 
     /**
+     * Packs the line to the mappings
+     *
+     * @param \axy\sourcemap\parsing\SegmentParser $parser
+     * @return string
+     */
+    public function pack(SegmentParser $parser)
+    {
+        ksort($this->positions);
+        $segments = [];
+        foreach ($this->positions as $pos) {
+            $segments[] = $parser->pack($pos);
+        }
+        return implode(',', $segments);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function __clone()
