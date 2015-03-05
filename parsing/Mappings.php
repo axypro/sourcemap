@@ -6,6 +6,8 @@
 
 namespace axy\sourcemap\parsing;
 
+use axy\sourcemap\PosMap;
+
 /**
  * The "mappings" section
  */
@@ -36,6 +38,23 @@ class Mappings
             $this->parse();
         }
         return $this->lines;
+    }
+
+    /**
+     * Adds a position to the mappings
+     *
+     * @param \axy\sourcemap\PosMap
+     */
+    public function addPosition(PosMap $position)
+    {
+        $generated = $position->generated;
+        $nl = $generated->line;
+        if (isset($this->lines[$nl])) {
+            $this->lines[$nl]->addPosition($position);
+        } else {
+            $this->lines[$nl] = new Line($nl, [$generated->column => $position]);
+        }
+        $this->sMappings = null;
     }
 
     /**

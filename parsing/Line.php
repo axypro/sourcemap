@@ -6,6 +6,7 @@
 
 namespace axy\sourcemap\parsing;
 
+use axy\sourcemap\PosMap;
 use axy\sourcemap\errors\InvalidMappings;
 
 /**
@@ -119,6 +120,16 @@ class Line
             $segments[] = $parser->pack($pos);
         }
         return implode(',', $segments);
+    }
+
+    /**
+     * Adds a position to the mappings
+     *
+     * @param \axy\sourcemap\PosMap $position
+     */
+    public function addPosition(PosMap $position)
+    {
+        $this->positions[$position->generated->column] = $position;
     }
 
     /**
