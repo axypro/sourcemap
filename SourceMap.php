@@ -101,7 +101,7 @@ class SourceMap
             'sourceRoot' => $data['sourceRoot'] ?: '',
             'sources' => $this->sources->getNames(),
             'names' => $this->names->getNames(),
-            'mappings' => $data['mappings'], // @todo
+            'mappings' => $this->context->mappings->pack(),
         ];
     }
 
