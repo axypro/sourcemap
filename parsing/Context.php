@@ -33,6 +33,13 @@ class Context
     public $names;
 
     /**
+     * A wrapper on "mappings" section
+     *
+     * @var \axy\sourcemap\parsing\mappings
+     */
+    public $mappings;
+
+    /**
      * The constructor
      *
      * @param array $data
@@ -42,5 +49,6 @@ class Context
         $this->data = $data;
         $this->sources = isset($data['sources']) ? $data['sources'] : [];
         $this->names = isset($data['names']) ? $data['names'] : [];
+        $this->mappings = new Mappings($data['mappings'], $this);
     }
 }

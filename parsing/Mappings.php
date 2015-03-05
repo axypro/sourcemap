@@ -23,7 +23,6 @@ class Mappings
     {
         $this->sMappings = $sMappings;
         $this->context = $context;
-        $this->parse();
     }
 
     /**
@@ -33,6 +32,9 @@ class Mappings
      */
     public function getLines()
     {
+        if ($this->lines === null) {
+            $this->parse();
+        }
         return $this->lines;
     }
 
