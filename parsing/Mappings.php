@@ -87,6 +87,30 @@ class Mappings
     }
 
     /**
+     * Packs the mappings
+     *
+     * @return string
+     */
+    public function pack()
+    {
+        $parser = new SegmentParser();
+        if ($this->sMappings === null) {
+            $ln = [];
+            $max = max(array_keys($this->lines));
+            for ($i = 0; $i <= $max; $i++) {
+                if (isset($this->lines[$i])) {
+                    $parser->nextLine($i);
+                    $ln[] = $this->lines[$i]->pack($parser);
+                } else {
+                    $ln[] = '';
+                }
+            }
+            $this->sMappings = implode(';', $ln);
+        }
+        return $this->sMappings;
+    }
+
+    /**
      * Parses the mappings string
      */
     private function parse()

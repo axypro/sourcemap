@@ -180,4 +180,43 @@ class MappingsTest extends \PHPUnit_Framework_TestCase
         unset($expected[8][4]);
         $this->assertEquals($expected, Represent::mappings($mappings));
     }
+
+    /**
+     * covers ::pack
+     */
+    public function testPack()
+    {
+        $data = [
+            'version' => 3,
+            'sources' => ['a.js', 'b.js'],
+            'names' => ['one', 'two', 'three', 'four', 'five'],
+            'mappings' => 'A',
+        ];
+        $context = new Context($data);
+        $mappings = new Mappings('', $context);
+        $this->assertEquals('', $mappings->pack());
+        $struct = [$this->struct[8], $this->struct[0]];
+        foreach ($struct as $line) {
+            foreach ($line as $position) {
+                $mappings->addPosition(new PosMap($position['generated'], $position['source']));
+            }
+        }
+        $this->assertSame('AAAA,YAAY,CAAC;;;;;;;;AAEb,IAAOC,GAAG,WAAWE', $mappings->pack());
+        $generated = [
+            'line' => 10,
+            'column' => 4,
+        ];
+        $source = [
+            'fileIndex' => 1,
+            'fileName' => 'b.js',
+            'line' => 10,
+            'column' => 0,
+            'nameIndex' => 1,
+            'name' => 'two',
+        ];
+        $pos = new PosMap($generated, $source);
+        $mappings->addPosition($pos);
+        $mappings->removePosition(8, 7);
+        $this->assertSame('AAAA,YAAY,CAAC;;;;;;;;AAEb,IAAOC,cAAcE;;ICQrBF', $mappings->pack());
+    }
 }
