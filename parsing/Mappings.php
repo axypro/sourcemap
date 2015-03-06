@@ -87,6 +87,38 @@ class Mappings
     }
 
     /**
+     * Renames a file name
+     *
+     * @param int $fileIndex
+     * @param string $newFileName
+     */
+    public function renameFile($fileIndex, $newFileName)
+    {
+        if ($this->lines === null) {
+            $this->parse();
+        }
+        foreach ($this->lines as $line) {
+            $line->renameFile($fileIndex, $newFileName);
+        }
+    }
+
+    /**
+     * Renames a symbol name
+     *
+     * @param int $nameIndex
+     * @param string $newName
+     */
+    public function renameName($nameIndex, $newName)
+    {
+        if ($this->lines === null) {
+            $this->parse();
+        }
+        foreach ($this->lines as $line) {
+            $line->renameName($nameIndex, $newName);
+        }
+    }
+
+    /**
      * Packs the mappings
      *
      * @return string

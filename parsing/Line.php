@@ -150,6 +150,40 @@ class Line
     }
 
     /**
+     * Renames a file name
+     *
+     * @param int $fileIndex
+     * @param string $newFileName
+     */
+    public function renameFile($fileIndex, $newFileName)
+    {
+        $fileIndex = (int)$fileIndex;
+        foreach ($this->positions as $position) {
+            $source = $position->source;
+            if ($source->fileIndex === $fileIndex) {
+                $source->fileName = $newFileName;
+            }
+        }
+    }
+
+    /**
+     * Renames a symbol name
+     *
+     * @param int $nameIndex
+     * @param string $newName
+     */
+    public function renameName($nameIndex, $newName)
+    {
+        $nameIndex = (int)$nameIndex;
+        foreach ($this->positions as $position) {
+            $source = $position->source;
+            if ($source->nameIndex === $nameIndex) {
+                $source->name = $newName;
+            }
+        }
+    }
+
+    /**
      * Checks if the line is empty
      *
      * @return bool

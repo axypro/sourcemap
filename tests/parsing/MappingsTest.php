@@ -219,4 +219,38 @@ class MappingsTest extends \PHPUnit_Framework_TestCase
         $mappings->removePosition(8, 7);
         $this->assertSame('AAAA,YAAY,CAAC;;;;;;;;AAEb,IAAOC,cAAcE;;ICQrBF', $mappings->pack());
     }
+
+    /**
+     * covers ::renameFile
+     * covers ::renameName
+     */
+    public function testRenameFileAndName()
+    {
+        $data = [
+            'version' => 3,
+            'sources' => ['a.js', 'b.js'],
+            'names' => ['one', 'two', 'three', 'four', 'five'],
+            'mappings' => 'A',
+        ];
+        $context = new Context($data);
+        $sMappings = 'AAAA,YAAY,CAAC;;;;;;;;AAEb,IAAOC,GAAG,WAAWE';
+        $mappings = new Mappings($sMappings, $context);
+        $mappings->renameFile(0, 'new.js');
+        $mappings->renameName('1', 'newName');
+        $expected = $this->struct;
+        foreach ($expected as &$l) {
+            foreach ($l as &$c) {
+                if ($c['source']['fileIndex'] === 0) {
+                    $c['source']['fileName'] = 'new.js';
+                }
+                if ($c['source']['nameIndex'] === 1) {
+                    $c['source']['name'] = 'newName';
+                }
+            }
+            unset($c);
+        }
+        unset($l);
+        $this->assertEquals($expected, Represent::mappings($mappings));
+        $this->assertSame($sMappings, $mappings->pack());
+    }
 }
