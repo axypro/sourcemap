@@ -207,6 +207,29 @@ class Line
     }
 
     /**
+     * Removes a name
+     *
+     * @param int $nameIndex
+     * @return bool
+     */
+    public function removeName($nameIndex)
+    {
+        $removed = false;
+        $positions = $this->positions;
+        foreach ($positions as $cn => $position) {
+            $source = $position->source;
+            $ni = $source->nameIndex;
+            if ($ni === $nameIndex) {
+                $removed = true;
+                unset($this->positions[$cn]);
+            } elseif ($ni > $nameIndex) {
+                $source->nameIndex--;
+            }
+        }
+        return $removed;
+    }
+
+    /**
      * Checks if the line is empty
      *
      * @return bool
