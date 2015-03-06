@@ -221,7 +221,8 @@ class Line
             $ni = $source->nameIndex;
             if ($ni === $nameIndex) {
                 $removed = true;
-                unset($this->positions[$cn]);
+                $source->nameIndex = null;
+                $source->name = null;
             } elseif ($ni > $nameIndex) {
                 $source->nameIndex--;
             }

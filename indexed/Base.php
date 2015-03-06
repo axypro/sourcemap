@@ -79,7 +79,7 @@ abstract class Base
     }
 
     /**
-     * Renames a name
+     * Renames an item
      *
      * @param int $index
      * @param string $newName

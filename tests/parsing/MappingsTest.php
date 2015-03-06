@@ -472,6 +472,22 @@ class MappingsTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertTrue($mappings->removeName(0));
         $expected1 = [
+            0 => [
+                [
+                    'generated' => [
+                        'line' => 0,
+                        'column' => 0,
+                    ],
+                    'source' => [
+                        'fileIndex' => 0,
+                        'fileName' => 'a.js',
+                        'line' => 0,
+                        'column' => 0,
+                        'nameIndex' => null,
+                        'name' => null,
+                    ],
+                ],
+            ],
             2 => [
                 3 => [
                     'generated' => [

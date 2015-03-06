@@ -153,9 +153,6 @@ class Mappings
         foreach ($lines as $ln => $line) {
             if ($line->removeName($nameIndex)) {
                 $removed = true;
-                if ($line->isEmpty()) {
-                    unset($this->lines[$ln]);
-                }
             }
         }
         $this->sMappings = null;
