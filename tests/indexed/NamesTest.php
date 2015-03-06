@@ -30,4 +30,30 @@ class NamesTest extends \PHPUnit_Framework_TestCase
         $names = new Names($context);
         $this->assertEquals(['one', 'two'], $names->getNames());
     }
+
+    /**
+     * covers ::rename
+     */
+    public function testRename()
+    {
+        $data = [
+            'version' => 3,
+            'sources' => ['a.js', 'b.js'],
+            'names' => ['one', 'two'],
+            'mappings' => 'AAAAA,CAAAC',
+        ];
+        $context = new Context($data);
+        $names = new Names($context);
+        $this->assertEquals(['one', 'two'], $names->getNames());
+        $pos0 = $context->mappings->getLines()[0]->getPositions()[0];
+        $pos1 = $context->mappings->getLines()[0]->getPositions()[1];
+        $this->assertSame('one', $pos0->source->name);
+        $this->assertSame('two', $pos1->source->name);
+        $this->assertTrue($names->rename('1', 'three'));
+        $this->assertFalse($names->rename('1', 'three'));
+        $this->assertFalse($names->rename(10, 'three'));
+        $this->assertEquals(['one', 'three'], $names->getNames());
+        $this->assertSame('one', $pos0->source->name);
+        $this->assertSame('three', $pos1->source->name);
+    }
 }

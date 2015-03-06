@@ -15,4 +15,12 @@ final class Names extends Base
      * {@inheritdoc}
      */
     protected $contextKey = 'names';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function onRename($index, $newName)
+    {
+        $this->context->mappings->renameName($index, $newName);
+    }
 }

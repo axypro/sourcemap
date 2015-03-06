@@ -15,4 +15,12 @@ final class Sources extends Base
      * {@inheritdoc}
      */
     protected $contextKey = 'sources';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function onRename($index, $newName)
+    {
+        $this->context->mappings->renameFile($index, $newName);
+    }
 }

@@ -30,4 +30,28 @@ class SourcesTest extends \PHPUnit_Framework_TestCase
         $sources = new Sources($context);
         $this->assertEquals(['a.js', 'b.js'], $sources->getNames());
     }
+
+    /**
+     * covers ::rename
+     */
+    public function testRename()
+    {
+        $data = [
+            'version' => 3,
+            'sources' => ['a.js', 'b.js'],
+            'names' => ['one', 'two'],
+            'mappings' => 'AAAAA,CCAAC',
+        ];
+        $context = new Context($data);
+        $sources = new Sources($context);
+        $this->assertEquals(['a.js', 'b.js'], $sources->getNames());
+        $pos0 = $context->mappings->getLines()[0]->getPositions()[0];
+        $pos1 = $context->mappings->getLines()[0]->getPositions()[1];
+        $this->assertSame('a.js', $pos0->source->fileName);
+        $this->assertSame('b.js', $pos1->source->fileName);
+        $sources->rename(0, 'c.js');
+        $this->assertEquals(['c.js', 'b.js'], $sources->getNames());
+        $this->assertSame('c.js', $pos0->source->fileName);
+        $this->assertSame('b.js', $pos1->source->fileName);
+    }
 }

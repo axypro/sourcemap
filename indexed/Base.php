@@ -79,6 +79,35 @@ abstract class Base
     }
 
     /**
+     * Renames a name
+     *
+     * @param int $index
+     * @param string $newName
+     * @return bool
+     */
+    public function rename($index, $newName)
+    {
+        if (!isset($this->names[$index])) {
+            return false;
+        }
+        if ($this->names[$index] === $newName) {
+            return false;
+        }
+        $this->names[$index] = $newName;
+        $this->onRename($index, $newName);
+        return true;
+    }
+
+    /**
+     * Renames a item in the mappings
+     *
+     * @param int $index
+     * @param string $newName
+     * @return bool
+     */
+    abstract protected function onRename($index, $newName);
+
+    /**
      * A key from the context (contains the names list)
      * (for override)
      *
@@ -89,15 +118,15 @@ abstract class Base
     /**
      * @var string[]
      */
-    private $names;
+    protected $names;
 
     /**
      * @var int[]
      */
-    private $indexes;
+    protected $indexes;
 
     /**
      * @var \axy\sourcemap\parsing\Context
      */
-    private $context;
+    protected $context;
 }
