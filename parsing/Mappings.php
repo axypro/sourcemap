@@ -119,6 +119,28 @@ class Mappings
     }
 
     /**
+     * Removes a file
+     *
+     * @param int $fileIndex
+     * @return bool
+     */
+    public function removeFile($fileIndex)
+    {
+        $removed = false;
+        $lines = $this->lines;
+        foreach ($lines as $ln => $line) {
+            if ($line->removeFile($fileIndex)) {
+                $removed = true;
+                if ($line->isEmpty()) {
+                    unset($this->lines[$ln]);
+                }
+            }
+        }
+        $this->sMappings = null;
+        return $removed;
+    }
+
+    /**
      * Packs the mappings
      *
      * @return string

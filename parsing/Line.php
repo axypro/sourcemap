@@ -184,6 +184,29 @@ class Line
     }
 
     /**
+     * Removes a file
+     *
+     * @param int $fileIndex
+     * @return bool
+     */
+    public function removeFile($fileIndex)
+    {
+        $removed = false;
+        $positions = $this->positions;
+        foreach ($positions as $cn => $position) {
+            $source = $position->source;
+            $fi = $source->fileIndex;
+            if ($fi === $fileIndex) {
+                $removed = true;
+                unset($this->positions[$cn]);
+            } elseif ($fi > $fileIndex) {
+                $source->fileIndex--;
+            }
+        }
+        return $removed;
+    }
+
+    /**
      * Checks if the line is empty
      *
      * @return bool

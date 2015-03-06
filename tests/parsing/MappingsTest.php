@@ -253,4 +253,148 @@ class MappingsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, Represent::mappings($mappings));
         $this->assertSame($sMappings, $mappings->pack());
     }
+
+    /**
+     * covers ::removeFiles
+     */
+    public function testRemoveFiles()
+    {
+        $data = [
+            'version' => 3,
+            'sources' => ['a.js', 'b.js', 'c.js'],
+            'names' => ['one', 'two', 'three', 'four', 'five'],
+            'mappings' => 'A',
+        ];
+        $context = new Context($data);
+        $positions = [
+            [
+                'generated' => [
+                    'line' => 0,
+                    'column' => 0,
+                ],
+                'source' => [
+                    'fileIndex' => 0,
+                    'fileName' => 'a.js',
+                    'line' => 0,
+                    'column' => 0,
+                    'nameIndex' => 0,
+                    'name' => 'one',
+                ],
+            ],
+            [
+                'generated' => [
+                    'line' => 2,
+                    'column' => 3,
+                ],
+                'source' => [
+                    'fileIndex' => 1,
+                    'fileName' => 'b.js',
+                    'line' => 2,
+                    'column' => 2,
+                ],
+            ],
+            [
+                'generated' => [
+                    'line' => 2,
+                    'column' => 5,
+                ],
+                'source' => [
+                    'fileIndex' => 2,
+                    'fileName' => 'c.js',
+                    'line' => 3,
+                    'column' => 4,
+                ],
+            ],
+            [
+                'generated' => [
+                    'line' => 2,
+                    'column' => 10,
+                ],
+                'source' => [
+                    'fileIndex' => 0,
+                    'fileName' => 'a.js',
+                    'line' => 5,
+                    'column' => 10,
+                ],
+            ],
+        ];
+        $mappings = new Mappings('', $context);
+        foreach ($positions as $position) {
+            $mappings->addPosition(new PosMap($position['generated'], $position['source']));
+        }
+        $this->assertTrue($mappings->removeFile(1));
+        $expected1 = [
+            0 => [
+                0 => [
+                    'generated' => [
+                        'line' => 0,
+                        'column' => 0,
+                    ],
+                    'source' => [
+                        'fileIndex' => 0,
+                        'fileName' => 'a.js',
+                        'line' => 0,
+                        'column' => 0,
+                        'nameIndex' => 0,
+                        'name' => 'one',
+                    ],
+                ],
+            ],
+            2 => [
+                5 => [
+                    'generated' => [
+                        'line' => 2,
+                        'column' => 5,
+                    ],
+                    'source' => [
+                        'fileIndex' => 1,
+                        'fileName' => 'c.js',
+                        'line' => 3,
+                        'column' => 4,
+                        'nameIndex' => null,
+                        'name' => null,
+                    ],
+                ],
+                10 => [
+                    'generated' => [
+                        'line' => 2,
+                        'column' => 10,
+                    ],
+                    'source' => [
+                        'fileIndex' => 0,
+                        'fileName' => 'a.js',
+                        'line' => 5,
+                        'column' => 10,
+                        'nameIndex' => null,
+                        'name' => null,
+                    ],
+                ],
+            ],
+        ];
+        $this->assertEquals($expected1, Represent::mappings($mappings));
+        $this->assertFalse($mappings->removeFile(5));
+        $this->assertSame('AAAAA;;KCGI,KDEM', $mappings->pack());
+        $this->assertEquals($expected1, Represent::mappings($mappings));
+        $this->assertTrue($mappings->removeFile(0));
+        $expected2 = [
+            2 => [
+                5 => [
+                    'generated' => [
+                        'line' => 2,
+                        'column' => 5,
+                    ],
+                    'source' => [
+                        'fileIndex' => 0,
+                        'fileName' => 'c.js',
+                        'line' => 3,
+                        'column' => 4,
+                        'nameIndex' => null,
+                        'name' => null,
+                    ],
+                ],
+            ],
+        ];
+        $this->assertEquals($expected2, Represent::mappings($mappings));
+        $this->assertSame(';;KAGI', $mappings->pack());
+    }
 }
