@@ -69,6 +69,46 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($map->findPositionInSource(1, 1, 36));
         $this->assertNull($map->findPositionInSource(1, 100, 36));
         $this->assertNull($map->findPositionInSource(100, 1, 36));
+    }
 
+    /**
+     * covers ::find
+     */
+    public function testFind()
+    {
+        $map = SourceMap::loadFromFile(__DIR__.'/../tst/app.js.map');
+        $all = $map->find();
+        $this->assertInternalType('array', $all);
+        $this->assertCount(72, $all);
+        $p23 = $all[23];
+        $this->assertInstanceOf('axy\sourcemap\PosMap', $p23);
+        $expected23 = [
+            'generated' => [
+                'line' => 5,
+                'column' => 4,
+            ],
+            'source' => [
+                'fileIndex' => 1,
+                'fileName' => 'funcs.ts',
+                'line' => 0,
+                'column' => 4,
+                'nameIndex' => null,
+                'name' => null,
+            ],
+        ];
+        $this->assertEquals($expected23, Represent::posMap($p23));
+        $filter = [
+            'generated' => [
+                'line' => 3,
+            ],
+            'source' => [
+                'line' => 7,
+                'name' => 'carry',
+            ],
+        ];
+        $result = $map->find($filter);
+        $this->assertCount(1, $result);
+        $this->assertSame($map->getPosition(3, 6), $result[0]);
+        $this->assertEmpty($map->find(['generated' => ['line' => 100]]));
     }
 }

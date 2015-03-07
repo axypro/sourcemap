@@ -8,6 +8,7 @@ namespace axy\sourcemap;
 
 use axy\sourcemap\parents\Interfaces as ParentClass;
 use axy\sourcemap\helpers\IO;
+use axy\sourcemap\helpers\PosBuilder;
 use axy\sourcemap\errors\OutFileNotSpecified;
 
 /**
@@ -76,6 +77,21 @@ class SourceMap extends ParentClass
     public function findPositionInSource($fileIndex, $line, $column)
     {
         return $this->context->mappings->findPositionInSource($fileIndex, $line, $column);
+    }
+
+    /**
+     * Finds positions that match to a filter
+     *
+     * @param \axy\sourcemap\PosMap|object|array $filter [optional]
+     *        the filter (if not specified then returns all positions)
+     * @return \axy\sourcemap\PosMap[]
+     */
+    public function find($filter = null)
+    {
+        if ($filter !== null) {
+            $filter = PosBuilder::build($filter);
+        }
+        return $this->context->mappings->find($filter);
     }
 
     /**

@@ -237,6 +237,34 @@ class Mappings
     }
 
     /**
+     * Finds positions that match to a filter
+     *
+     * @param \axy\sourcemap\PosMap $filter [optional]
+     *        the filter (if not specified then returns all positions)
+     * @return \axy\sourcemap\PosMap[]
+     */
+    public function find(PosMap $filter = null)
+    {
+        $lines = $this->getLines();
+        if ($filter !== null) {
+            $generated = $filter->generated;
+            if ($generated->line !== null) {
+                $nl = $generated->line;
+                if (isset($lines[$nl])) {
+                    return $lines[$nl]->find($filter);
+                } else {
+                    return [];
+                }
+            }
+        }
+        $result = [];
+        foreach ($lines as $line) {
+            $result = array_merge($result, $line->find($filter));
+        }
+        return $result;
+    }
+
+    /**
      * Parses the mappings string
      */
     private function parse()

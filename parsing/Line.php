@@ -264,6 +264,43 @@ class Line
     }
 
     /**
+     * Finds positions that match to a filter
+     *
+     * @param \axy\sourcemap\PosMap $filter [optional]
+     *        the filter (if not specified then returns all positions)
+     * @return \axy\sourcemap\PosMap[]
+     */
+    public function find(PosMap $filter = null)
+    {
+        if ($filter === null) {
+            return array_values($this->positions);
+        }
+        $fg = $filter->generated;
+        $positions = $this->positions;
+        if ($fg->column !== null) {
+            if (isset($positions[$fg->column])) {
+                $positions = [$positions[$fg->column]];
+            }
+        }
+        $fs = $filter->source;
+        $result = [];
+        foreach ($positions as $p) {
+            $ps = $p->source;
+            $ok = true;
+            foreach ($fs as $k => $v) {
+                if (($v !== null) && ($v !== $ps->$k)) {
+                    $ok = false;
+                    break;
+                }
+            }
+            if ($ok) {
+                $result[] = $p;
+            }
+        }
+        return $result;
+    }
+
+    /**
      * Checks if the line is empty
      *
      * @return bool
