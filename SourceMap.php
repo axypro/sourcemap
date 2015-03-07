@@ -33,7 +33,7 @@ use axy\errors\PropertyReadOnly;
  * @property string $outFileName
  *           the default file name of the map
  */
-class SourceMap implements \IteratorAggregate
+class SourceMap implements \IteratorAggregate, \ArrayAccess
 {
     /**
      * The constructor
@@ -197,6 +197,38 @@ class SourceMap implements \IteratorAggregate
     public function getIterator()
     {
         return new \ArrayIterator($this->getData());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetExists($offset)
+    {
+        return $this->__isset($offset);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetGet($offset)
+    {
+        return $this->__get($offset);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->__set($offset, $value);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetUnset($offset)
+    {
+        $this->__unset($offset);
     }
 
     /**

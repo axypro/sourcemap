@@ -46,4 +46,16 @@ class InterfacesTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertEquals($this->data, $actual);
     }
+
+    public function testArrayAccess()
+    {
+        $this->assertTrue(isset($this->map['file']));
+        $this->assertFalse(isset($this->map['notFile']));
+        $this->assertSame('script.js', $this->map['file']);
+        $this->map['file'] = 'out.js';
+        $this->assertSame('out.js', $this->map['file']);
+        $this->assertSame('out.js', $this->map->file);
+        $this->setExpectedException('axy\errors\ReadOnly');
+        unset($this->map['file']);
+    }
 }
