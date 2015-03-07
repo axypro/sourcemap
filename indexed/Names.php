@@ -23,4 +23,12 @@ final class Names extends Base
     {
         $this->context->mappings->renameName($index, $newName);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function onRemove($index)
+    {
+        $this->context->mappings->removeName($index);
+    }
 }

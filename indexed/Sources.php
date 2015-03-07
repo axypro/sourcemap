@@ -23,4 +23,12 @@ final class Sources extends Base
     {
         $this->context->mappings->renameFile($index, $newName);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function onRemove($index)
+    {
+        $this->context->mappings->removeFile($index);
+    }
 }

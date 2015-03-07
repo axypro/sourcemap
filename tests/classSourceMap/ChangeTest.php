@@ -39,4 +39,52 @@ class ChangeTest extends \PHPUnit_Framework_TestCase
         $expected['names'][5] = 'Two';
         $this->assertEquals($expected, $map->getData());
     }
+
+    public function testNameRemove()
+    {
+        $data = [
+            'version' => 3,
+            'file' => 'script.js',
+            'sourceRoot' => '',
+            'sources' => ['script.ts'],
+            'names' => ['one', 'two', 'three'],
+            'mappings' => 'AAAA,YAAYA,CAACC;;;;;;;AAEbC,IAAO,GAAGD,WAAW,OAAOD,CAAC,CAACC',
+        ];
+        $map = new SourceMap($data);
+        $map->names->remove(1);
+        $map->names->remove(10);
+        $expected = [
+            'version' => 3,
+            'file' => 'script.js',
+            'sourceRoot' => '',
+            'sources' => ['script.ts'],
+            'names' => ['one', 'three'],
+            'mappings' => 'AAAA,YAAYA,CAAC;;;;;;;AAEbC,IAAO,GAAG,WAAW,OAAOD,CAAC,CAAC',
+        ];
+        $this->assertEquals($expected, $map->getData());
+    }
+
+    public function testFileRemove()
+    {
+        $data = [
+            'version' => 3,
+            'file' => 'script.js',
+            'sourceRoot' => '',
+            'sources' => ['script.ts', 'two.ts'],
+            'names' => ['one', 'two', 'three'],
+            'mappings' => 'AAAA,YAAYA,CCACC;;;;;;;AAEbC,IAAO,GDAGD,WAAW,OAAOD,CAAC,CAACC',
+        ];
+        $map = new SourceMap($data);
+        $map->sources->remove(1);
+        $map->sources->remove(10);
+        $expected = [
+            'version' => 3,
+            'file' => 'script.js',
+            'sourceRoot' => '',
+            'sources' => ['script.ts'],
+            'names' => ['one', 'two', 'three'],
+            'mappings' => 'AAAA,YAAYA;;;;;;;OAEFC,WAAW,OAAOD,CAAC,CAACC',
+        ];
+        $this->assertEquals($expected, $map->getData());
+    }
 }

@@ -94,18 +94,45 @@ abstract class Base
             return false;
         }
         $this->names[$index] = $newName;
+        $this->indexes = array_flip($this->names);
         $this->onRename($index, $newName);
         return true;
     }
 
     /**
-     * Renames a item in the mappings
+     * Removes an item
+     *
+     * @param int $index
+     * @return bool
+     */
+    public function remove($index)
+    {
+        if (!isset($this->names[$index])) {
+            return false;
+        }
+        unset($this->names[$index]);
+        $this->names = array_values($this->names);
+        $this->indexes = array_flip($this->names);
+        $this->onRemove($index);
+        return true;
+    }
+
+    /**
+     * Renames an item in the mappings
      *
      * @param int $index
      * @param string $newName
      * @return bool
      */
     abstract protected function onRename($index, $newName);
+
+    /**
+     * Removes an item in the mappings
+     *
+     * @param int $index
+     * @return bool
+     */
+    abstract protected function onRemove($index);
 
     /**
      * A key from the context (contains the names list)
