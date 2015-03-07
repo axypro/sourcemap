@@ -48,4 +48,19 @@ class SourceMap extends ParentClass
         IO::saveJSON($this->getData(), $filename, $jsonFlag);
         $this->outFileName = $filename;
     }
+
+    /**
+     * Returns a position map by a position in the generated source
+     *
+     * @param int $line
+     *        zero-based line number in the generated source
+     * @param int $column
+     *        zero-bases column number is the line
+     * @return \axy\sourcemap\PosMap|null
+     *         A position map or NULL if it is not found
+     */
+    public function getPosition($line, $column)
+    {
+        return $this->context->mappings->getPosition($line, $column);
+    }
 }

@@ -126,6 +126,9 @@ class Mappings
      */
     public function removeFile($fileIndex)
     {
+        if ($this->lines === null) {
+            $this->parse();
+        }
         $removed = false;
         $lines = $this->lines;
         foreach ($lines as $ln => $line) {
@@ -148,6 +151,9 @@ class Mappings
      */
     public function removeName($nameIndex)
     {
+        if ($this->lines === null) {
+            $this->parse();
+        }
         $removed = false;
         $lines = $this->lines;
         foreach ($lines as $line) {
@@ -168,6 +174,9 @@ class Mappings
     {
         $parser = new SegmentParser();
         if ($this->sMappings === null) {
+            if ($this->lines === null) {
+                $this->parse();
+            }
             $ln = [];
             $max = max(array_keys($this->lines));
             for ($i = 0; $i <= $max; $i++) {
@@ -181,6 +190,27 @@ class Mappings
             $this->sMappings = implode(';', $ln);
         }
         return $this->sMappings;
+    }
+
+    /**
+     * Returns a position map by a position in the generated source
+     *
+     * @param int $line
+     *        zero-based line number in the generated source
+     * @param int $column
+     *        zero-bases column number is the line
+     * @return \axy\sourcemap\PosMap|null
+     *         A position map or NULL if it is not found
+     */
+    public function getPosition($line, $column)
+    {
+        if ($this->lines === null) {
+            $this->parse();
+        }
+        if (!isset($this->lines[$line])) {
+            return null;
+        }
+        return $this->lines[$line]->getPosition($column);
     }
 
     /**

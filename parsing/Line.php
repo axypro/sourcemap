@@ -231,6 +231,19 @@ class Line
     }
 
     /**
+     * Returns a position map by a position in the generated source
+     *
+     * @param int $column
+     *        zero-bases column number is the line
+     * @return \axy\sourcemap\PosMap|null
+     *         A position map or NULL if it is not found
+     */
+    public function getPosition($column)
+    {
+        return isset($this->positions[$column]) ? $this->positions[$column] : null;
+    }
+
+    /**
      * Checks if the line is empty
      *
      * @return bool
