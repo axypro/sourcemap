@@ -26,4 +26,17 @@ class ChangeTest extends \PHPUnit_Framework_TestCase
         $expected['sources'][2] = 'new-app.ts';
         $this->assertEquals($expected, $map->getData());
     }
+
+    public function testNameRename()
+    {
+        $map = SourceMap::loadFromFile(__DIR__.'/../tst/map.js.map');
+        $data = $map->getData();
+        $map->names->rename(0, 'One');
+        $map->names->rename(5, 'Two');
+        $map->names->rename(55, 'Three');
+        $expected = $data;
+        $expected['names'][0] = 'One';
+        $expected['names'][5] = 'Two';
+        $this->assertEquals($expected, $map->getData());
+    }
 }
