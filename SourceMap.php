@@ -33,7 +33,7 @@ use axy\errors\PropertyReadOnly;
  * @property string $outFileName
  *           the default file name of the map
  */
-class SourceMap
+class SourceMap implements \IteratorAggregate
 {
     /**
      * The constructor
@@ -189,6 +189,14 @@ class SourceMap
     public function __toString()
     {
         return '[Source Map]';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->getData());
     }
 
     /**
