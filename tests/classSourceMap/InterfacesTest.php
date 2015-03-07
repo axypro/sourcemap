@@ -64,4 +64,17 @@ class InterfacesTest extends \PHPUnit_Framework_TestCase
         $json = json_encode($this->map);
         $this->assertEquals($this->data, json_decode($json, true));
     }
+
+    public function testSerializable()
+    {
+        $structure = ['map' => $this->map];
+        $serialized = serialize($structure);
+        $unSerialized = unserialize($serialized);
+        $this->assertInternalType('array', $unSerialized);
+        $this->assertArrayHasKey('map', $unSerialized);
+        $map2 = $unSerialized['map'];
+        $this->assertInstanceOf('axy\sourcemap\SourceMap', $map2);
+        $this->assertNotSame($this->map, $map2);
+        $this->assertEquals($this->map->getData(), $map2->getData());
+    }
 }
