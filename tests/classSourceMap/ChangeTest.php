@@ -87,4 +87,32 @@ class ChangeTest extends \PHPUnit_Framework_TestCase
         ];
         $this->assertEquals($expected, $map->getData());
     }
+
+    /**
+     * covers ::removePosition
+     */
+    public function testRemovePosition()
+    {
+        $data = [
+            'version' => 3,
+            'file' => 'script.js',
+            'sourceRoot' => '',
+            'sources' => ['script.ts'],
+            'names' => ['one', 'two', 'three'],
+            'mappings' => 'AAAA,YAAYA,CAACC;;;;;;;AAEbC,IAAO,GAAGD,WAAW,OAAOD,CAAC,CAACC',
+        ];
+        $map = new SourceMap($data);
+        $this->assertTrue($map->removePosition(0, 12));
+        $this->assertFalse($map->removePosition(0, 12));
+        $this->assertFalse($map->removePosition(100, 12));
+        $expected = [
+            'version' => 3,
+            'file' => 'script.js',
+            'sourceRoot' => '',
+            'sources' => ['script.ts'],
+            'names' => ['one', 'two', 'three'],
+            'mappings' => 'AAAA,aAAaC;;;;;;;AAEbC,IAAO,GAAGD,WAAW,OAAOD,CAAC,CAACC',
+        ];
+        $this->assertEquals($expected, $map->getData());
+    }
 }

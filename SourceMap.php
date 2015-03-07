@@ -63,4 +63,19 @@ class SourceMap extends ParentClass
     {
         return $this->context->mappings->getPosition($line, $column);
     }
+
+    /**
+     * Removes a position
+     *
+     * @param int $line
+     *        zero-based line number in the generated source
+     * @param int $column
+     *        zero-bases column number is the line
+     * @return bool
+     *         TRUE if the position was found and removed
+     */
+    public function removePosition($line, $column)
+    {
+        return $this->context->mappings->removePosition($line, $column);
+    }
 }

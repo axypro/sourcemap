@@ -83,6 +83,9 @@ class Mappings
                 unset($this->lines[$line]);
             }
         }
+        if ($removed) {
+            $this->sMappings = null;
+        }
         return $removed;
     }
 
