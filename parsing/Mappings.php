@@ -90,6 +90,26 @@ class Mappings
     }
 
     /**
+     * Finds a position in the source files
+     *
+     * @param int $fileIndex
+     * @param int $line
+     * @param int $column
+     * @return \axy\sourcemap\PosMap|null
+     *         A position map or NULL if it is not found
+     */
+    public function findPositionInSource($fileIndex, $line, $column)
+    {
+        foreach ($this->getLines() as $oLine) {
+            $pos = $oLine->findPositionInSource($fileIndex, $line, $column);
+            if ($pos !== null) {
+                return $pos;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Renames a file name
      *
      * @param int $fileIndex

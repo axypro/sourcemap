@@ -65,6 +65,20 @@ class SourceMap extends ParentClass
     }
 
     /**
+     * Finds a position in the source files
+     *
+     * @param int $fileIndex
+     * @param int $line
+     * @param int $column
+     * @return \axy\sourcemap\PosMap|null
+     *         A position map or NULL if it is not found
+     */
+    public function findPositionInSource($fileIndex, $line, $column)
+    {
+        return $this->context->mappings->findPositionInSource($fileIndex, $line, $column);
+    }
+
+    /**
      * Removes a position
      *
      * @param int $line

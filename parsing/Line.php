@@ -244,6 +244,26 @@ class Line
     }
 
     /**
+     * Finds a position in the source files
+     *
+     * @param int $fileIndex
+     * @param int $line
+     * @param int $column
+     * @return \axy\sourcemap\PosMap|null
+     *         A position map or NULL if it is not found
+     */
+    public function findPositionInSource($fileIndex, $line, $column)
+    {
+        foreach ($this->positions as $pos) {
+            $s = $pos->source;
+            if (($s->fileIndex === $fileIndex) && ($s->line === $line) && ($s->column === $column)) {
+                return $pos;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Checks if the line is empty
      *
      * @return bool
