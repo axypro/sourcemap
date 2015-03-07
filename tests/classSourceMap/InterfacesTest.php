@@ -77,4 +77,9 @@ class InterfacesTest extends \PHPUnit_Framework_TestCase
         $this->assertNotSame($this->map, $map2);
         $this->assertEquals($this->map->getData(), $map2->getData());
     }
+
+    public function testCountable()
+    {
+        $this->assertSame(count($this->map->getData()), count($this->map));
+    }
 }

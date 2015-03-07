@@ -33,7 +33,7 @@ use axy\errors\PropertyReadOnly;
  * @property string $outFileName
  *           the default file name of the map
  */
-class SourceMap implements \IteratorAggregate, \ArrayAccess, \JsonSerializable, \Serializable
+class SourceMap implements \IteratorAggregate, \ArrayAccess, \JsonSerializable, \Serializable, \Countable
 {
     /**
      * The constructor
@@ -253,6 +253,14 @@ class SourceMap implements \IteratorAggregate, \ArrayAccess, \JsonSerializable, 
     public function unserialize($serialized)
     {
         $this->__construct(unserialize($serialized));
+    }
+
+    /**
+     * {@inhertidoc}
+     */
+    public function count()
+    {
+        return count($this->getData());
     }
 
     /**
