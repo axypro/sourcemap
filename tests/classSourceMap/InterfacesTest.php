@@ -58,4 +58,10 @@ class InterfacesTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('axy\errors\ReadOnly');
         unset($this->map['file']);
     }
+
+    public function testJsonSerializable()
+    {
+        $json = json_encode($this->map);
+        $this->assertEquals($this->data, json_decode($json, true));
+    }
 }

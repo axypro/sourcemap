@@ -33,7 +33,7 @@ use axy\errors\PropertyReadOnly;
  * @property string $outFileName
  *           the default file name of the map
  */
-class SourceMap implements \IteratorAggregate, \ArrayAccess
+class SourceMap implements \IteratorAggregate, \ArrayAccess, \JsonSerializable
 {
     /**
      * The constructor
@@ -229,6 +229,14 @@ class SourceMap implements \IteratorAggregate, \ArrayAccess
     public function offsetUnset($offset)
     {
         $this->__unset($offset);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    function jsonSerialize()
+    {
+        return $this->getData();
     }
 
     /**
