@@ -234,7 +234,7 @@ class SourceMap implements \IteratorAggregate, \ArrayAccess, \JsonSerializable, 
     /**
      * {@inheritdoc}
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return $this->getData();
     }

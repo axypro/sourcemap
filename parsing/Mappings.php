@@ -150,7 +150,7 @@ class Mappings
     {
         $removed = false;
         $lines = $this->lines;
-        foreach ($lines as $ln => $line) {
+        foreach ($lines as $line) {
             if ($line->removeName($nameIndex)) {
                 $removed = true;
             }

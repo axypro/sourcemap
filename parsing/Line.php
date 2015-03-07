@@ -216,7 +216,7 @@ class Line
     {
         $removed = false;
         $positions = $this->positions;
-        foreach ($positions as $cn => $position) {
+        foreach ($positions as $position) {
             $source = $position->source;
             $ni = $source->nameIndex;
             if ($ni === $nameIndex) {
