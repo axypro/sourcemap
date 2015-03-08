@@ -284,4 +284,41 @@ class AddTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('new.js', $result->source->fileName);
         $this->assertSame('eval', $result->source->name);
     }
+
+    public function testSourcesAndNames()
+    {
+        $map = new SourceMap();
+        $map->addPosition([
+            'generated' => [
+                'line' => 1,
+                'column' => 2,
+            ],
+            'source' => [
+                'fileName' => 'a.js',
+                'line' => 5,
+                'column' => 3,
+            ],
+        ]);
+        $map->addPosition([
+            'generated' => [
+                'line' => 1,
+                'column' => 12,
+            ],
+            'source' => [
+                'fileName' => 'b.js',
+                'line' => 6,
+                'column' => 0,
+                'name' => 'MyClass',
+            ],
+        ]);
+        $expected = [
+            'version' => 3,
+            'file' => '',
+            'sourceRoot' => '',
+            'sources' => ['a.js', 'b.js'],
+            'names' => ['MyClass'],
+            'mappings' => ';EAKG,UCCHA',
+        ];
+        $this->assertEquals($expected, $map->getData());
+    }
 }
