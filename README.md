@@ -33,3 +33,4 @@ The library does not process the source files and does not generates the output 
 * [Position Map](doc/PosMap.md)
 * [Create, Load, Save](doc/common.md)
 * [Search in Map](doc/search.md)
+* [Build Source Map](doc/build.md)
