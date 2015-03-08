@@ -263,4 +263,25 @@ class AddTest extends \PHPUnit_Framework_TestCase
             ],
         ];
     }
+
+    public function testRenameAndAdd()
+    {
+        $position = [
+            'generated' => [
+                'line' => 7,
+                'column' => 15,
+            ],
+            'source' => [
+                'fileIndex' => 0,
+                'line' => 3,
+                'column' => 11,
+                'nameIndex' => 2,
+            ],
+        ];
+        $this->map->sources->rename(0, 'new.js');
+        $this->map->names->rename(2, 'eval');
+        $result = $this->map->addPosition($position);
+        $this->assertSame('new.js', $result->source->fileName);
+        $this->assertSame('eval', $result->source->name);
+    }
 }
