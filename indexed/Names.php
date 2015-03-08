@@ -19,6 +19,16 @@ final class Names extends Base
     /**
      * {@inheritdoc}
      */
+    protected $keyIndex = 'nameIndex';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $keyName = 'name';
+
+    /**
+     * {@inheritdoc}
+     */
     protected function onRename($index, $newName)
     {
         $this->context->getMappings()->renameName($index, $newName);

@@ -7,6 +7,7 @@
 namespace axy\sourcemap\indexed;
 
 use axy\sourcemap\parsing\Context;
+use axy\sourcemap\errors\InvalidIndexed;
 
 /**
  * Basic class of indexed section ("sources" and "names")
@@ -118,6 +119,39 @@ abstract class Base
     }
 
     /**
+     * Fills position fields (index + name)
+     *
+     * @param \axy\sourcemap\PosSource $source
+     * @return boolean
+     * @throws \axy\sourcemap\errors\InvalidIndexed
+     */
+    public function fillSource($source)
+    {
+        $ki = $this->keyIndex;
+        $kn = $this->keyName;
+        $index = $source->$ki;
+        $name = $source->$kn;
+        if ($index !== null) {
+            if (!isset($this->names[$index])) {
+                $message = 'Invalid index '.$this->contextKey.'#'.$index;
+                throw new InvalidIndexed($message);
+            }
+            $newName = $this->names[$index];
+            if ($name === null) {
+                $source->$kn = $newName;
+            } elseif ($name !== $newName) {
+                $message = 'Mismatch '.$this->contextKey.'#'.$index.' and "'.$name.'"';
+                throw new InvalidIndexed($message);
+            }
+            return true;
+        } elseif ($name !== null) {
+            $source->$ki = $this->add($name);
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Renames an item in the mappings
      *
      * @param int $index
@@ -141,6 +175,20 @@ abstract class Base
      * @var string
      */
     protected $contextKey;
+
+    /**
+     * A key from the source with index
+     *
+     * @var string
+     */
+    protected $keyIndex;
+
+    /**
+     * A key from the source with name
+     *
+     * @var string
+     */
+    protected $keyName;
 
     /**
      * @var string[]

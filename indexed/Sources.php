@@ -19,6 +19,16 @@ final class Sources extends Base
     /**
      * {@inheritdoc}
      */
+    protected $keyIndex = 'fileIndex';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $keyName = 'fileName';
+
+    /**
+     * {@inheritdoc}
+     */
     protected function onRename($index, $newName)
     {
         $this->context->getMappings()->renameFile($index, $newName);
