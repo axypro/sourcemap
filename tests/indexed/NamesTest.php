@@ -45,8 +45,8 @@ class NamesTest extends \PHPUnit_Framework_TestCase
         $context = new Context($data);
         $names = new Names($context);
         $this->assertEquals(['one', 'two'], $names->getNames());
-        $pos0 = $context->mappings->getLines()[0]->getPositions()[0];
-        $pos1 = $context->mappings->getLines()[0]->getPositions()[1];
+        $pos0 = $context->getMappings()->getLines()[0]->getPositions()[0];
+        $pos1 = $context->getMappings()->getLines()[0]->getPositions()[1];
         $this->assertSame('one', $pos0->source->name);
         $this->assertSame('two', $pos1->source->name);
         $this->assertTrue($names->rename('1', 'three'));

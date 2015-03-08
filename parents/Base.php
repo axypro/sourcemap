@@ -48,7 +48,7 @@ abstract class Base
             'sourceRoot' => $data['sourceRoot'] ?: '',
             'sources' => $this->sources->getNames(),
             'names' => $this->names->getNames(),
-            'mappings' => $this->context->mappings->pack(),
+            'mappings' => $this->context->getMappings()->pack(),
         ];
     }
 

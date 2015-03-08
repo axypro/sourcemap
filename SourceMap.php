@@ -62,7 +62,7 @@ class SourceMap extends ParentClass
      */
     public function getPosition($line, $column)
     {
-        return $this->context->mappings->getPosition($line, $column);
+        return $this->context->getMappings()->getPosition($line, $column);
     }
 
     /**
@@ -76,7 +76,7 @@ class SourceMap extends ParentClass
      */
     public function findPositionInSource($fileIndex, $line, $column)
     {
-        return $this->context->mappings->findPositionInSource($fileIndex, $line, $column);
+        return $this->context->getMappings()->findPositionInSource($fileIndex, $line, $column);
     }
 
     /**
@@ -91,7 +91,7 @@ class SourceMap extends ParentClass
         if ($filter !== null) {
             $filter = PosBuilder::build($filter);
         }
-        return $this->context->mappings->find($filter);
+        return $this->context->getMappings()->find($filter);
     }
 
     /**
@@ -106,6 +106,6 @@ class SourceMap extends ParentClass
      */
     public function removePosition($line, $column)
     {
-        return $this->context->mappings->removePosition($line, $column);
+        return $this->context->getMappings()->removePosition($line, $column);
     }
 }

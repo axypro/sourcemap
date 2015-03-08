@@ -30,7 +30,7 @@ class ContextTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($data, $context->data);
         $this->assertEquals($data['sources'], $context->sources);
         $this->assertEquals($data['names'], $context->names);
-        $this->assertInstanceOf('axy\sourcemap\parsing\Mappings', $context->mappings);
+        $this->assertInstanceOf('axy\sourcemap\parsing\Mappings', $context->getMappings());
         $expectedMappings = [
             0 => [
                 0 => [
@@ -49,6 +49,6 @@ class ContextTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
         ];
-        $this->assertEquals($expectedMappings, Represent::mappings($context->mappings));
+        $this->assertEquals($expectedMappings, Represent::mappings($context->getMappings()));
     }
 }

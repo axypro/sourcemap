@@ -21,7 +21,7 @@ final class Sources extends Base
      */
     protected function onRename($index, $newName)
     {
-        $this->context->mappings->renameFile($index, $newName);
+        $this->context->getMappings()->renameFile($index, $newName);
     }
 
     /**
@@ -29,6 +29,6 @@ final class Sources extends Base
      */
     protected function onRemove($index)
     {
-        $this->context->mappings->removeFile($index);
+        $this->context->getMappings()->removeFile($index);
     }
 }

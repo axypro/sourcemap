@@ -21,7 +21,7 @@ final class Names extends Base
      */
     protected function onRename($index, $newName)
     {
-        $this->context->mappings->renameName($index, $newName);
+        $this->context->getMappings()->renameName($index, $newName);
     }
 
     /**
@@ -29,6 +29,6 @@ final class Names extends Base
      */
     protected function onRemove($index)
     {
-        $this->context->mappings->removeName($index);
+        $this->context->getMappings()->removeName($index);
     }
 }

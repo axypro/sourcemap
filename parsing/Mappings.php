@@ -25,6 +25,7 @@ class Mappings
     {
         $this->sMappings = $sMappings;
         $this->context = $context;
+        $this->parse();
     }
 
     /**
@@ -34,9 +35,6 @@ class Mappings
      */
     public function getLines()
     {
-        if ($this->lines === null) {
-            $this->parse();
-        }
         return $this->lines;
     }
 
@@ -47,9 +45,6 @@ class Mappings
      */
     public function addPosition(PosMap $position)
     {
-        if ($this->lines === null) {
-            $this->parse();
-        }
         $generated = $position->generated;
         $nl = $generated->line;
         if (isset($this->lines[$nl])) {
@@ -72,9 +67,6 @@ class Mappings
      */
     public function removePosition($line, $column)
     {
-        if ($this->lines === null) {
-            $this->parse();
-        }
         $removed = false;
         if (isset($this->lines[$line])) {
             $l = $this->lines[$line];
@@ -100,7 +92,7 @@ class Mappings
      */
     public function findPositionInSource($fileIndex, $line, $column)
     {
-        foreach ($this->getLines() as $oLine) {
+        foreach ($this->lines as $oLine) {
             $pos = $oLine->findPositionInSource($fileIndex, $line, $column);
             if ($pos !== null) {
                 return $pos;
@@ -117,9 +109,6 @@ class Mappings
      */
     public function renameFile($fileIndex, $newFileName)
     {
-        if ($this->lines === null) {
-            $this->parse();
-        }
         foreach ($this->lines as $line) {
             $line->renameFile($fileIndex, $newFileName);
         }
@@ -133,9 +122,6 @@ class Mappings
      */
     public function renameName($nameIndex, $newName)
     {
-        if ($this->lines === null) {
-            $this->parse();
-        }
         foreach ($this->lines as $line) {
             $line->renameName($nameIndex, $newName);
         }
@@ -149,9 +135,6 @@ class Mappings
      */
     public function removeFile($fileIndex)
     {
-        if ($this->lines === null) {
-            $this->parse();
-        }
         $removed = false;
         $lines = $this->lines;
         foreach ($lines as $ln => $line) {
@@ -174,9 +157,6 @@ class Mappings
      */
     public function removeName($nameIndex)
     {
-        if ($this->lines === null) {
-            $this->parse();
-        }
         $removed = false;
         $lines = $this->lines;
         foreach ($lines as $line) {
@@ -197,9 +177,6 @@ class Mappings
     {
         $parser = new SegmentParser();
         if ($this->sMappings === null) {
-            if ($this->lines === null) {
-                $this->parse();
-            }
             $ln = [];
             $max = max(array_keys($this->lines));
             for ($i = 0; $i <= $max; $i++) {
@@ -227,9 +204,6 @@ class Mappings
      */
     public function getPosition($line, $column)
     {
-        if ($this->lines === null) {
-            $this->parse();
-        }
         if (!isset($this->lines[$line])) {
             return null;
         }

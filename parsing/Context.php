@@ -49,6 +49,18 @@ class Context
         $this->data = $data;
         $this->sources = isset($data['sources']) ? $data['sources'] : [];
         $this->names = isset($data['names']) ? $data['names'] : [];
-        $this->mappings = new Mappings($data['mappings'], $this);
+    }
+
+    /**
+     * Returns the mappings wrapper
+     *
+     * @return \axy\sourcemap\parsing\Mappings
+     */
+    public function getMappings()
+    {
+        if ($this->mappings === null) {
+            $this->mappings = new Mappings($this->data['mappings'], $this);
+        }
+        return $this->mappings;
     }
 }

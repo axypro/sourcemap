@@ -45,8 +45,8 @@ class SourcesTest extends \PHPUnit_Framework_TestCase
         $context = new Context($data);
         $sources = new Sources($context);
         $this->assertEquals(['a.js', 'b.js'], $sources->getNames());
-        $pos0 = $context->mappings->getLines()[0]->getPositions()[0];
-        $pos1 = $context->mappings->getLines()[0]->getPositions()[1];
+        $pos0 = $context->getMappings()->getLines()[0]->getPositions()[0];
+        $pos1 = $context->getMappings()->getLines()[0]->getPositions()[1];
         $this->assertSame('a.js', $pos0->source->fileName);
         $this->assertSame('b.js', $pos1->source->fileName);
         $sources->rename(0, 'c.js');
