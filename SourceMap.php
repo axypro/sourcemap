@@ -10,6 +10,8 @@ use axy\sourcemap\parents\Interfaces as ParentClass;
 use axy\sourcemap\helpers\IO;
 use axy\sourcemap\helpers\PosBuilder;
 use axy\sourcemap\errors\OutFileNotSpecified;
+use axy\sourcemap\errors\InvalidIndexed;
+use axy\sourcemap\errors\IncompleteData;
 
 /**
  * The Source Map Class
@@ -107,5 +109,37 @@ class SourceMap extends ParentClass
     public function removePosition($line, $column)
     {
         return $this->context->getMappings()->removePosition($line, $column);
+    }
+
+    /**
+     * Adds a position to the source map
+     *
+     * @param \axy\sourcemap\PosMap|array|object $position
+     * @return \axy\sourcemap\PosMap
+     * @throws \axy\sourcemap\errors\InvalidIndexed
+     * @throws \axy\sourcemap\errors\IncompleteData
+     */
+    public function addPosition($position)
+    {
+        $position = PosBuilder::build($position);
+        $generated = $position->generated;
+        $source = $position->source;
+        if ($generated->line === null) {
+            throw new IncompleteData('required generated line number');
+        }
+        if ($generated->column === null) {
+            throw new IncompleteData('required generated column number');
+        }
+        if ($this->sources->fillSource($source)) {
+            if ($source->line === null) {
+                throw new IncompleteData('required source line number');
+            }
+            if ($source->column === null) {
+                throw new IncompleteData('required source column number');
+            }
+            $this->names->fillSource($source);
+        }
+        $this->context->getMappings()->addPosition($position);
+        return $position;
     }
 }
