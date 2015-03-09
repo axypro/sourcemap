@@ -301,6 +301,65 @@ class Line
     }
 
     /**
+     * Inserts a block in the generated content
+     *
+     * @param int $sColumn
+     * @param int $length
+     * @param int $num [optional]
+     */
+    public function insertBlock($sColumn, $length, $num = null)
+    {
+        if ($num === null) {
+            $num = $this->num;
+        } else {
+            $this->num = $num;
+        }
+        $shifts = [];
+        foreach ($this->positions as $column => $position) {
+            $generated = $position->generated;
+            $generated->line = $num;
+            if ($length === 0) {
+                continue;
+            }
+            if ($column >= $sColumn) {
+                $newColumn = $column + $length;
+                $position->generated->column = $newColumn;
+                $shifts[$newColumn] = $position;
+                unset($this->positions[$column]);
+            }
+        }
+        if (!empty($shifts)) {
+            $this->positions = array_replace($this->positions, $shifts);
+        }
+    }
+
+    /**
+     * Breaks the line on a column
+     *
+     * @param int $sColumn
+     * @param int $length
+     * @param int $newNum
+     * @return \axy\sourcemap\parsing\Line
+     */
+    public function breakLine($sColumn, $length, $newNum)
+    {
+        $newPositions = [];
+        foreach ($this->positions as $column => $position) {
+            if ($column >= $sColumn) {
+                $newColumn = $column + $length;
+                $position->generated->line = $newNum;
+                $position->generated->column = $newColumn;
+                $newPositions[$newColumn] = $position;
+                unset($this->positions[$column]);
+            }
+        }
+        if (empty($newPositions)) {
+            return null;
+        }
+        return new self($newNum, $newPositions);
+    }
+
+    /**
      * Checks if the line is empty
      *
      * @return bool

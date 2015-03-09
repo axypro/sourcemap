@@ -239,6 +239,47 @@ class Mappings
     }
 
     /**
+     * Inserts a block in the generated content
+     *
+     * @param int $sLine
+     * @param int $sColumn
+     * @param int $eLine
+     * @param int $eColumn
+     */
+    public function insertBlock($sLine, $sColumn, $eLine, $eColumn)
+    {
+        if ($sLine === $eLine) {
+            if (isset($this->lines[$sLine])) {
+                $this->lines[$sLine]->insertBlock($sColumn, $eColumn - $sColumn);
+            }
+        } else {
+            $dLines = $eLine - $sLine;
+            $shifts = [];
+            foreach ($this->lines as $nl => $line) {
+                if ($nl > $sLine) {
+                    $newNL = $nl += $dLines;
+                    $shifts[$newNL] = $line;
+                    unset($this->lines[$nl]);
+                    $line->insertBlock(0, 0, $nl);
+                }
+            }
+            if (!empty($shifts)) {
+                $this->lines = array_replace($this->lines, $shifts);
+            }
+            if (isset($this->lines[$sLine])) {
+                $line = $this->lines[$sLine];
+                $newLine = $line->breakLine($sColumn, $eColumn - $sColumn, $eLine);
+                if ($newLine !== null) {
+                    $this->lines[$eLine] = $newLine;
+                }
+                if ($line->isEmpty()) {
+                    unset($this->lines[$sLine]);
+                }
+            }
+        }
+    }
+
+    /**
      * Parses the mappings string
      */
     private function parse()

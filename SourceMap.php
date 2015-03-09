@@ -142,4 +142,21 @@ class SourceMap extends ParentClass
         $this->context->getMappings()->addPosition($position);
         return $position;
     }
+
+    /**
+     * Inserts a block in the generated content
+     *
+     * @param int $sLine
+     *        the line of the block start
+     * @param int $sColumn
+     *        the column of the block start
+     * @param int $eLine
+     *        the line of the block end
+     * @param int $eColumn
+     *        the line of the block end
+     */
+    public function insertBlock($sLine, $sColumn, $eLine, $eColumn)
+    {
+        $this->context->getMappings()->insertBlock($sLine, $sColumn, $eLine, $eColumn);
+    }
 }
