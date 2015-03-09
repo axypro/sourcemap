@@ -35,3 +35,4 @@ The library does not process the source files and does not generates the output 
 * [Search in Map](doc/search.md)
 * [Build Source Map](doc/build.md)
 * [Sources and Names](doc/sources.md)
+* [Insert/Remove Blocks](doc/blocks.md)
