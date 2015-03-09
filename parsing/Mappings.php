@@ -257,10 +257,10 @@ class Mappings
             $shifts = [];
             foreach ($this->lines as $nl => $line) {
                 if ($nl > $sLine) {
-                    $newNL = $nl += $dLines;
+                    $newNL = $nl + $dLines;
                     $shifts[$newNL] = $line;
                     unset($this->lines[$nl]);
-                    $line->insertBlock(0, 0, $nl);
+                    $line->setNum($newNL);
                 }
             }
             if (!empty($shifts)) {
@@ -275,6 +275,74 @@ class Mappings
                 if ($line->isEmpty()) {
                     unset($this->lines[$sLine]);
                 }
+            }
+        }
+    }
+
+    /**
+     * Removes a block from the generated content
+     *
+     * @param int $sLine
+     * @param int $sColumn
+     * @param int $eLine
+     * @param int $eColumn
+     */
+    public function removeBlock($sLine, $sColumn, $eLine, $eColumn)
+    {
+        if ($sLine === $eLine) {
+            if (isset($this->lines[$sLine])) {
+                $line = $this->lines[$sLine];
+                $line->removeBlock($sColumn, $eColumn);
+                if ($line->isEmpty()) {
+                    unset($this->lines[$sLine]);
+                }
+            }
+        } else {
+            $dLines = $eLine - $sLine;
+            $shifts = [];
+            $lineS = null;
+            $lineE = null;
+            if (isset($this->lines[$sLine])) {
+                $lineS = $this->lines[$sLine];
+                unset($this->lines[$sLine]);
+            }
+            if (isset($this->lines[$eLine])) {
+                $lineE = $this->lines[$eLine];
+                unset($this->lines[$eLine]);
+            }
+            foreach ($this->lines as $nl => $line) {
+                if ($nl > $sLine) {
+                    if ($nl > $eLine) {
+                        $newNL = $nl - $dLines;
+                        $shifts[$newNL] = $line;
+                        $line->setNum($newNL);
+                    }
+                    unset($this->lines[$nl]);
+                }
+            }
+            if (!empty($shifts)) {
+                $this->lines = array_replace($this->lines, $shifts);
+            }
+            if ($lineS !== null) {
+                $lineS->removeBlock($sColumn, 1000000000);
+                if ($lineS->isEmpty()) {
+                    $lineS = null;
+                }
+            }
+            if ($lineE !== null) {
+                $lineE->removeBlockBegin($eColumn);
+                $lineE->setNum($sLine);
+                if ($lineE->isEmpty()) {
+                    $lineE = null;
+                }
+            }
+            if ($lineS && $lineE) {
+                $this->lines[$sLine] = $lineS;
+                $lineS->addPositionsList($lineE->getPositions());
+            } elseif ($lineS) {
+                $this->lines[$sLine] = $lineS;
+            } elseif ($lineE) {
+                $this->lines[$sLine] = $lineE;
             }
         }
     }

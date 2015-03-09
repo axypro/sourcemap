@@ -159,4 +159,21 @@ class SourceMap extends ParentClass
     {
         $this->context->getMappings()->insertBlock($sLine, $sColumn, $eLine, $eColumn);
     }
+
+    /**
+     * Removes a block from the generated content
+     *
+     * @param int $sLine
+     *        the line of the block start
+     * @param int $sColumn
+     *        the column of the block start
+     * @param int $eLine
+     *        the line of the block end
+     * @param int $eColumn
+     *        the line of the block end
+     */
+    public function removeBlock($sLine, $sColumn, $eLine, $eColumn)
+    {
+        $this->context->getMappings()->removeBlock($sLine, $sColumn, $eLine, $eColumn);
+    }
 }

@@ -360,6 +360,62 @@ class Line
     }
 
     /**
+     * Removes a block from the generated content
+     *
+     * @param int $sColumn
+     * @param int $eColumn
+     */
+    public function removeBlock($sColumn, $eColumn)
+    {
+        $length = $eColumn - $sColumn;
+        $shifts = [];
+        foreach ($this->positions as $column => $position) {
+            if ($column >= $sColumn) {
+                if ($column >= $eColumn) {
+                    $newColumn = $column - $length;
+                    $position->generated->column = $newColumn;
+                    $shifts[$newColumn] = $position;
+                }
+                unset($this->positions[$column]);
+            }
+        }
+        if (!empty($shifts)) {
+            $this->positions = array_replace($this->positions, $shifts);
+        }
+    }
+
+    /**
+     * Removes a block from the begin of the line
+     *
+     * @param int $eColumn
+     */
+    public function removeBlockBegin($eColumn)
+    {
+        $shifts = [];
+        foreach ($this->positions as $column => $position) {
+            if ($column >= $eColumn) {
+                $newColumn = $column - $eColumn;
+                $position->generated->column = $newColumn;
+                $shifts[$newColumn] = $position;
+            }
+            unset($this->positions[$column]);
+        }
+        if (!empty($shifts)) {
+            $this->positions = array_replace($this->positions, $shifts);
+        }
+    }
+
+    /**
+     * Adds a positions list
+     *
+     * @param array $positions
+     */
+    public function addPositionsList(array $positions)
+    {
+        $this->positions = array_replace($this->positions, $positions);
+    }
+
+    /**
      * Checks if the line is empty
      *
      * @return bool
@@ -367,6 +423,19 @@ class Line
     public function isEmpty()
     {
         return empty($this->positions);
+    }
+
+    /**
+     * Sets num of the line
+     *
+     * @param int $num
+     */
+    public function setNum($num)
+    {
+        $this->num = $num;
+        foreach ($this->positions as $position) {
+            $position->generated->line = $num;
+        }
     }
 
     /**
