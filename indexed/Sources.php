@@ -34,7 +34,7 @@ final class Sources extends Base
         }
         $result = [];
         $last = 0;
-        foreach ($this->names as $index => $name) {
+        foreach ($this->indexes as $index) {
             if (isset($this->contents[$index])) {
                 $result[] = $this->contents[$index];
                 $last = $index;
