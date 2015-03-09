@@ -42,7 +42,7 @@ abstract class Base
     public function getData()
     {
         $data = $this->context->data;
-        return [
+        $result = [
             'version' => 3,
             'file' => $data['file'] ?: '',
             'sourceRoot' => $data['sourceRoot'] ?: '',
@@ -50,6 +50,11 @@ abstract class Base
             'names' => $this->names->getNames(),
             'mappings' => $this->context->getMappings()->pack(),
         ];
+        $contents = $this->sources->getContents();
+        if (!empty($contents)) {
+            $result['sourcesContent'] = $contents;
+        }
+        return $result;
     }
 
     /**

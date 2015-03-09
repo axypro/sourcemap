@@ -8,6 +8,7 @@ namespace axy\sourcemap\tests\indexed;
 
 use axy\sourcemap\indexed\Sources;
 use axy\sourcemap\parsing\Context;
+use axy\sourcemap\SourceMap;
 use axy\sourcemap\PosSource;
 use axy\sourcemap\errors\InvalidIndexed;
 
@@ -129,5 +130,51 @@ class SourcesTest extends \PHPUnit_Framework_TestCase
         $source->fileName = 'a.js';
         $this->setExpectedException('axy\sourcemap\errors\InvalidIndexed');
         $s->fillSource($source);
+    }
+
+    /**
+     * covers ::setContent
+     * covers ::getContents
+     */
+    public function testContents()
+    {
+        $data = [
+            'version' => 3,
+            'sources' => ['a.js', 'b.js', 'c.js', 'd.js', 'e.js'],
+            'names' => ['one',],
+            'mappings' => 'AAAAA,CAAA',
+        ];
+        $map = new SourceMap($data);
+        $sources = $map->sources;
+        $this->assertEquals([], $sources->getContents());
+        $sources->setContent('c.js', 'Content of C');
+        $this->assertEquals([null, null, 'Content of C'], $sources->getContents());
+        $sources->setContent('a.js', 'Content of A');
+        $sources->setContent('e.js', 'Content of E');
+        $sources->rename(0, 'z.js');
+        $sources->remove(4);
+        $sources->add('z.js');
+        $sources->add('f.js');
+        $expected = [
+            'version' => 3,
+            'file' => '',
+            'sourceRoot' => '',
+            'sources' => ['z.js', 'b.js', 'c.js', 'd.js', 'f.js'],
+            'names' => ['one',],
+            'mappings' => 'AAAAA,CAAA',
+            'sourcesContent' => ['Content of A', null, 'Content of C'],
+        ];
+        $this->assertEquals($expected, $map->getData());
+        $sources->setContent('h.js', 'HH');
+        $expected2 = [
+            'version' => 3,
+            'file' => '',
+            'sourceRoot' => '',
+            'sources' => ['z.js', 'b.js', 'c.js', 'd.js', 'f.js', 'h.js'],
+            'names' => ['one',],
+            'mappings' => 'AAAAA,CAAA',
+            'sourcesContent' => ['Content of A', null, 'Content of C', null, null, 'HH'],
+        ];
+        $this->assertEquals($expected2, $map->getData());
     }
 }

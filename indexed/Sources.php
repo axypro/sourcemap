@@ -12,19 +12,38 @@ namespace axy\sourcemap\indexed;
 final class Sources extends Base
 {
     /**
-     * {@inheritdoc}
+     * Sets a content of a file
+     *
+     * @param string $fileName
+     * @param string $content
      */
-    protected $contextKey = 'sources';
+    public function setContent($fileName, $content)
+    {
+        $this->contents[$this->add($fileName)] = $content;
+    }
 
     /**
-     * {@inheritdoc}
+     * Returns a data for the "sourcesContent" section
+     *
+     * @return string[]
      */
-    protected $keyIndex = 'fileIndex';
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $keyName = 'fileName';
+    public function getContents()
+    {
+        if (empty($this->contents)) {
+            return [];
+        }
+        $result = [];
+        $last = 0;
+        foreach ($this->names as $index => $name) {
+            if (isset($this->contents[$index])) {
+                $result[] = $this->contents[$index];
+                $last = $index;
+            } else {
+                $result[] = null;
+            }
+        }
+        return array_slice($result, 0, $last + 1);
+    }
 
     /**
      * {@inheritdoc}
@@ -40,5 +59,26 @@ final class Sources extends Base
     protected function onRemove($index)
     {
         $this->context->getMappings()->removeFile($index);
+        unset($this->contents[$index]);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $contextKey = 'sources';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $keyIndex = 'fileIndex';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $keyName = 'fileName';
+
+    /**
+     * @var string[]
+     */
+    private $contents = [];
 }

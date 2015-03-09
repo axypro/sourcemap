@@ -12,7 +12,7 @@ The example of a source map file:
     "file": "out.js",
     "sourceRoot": "",
     "sources": ["foo.js", "bar.js"],
-    "sourcesContent: [null, null],
+    "sourcesContent": [null, null],
     "names": ["src", "maps", "are", "fun"],
     "mappings": "A,AAAB;;ABCDE;"
 }
