@@ -34,3 +34,4 @@ The library does not process the source files and does not generates the output 
 * [Create, Load, Save](doc/common.md)
 * [Search in Map](doc/search.md)
 * [Build Source Map](doc/build.md)
+* [Sources and Names](doc/sources.md)
