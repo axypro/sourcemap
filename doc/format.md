@@ -6,9 +6,9 @@ See [Source Map Revision 3 Proposal](https://docs.google.com/document/d/1U1RGAeh
 
 The example of a source map file:
 
-```
+```json
 {
-    "version": 3
+    "version": 3,
     "file": "out.js",
     "sourceRoot": "",
     "sources": ["foo.js", "bar.js"],

@@ -118,9 +118,9 @@ $map->save();
 ```
 
 `sources` and `names` are object wrappers.
-See [Sources](Sources.md) and [Names](Names.md).
+See [Sources and Names](sources.md).
 
-`sourcesContent` available via [sources](Sources.md).
+`sourcesContent` available via [sources](sources.md).
 
 `mappings` are not directly accessible.
 

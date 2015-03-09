@@ -6,8 +6,8 @@ In the minimization process is created the source map file `abc.min.js.map`.
 
 Example of such a file:
 
-```
-"version": 3
+```json
+"version": 3,
 "file": "abc.min.js",
 "sourceRoot": "",
 "sources": ["a.js", "b.js", "c.js"],

@@ -32,7 +32,7 @@ Returns `NULL` if the position was not found.
 
 It is more consuming operation than `getPosition()`.
 
-How to find the index file by the file name see [Sources](Sources.md).
+How to find the index file by the file name see [sources](Sources.md).
 
 ## Find by filter
 
@@ -41,7 +41,7 @@ find([PosMap $filter]):PosMap[]
 ```
 
 Looking for positions that match your filter.
-As a filter used [PosMap](PosMap.md).
+As the filter used [PosMap](PosMap.md).
 All fields is optional.
 
 Find all positions from 5th line of the generated content
