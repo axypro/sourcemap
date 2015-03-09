@@ -11,7 +11,7 @@ Example of such a file:
 "file": "abc.min.js",
 "sourceRoot": "",
 "sources": ["a.js", "b.js", "c.js"],
-"sourcesContent: [null, null],
+"sourcesContent": [null, null],
 "names": ["src", "maps", "are", "fun"],
 "mappings": "A,AAAB;;ABCDE;"
 ```
