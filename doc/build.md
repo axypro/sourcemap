@@ -165,3 +165,87 @@ $map->addPosition(clone $position);
 // ...
 $map->addPosition(clone $position);
 ```
+
+## Example
+
+We have the following file (`factorial.js`):
+
+```js
+function factorial(n) {
+    if (n <= 2) {
+        return n;
+    } else {
+        return n * factorial(n - 1);
+    }
+}
+
+console.log(factorial(5));
+```
+
+Let's write a simple minifier (concat all to single line):
+
+```php
+use axy\sourcemap\SourceMap;
+use axy\sourcemap\PosMap;
+
+$inputFile = 'factorial.js';
+$outputFile = 'factorial.min.js';
+$mapFile = 'factorial.min.js.map';
+
+$map = new SourceMap();
+$map->file = $outputFile;
+
+$position = new PosMap(null);
+$generated = $position->generated;
+$source = $position->source;
+
+$generated->line = 0;
+$generated->column = 0;
+
+$source->fileName = $inputFile;
+
+$result = [];
+foreach (file(__DIR__.'/factorial.js') as $nl => $line) {
+    $line = rtrim($line);
+    $source->line = $nl;
+    $lenPre = strlen($line);
+    $line = ltrim($line);
+    $len = strlen($line);
+    $source->column = $lenPre - $len;
+    if ($line === '') {
+        continue;
+    }
+    $result[] = $line;   
+    $map->addPosition(clone $position);
+    $generated->column += $len;    
+}
+
+$result[] = "\n//# sourceMappingURL=".$mapFile."\n";
+
+file_put_contents($outputFile, implode('', $result));
+$map->save($mapFile, JSON_PRETTY_PRINT);
+```
+
+The result is a "compressed" file (`factorial.min.js`):
+
+```js
+function factorial(n) {if (n <= 2) {return n;} else {return n * factorial(n - 1);}}console.log(factorial(5));
+//# sourceMappingURL=factorial.min.js.map
+```
+
+And a source map (`factorial.min.js.map`):
+
+```
+{
+    "version": 3,
+    "file": "factorial.min.js",
+    "sourceRoot": "",
+    "sources": [
+        "factorial.js"
+    ],
+    "names": [],
+    "mappings": "AAAA,uBACI,aACI,SACJ,QACI,4BACJ,CACJ,CAEA"
+}
+```
+
+Now you can use the compressed file and debug the source file in a browser debugger.
