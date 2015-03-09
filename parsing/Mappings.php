@@ -277,6 +277,7 @@ class Mappings
                 }
             }
         }
+        $this->sMappings = null;
     }
 
     /**
@@ -345,6 +346,7 @@ class Mappings
                 $this->lines[$sLine] = $lineE;
             }
         }
+        $this->sMappings = null;
     }
 
     /**

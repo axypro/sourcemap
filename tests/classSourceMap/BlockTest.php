@@ -92,6 +92,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
      */
     public function testInsertBlockLine()
     {
+        $sm = $this->map->getData()['mappings'];
         $this->map->insertBlock(0, 0, 1, 0);
         $expected = [
             '1-5' => '0-5',
@@ -103,6 +104,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
             '6-10' => '5-10',
         ];
         $this->assertEquals($this->createExpected($expected), $this->getActual());
+        $this->assertNotSame($sm, $this->map->getData()['mappings']);
     }
 
     /**
@@ -194,6 +196,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
      */
     public function testRemoveBlockFromLine()
     {
+        $sm = $this->map->getData()['mappings'];
         $this->map->removeBlock(1, 5, 1, 10);
         $expected = [
             '0-5' => '0-5',
@@ -204,6 +207,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
             '5-10' => '5-10',
         ];
         $this->assertEquals($this->createExpected($expected), $this->getActual());
+        $this->assertNotSame($sm, $this->map->getData()['mappings']);
     }
 
     /**
