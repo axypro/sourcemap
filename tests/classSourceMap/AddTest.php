@@ -290,7 +290,7 @@ class AddTest extends \PHPUnit_Framework_TestCase
     public function testSourcesAndNames()
     {
         $map = new SourceMap();
-        $map->addPosition([
+        $position1 = [
             'generated' => [
                 'line' => 1,
                 'column' => 2,
@@ -300,8 +300,9 @@ class AddTest extends \PHPUnit_Framework_TestCase
                 'line' => 5,
                 'column' => 3,
             ],
-        ]);
-        $map->addPosition([
+        ];
+        $map->addPosition($position1);
+        $position2 = [
             'generated' => [
                 'line' => 1,
                 'column' => 12,
@@ -312,7 +313,8 @@ class AddTest extends \PHPUnit_Framework_TestCase
                 'column' => 0,
                 'name' => 'MyClass',
             ],
-        ]);
+        ];
+        $map->addPosition($position2);
         $expected = [
             'version' => 3,
             'file' => '',
