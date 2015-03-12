@@ -24,7 +24,7 @@ abstract class Base
     {
         $this->context = $context;
         $key = $this->contextKey;
-        $this->names = $context->$key;
+        $this->names = &$context->$key;
         $this->indexes = array_flip($this->names);
     }
 
@@ -111,6 +111,7 @@ abstract class Base
         if (!isset($this->names[$index])) {
             return false;
         }
+        $this->context->getMappings(); // force parsing
         unset($this->names[$index]);
         $this->names = array_values($this->names);
         $this->indexes = array_flip($this->names);
