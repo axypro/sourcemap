@@ -151,6 +151,7 @@ class AddTest extends \PHPUnit_Framework_TestCase
      * covers ::addPosition
      * @dataProvider providerErrorIncompleteData
      * @param mixed $position
+     * @param bool $error [optional]
      */
     public function testErrorIncompleteData($position, $error = true)
     {
@@ -215,6 +216,7 @@ class AddTest extends \PHPUnit_Framework_TestCase
      * covers ::addPosition
      * @dataProvider providerErrorInvalidIndexed
      * @param mixed $position
+     * @param bool $error [optional]
      */
     public function testErrorInvalidIndexed($position, $error = true)
     {

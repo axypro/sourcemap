@@ -183,6 +183,7 @@ class LineTest extends \PHPUnit_Framework_TestCase
      * covers ::loadFromMappings
      * @dataProvider providerErrorLoad
      * @expectedException \axy\sourcemap\errors\InvalidMappings
+     * @param string $lMappings
      */
     public function testErrorLoad($lMappings)
     {

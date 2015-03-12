@@ -10,7 +10,6 @@ use axy\sourcemap\parents\Interfaces as ParentClass;
 use axy\sourcemap\helpers\IO;
 use axy\sourcemap\helpers\PosBuilder;
 use axy\sourcemap\errors\OutFileNotSpecified;
-use axy\sourcemap\errors\InvalidIndexed;
 use axy\sourcemap\errors\IncompleteData;
 
 /**

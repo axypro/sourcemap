@@ -7,7 +7,6 @@
 namespace axy\sourcemap\tests\classSourceMap;
 
 use axy\sourcemap\SourceMap;
-use axy\sourcemap\tests\Represent;
 
 /**
  * coversDefaultClass axy\sourcemap\SourceMap
