@@ -175,4 +175,31 @@ class SourceMap extends ParentClass
     {
         $this->context->getMappings()->removeBlock($sLine, $sColumn, $eLine, $eColumn);
     }
+
+    /**
+     * Optimizes the data
+     *
+     * @return bool
+     */
+    public function optimize()
+    {
+        $changed = false;
+        $stat = $this->context->getMappings()->getStat();
+        $sources = array_keys(array_diff_key($this->sources->getNames(), $stat['sources']));
+        $names = array_keys(array_diff_key($this->names->getNames(), $stat['names']));
+        if (!empty($sources)) {
+            $changed = true;
+            rsort($sources);
+            foreach ($sources as $index) {
+                $this->sources->remove($index);
+            }
+        }
+        if (!empty($names)) {
+            $changed = true;
+            foreach ($names as $index) {
+                $this->names->remove($index);
+            }
+        }
+        return $changed;
+    }
 }
