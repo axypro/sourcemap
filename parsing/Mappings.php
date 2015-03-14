@@ -349,6 +349,16 @@ class Mappings
         $this->sMappings = null;
     }
 
+    public function __clone()
+    {
+        if ($this->lines !== null) {
+            foreach ($this->lines as &$line) {
+                $line = clone $line;
+            }
+            unset($line);
+        }
+    }
+
     /**
      * Parses the mappings string
      */

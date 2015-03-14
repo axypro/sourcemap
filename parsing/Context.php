@@ -63,4 +63,11 @@ class Context
         }
         return $this->mappings;
     }
+
+    public function __clone()
+    {
+        if ($this->mappings !== null) {
+            $this->mappings = clone $this->mappings;
+        }
+    }
 }

@@ -24,7 +24,7 @@ abstract class Base
     {
         $this->context = $context;
         $key = $this->contextKey;
-        $this->names = &$context->$key;
+        $this->names = $context->$key;
         $this->indexes = array_flip($this->names);
     }
 
@@ -73,6 +73,7 @@ abstract class Base
         if (isset($this->indexes[$name])) {
             return $this->indexes[$name];
         }
+        $this->context->getMappings();
         $index = count($this->names);
         $this->names[] = $name;
         $this->indexes[$name] = $index;
@@ -94,6 +95,7 @@ abstract class Base
         if ($this->names[$index] === $newName) {
             return false;
         }
+        $this->context->getMappings();
         $this->names[$index] = $newName;
         $this->indexes = array_flip($this->names);
         $this->onRename($index, $newName);

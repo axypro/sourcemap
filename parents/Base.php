@@ -57,6 +57,13 @@ abstract class Base
         return $result;
     }
 
+    public function __clone()
+    {
+        $this->context = clone $this->context;
+        $this->sources = new Sources($this->context);
+        $this->names = new Names($this->context);
+    }
+
     /**
      * @var \axy\sourcemap\parsing\Context
      */
