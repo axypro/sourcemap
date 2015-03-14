@@ -439,6 +439,33 @@ class Line
     }
 
     /**
+     * @param array $sources
+     * @param array $names
+     */
+    public function loadStat(&$sources, &$names)
+    {
+        foreach ($this->positions as $pos) {
+            $source = $pos->source;
+            $fi = $source->fileIndex;
+            $ni = $source->nameIndex;
+            if ($fi !== null) {
+                if (isset($sources[$fi])) {
+                    $sources[$fi]++;
+                } else {
+                    $sources[$fi] = 1;
+                }
+            }
+            if ($ni !== null) {
+                if (isset($names[$ni])) {
+                    $names[$ni]++;
+                } else {
+                    $names[$ni] = 1;
+                }
+            }
+        }
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function __clone()

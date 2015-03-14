@@ -349,6 +349,24 @@ class Mappings
         $this->sMappings = null;
     }
 
+    /**
+     * Returns statistic by sources and names
+     *
+     * @return array
+     */
+    public function getStat()
+    {
+        $sources = [];
+        $names = [];
+        foreach ($this->lines as $line) {
+            $line->loadStat($sources, $names);
+        }
+        return [
+            'sources' => $sources,
+            'names' => $names,
+        ];
+    }
+
     public function __clone()
     {
         if ($this->lines !== null) {

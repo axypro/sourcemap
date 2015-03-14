@@ -535,4 +535,25 @@ class MappingsTest extends \PHPUnit_Framework_TestCase
         ];
         $this->assertEquals($expected1, Represent::mappings($mappings));
     }
+
+    /**
+     * covers ::getStat
+     */
+    public function testGetStat()
+    {
+        $data = json_decode(file_get_contents(__DIR__.'/../tst/app.js.map'), true);
+        $context = new Context($data);
+        $mappings = new Mappings($data['mappings'], $context);
+        $expected = [
+            'sources' => [
+                0 => 22,
+                1 => 23,
+                2 => 27,
+            ],
+            'names' => [
+                0 => 8,
+            ],
+        ];
+        $this->assertEquals($expected, $mappings->getStat());
+    }
 }
