@@ -367,6 +367,28 @@ class Mappings
         ];
     }
 
+    /**
+     * @param \axy\sourcemap\parsing\Mappings $other
+     * @param int $line
+     * @param int $column
+     * @param int[] $mSources
+     * @param int[] $mNames
+     */
+    public function concat(Mappings $other, $line, $column, $mSources, $mNames)
+    {
+        foreach ($other->getLines() as $num => $oLine) {
+            $l = $num + $line;
+            $c = $num ? 0 : $column;
+            $oLine->concat($l, $c, $mSources, $mNames);
+            if (isset($this->lines[$l])) {
+                $this->lines[$l]->addPositionsList($oLine->getPositions());
+            } else {
+                $this->lines[$l] = $oLine;
+            }
+        }
+        $this->sMappings = null;
+    }
+
     public function __clone()
     {
         if ($this->lines !== null) {

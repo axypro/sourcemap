@@ -8,6 +8,7 @@ namespace axy\sourcemap;
 
 use axy\sourcemap\parents\Interfaces as ParentClass;
 use axy\sourcemap\helpers\IO;
+use axy\sourcemap\helpers\MapBuilder;
 use axy\sourcemap\helpers\PosBuilder;
 use axy\sourcemap\errors\OutFileNotSpecified;
 use axy\sourcemap\errors\IncompleteData;
@@ -174,6 +175,40 @@ class SourceMap extends ParentClass
     public function removeBlock($sLine, $sColumn, $eLine, $eColumn)
     {
         $this->context->getMappings()->removeBlock($sLine, $sColumn, $eLine, $eColumn);
+    }
+
+    /**
+     * Concatenates two maps (this and other)
+     *
+     * @param \axy\sourcemap\SourceMap|array|string $map
+     *        the other map (an instance, a data array or a file name)
+     * @param int $line
+     *        a line number of begin the two map in the resulting file
+     * @param int $column [optional]
+     *        a column number in the $line
+     * @throws \axy\sourcemap\errors\IOError
+     * @throws \axy\sourcemap\errors\InvalidFormat
+     * @throws \InvalidArgumentException
+     */
+    public function concat($map, $line, $column = 0)
+    {
+        $map = MapBuilder::build($map);
+        $mSources = [];
+        foreach ($map->context->sources as $index => $name) {
+            $new = $this->sources->add($name);
+            if ($new !== $index) {
+                $mSources[$index] = $new;
+            }
+        }
+        $mNames = [];
+        foreach ($map->context->names as $index => $name) {
+            $new = $this->names->add($name);
+            if ($new !== $index) {
+                $mNames[$index] = $new;
+            }
+        }
+        $this->context->getMappings()->concat($map->context->getMappings(), $line, $column, $mSources, $mNames);
+        $map->context->mappings = null;
     }
 
     /**

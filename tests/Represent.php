@@ -6,6 +6,7 @@
 
 namespace axy\sourcemap\tests;
 
+use axy\sourcemap\SourceMap;
 use axy\sourcemap\PosMap;
 use axy\sourcemap\parsing\Line;
 use axy\sourcemap\parsing\Mappings;
@@ -49,6 +50,25 @@ class Represent
         $result = [];
         foreach ($mappings->getLines() as $num => $line) {
             $result[$num] = self::line($line);
+        }
+        return $result;
+    }
+
+    /**
+     * @param \axy\sourcemap\SourceMap $map
+     * @return array
+     */
+    public static function shortMap(SourceMap $map)
+    {
+        $result = [];
+        foreach ($map->find() as $p) {
+            $g = $p->generated;
+            $s = $p->source;
+            $line = $g->line;
+            if (!isset($result[$line])) {
+                $result[$line] = [];
+            }
+            $result[$line][$g->column] = implode(',', [$s->fileIndex, $s->line, $s->column, $s->nameIndex]);
         }
         return $result;
     }

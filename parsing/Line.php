@@ -466,6 +466,34 @@ class Line
     }
 
     /**
+     * @param int $line
+     * @param int $dColumn
+     * @param int[] $mSources
+     * @param int[] $mNames
+     */
+    public function concat($line, $dColumn, $mSources, $mNames)
+    {
+        $npos = [];
+        $this->num = $line;
+        foreach ($this->positions as $position) {
+            $generated = $position->generated;
+            $source = $position->source;
+            $generated->line = $line;
+            $generated->column += $dColumn;
+            $fi = $source->fileIndex;
+            $ni = $source->nameIndex;
+            if ((isset($mSources[$fi])) && ($fi !== null)) {
+                $source->fileIndex = $mSources[$fi];
+            }
+            if ((isset($mNames[$ni])) && ($ni !== null)) {
+                $source->nameIndex = $mNames[$fi];
+            }
+            $npos[$generated->column] = $position;
+        }
+        $this->positions = $npos;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function __clone()
