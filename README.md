@@ -36,3 +36,4 @@ The library does not process the source files and does not generates the output 
 * [Build Source Map](doc/build.md)
 * [Sources and Names](doc/sources.md)
 * [Insert/Remove Blocks](doc/blocks.md)
+* [Concatenation of Files](doc/concat.md)
