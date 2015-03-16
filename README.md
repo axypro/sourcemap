@@ -37,3 +37,4 @@ The library does not process the source files and does not generates the output 
 * [Sources and Names](doc/sources.md)
 * [Insert/Remove Blocks](doc/blocks.md)
 * [Concatenation of Files](doc/concat.md)
+* [Errors](doc/errors.md)
