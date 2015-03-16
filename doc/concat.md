@@ -27,7 +27,7 @@ The positions of the current map remain in its places, and new positions are add
 The argument `$map` can be
 
 * A `SourceMap` instance
-* An array of a source map data (`[...'sources'=>[...],'mappings'=>'...']`)
+* An array of a source map data (`[...'sources'=>[...],'mappings'=>'...'`)
 * A string of a file name of a source map
 
 ## The Algorithm
@@ -87,4 +87,22 @@ file_put_contents(__DIR__.'/'.$outFile, $result);
 
 // save the resulting source map
 $map->save(__DIR__.'/'.$outMap);
+```
+
+## Note
+
+If we call `concat()` with a SourceMap instance as argument, then it is better not to use this instance in the future.
+ 
+```php
+$map1 = SourceMap::loadFromFile('one.map');
+$map2 = SourceMap::loadFromFile('two.map');
+
+$map1->concat($map2, 10);
+
+unset($map2); // this object can be incorrect
+```
+
+If the object is required in the future then clone it.
+```php
+$map1->concat(clone $map2, 10);
 ```
