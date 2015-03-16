@@ -389,6 +389,52 @@ class Mappings
         $this->sMappings = null;
     }
 
+    /**
+     * @param \axy\sourcemap\parsing\Mappings $other
+     * @param int $sIndex
+     * @param int[] $mSources
+     * @param int[] $mNames
+     */
+    public function merge(Mappings $other, $sIndex, $mSources, $mNames)
+    {
+        $mp = [];
+        foreach ($other->getLines() as $ln => $line) {
+            foreach ($line->getPositions() as $cn => $pos) {
+                $s = $pos->source;
+                $key = $ln.':'.$cn;
+                if (!isset($mp[$key])) {
+                    $mp[$key] = $s;
+                }
+            }
+        }
+        foreach ($this->getLines() as $ln => $line) {
+            foreach ($line->getPositions() as $cn => $pos) {
+                $s = $pos->source;
+                if ($s->fileIndex !== $sIndex) {
+                    continue;
+                }
+                $key = $s->line.':'.$s->column;
+                if (!isset($mp[$key])) {
+                    $line->removePosition($cn);
+                    continue;
+                }
+                $os = $mp[$key];
+                unset($mp[$key]);
+                $pos->source = $os;
+                if (($os->fileIndex !== null) && isset($mSources[$os->fileIndex])) {
+                    $os->fileIndex = $mSources[$os->fileIndex];
+                }
+                if (($os->nameIndex !== null) && isset($mNames[$os->nameIndex])) {
+                    $os->nameIndex = $mNames[$os->nameIndex];
+                }
+            }
+            if ($line->isEmpty()) {
+                unset($this->lines[$ln]);
+            }
+        }
+        $this->sMappings = null;
+    }
+
     public function __clone()
     {
         if ($this->lines !== null) {

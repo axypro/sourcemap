@@ -212,6 +212,56 @@ class SourceMap extends ParentClass
     }
 
     /**
+     * Merges a map to the current map
+     *
+     * @param \axy\sourcemap\SourceMap|array|string $map
+     *        the other map (an instance, a data array or a file name)
+     * @param string $file [optional]
+     *        file name in current sources (by default "file" from $map)
+     * @return bool
+     * @throws \axy\sourcemap\errors\IOError
+     * @throws \axy\sourcemap\errors\InvalidFormat
+     * @throws \InvalidArgumentException
+     */
+    public function merge($map, $file = null)
+    {
+        $map = MapBuilder::build($map);
+        if ($file === null) {
+            $file = $map->file;
+        }
+        $sourceIndex = $this->sources->getIndexByName($file);
+        if ($sourceIndex === null) {
+            return false;
+        }
+        $mSources = [];
+        $oSources = $map->sources->getNames();
+        if (!empty($oSources)) {
+            foreach ($oSources as $index => $name) {
+                if ($index === 0) {
+                    $this->sources->rename($sourceIndex, $name);
+                    if ($index !== $sourceIndex) {
+                        $mSources[$index] = $sourceIndex;
+                    }
+                } else {
+                    $nIndex = $this->sources->add($name);
+                    if ($nIndex !== $index) {
+                        $mSources[$index] = $nIndex;
+                    }
+                }
+            }
+        }
+        $mNames = [];
+        foreach ($map->names->getNames() as $index => $name) {
+            $nIndex = $this->names->add($name);
+            if ($nIndex !== $index) {
+                $mNames[$index] = $nIndex;
+            }
+        }
+        $this->context->getMappings()->merge($map->context->getMappings(), $sourceIndex, $mSources, $mNames);
+        return true;
+    }
+
+    /**
      * Optimizes the data
      *
      * @return bool

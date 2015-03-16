@@ -5,5 +5,6 @@
 * Sources and names
 * Search
 * Concatenation
+* Merge
 * Optimization
 * Documentation
