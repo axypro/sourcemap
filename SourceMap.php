@@ -15,12 +15,15 @@ use axy\sourcemap\errors\IncompleteData;
 
 /**
  * The Source Map Class
+ *
+ * @link https://github.com/axypro/sourcemap/blob/master/README.md documentation
  */
 class SourceMap extends ParentClass
 {
     /**
      * Loads a source map from a file
      *
+     * @link https://github.com/axypro/sourcemap/blob/master/doc/common.md documentation
      * @param string $filename
      * @return \axy\sourcemap\SourceMap
      * @throws \axy\sourcemap\errors\IOError
@@ -34,6 +37,7 @@ class SourceMap extends ParentClass
     /**
      * Saves the map file
      *
+     * @link https://github.com/axypro/sourcemap/blob/master/doc/common.md documentation
      * @param string $filename [optional]
      *        the map file name (by default used outFileName)
      * @param int $jsonFlag [optional]
@@ -55,6 +59,7 @@ class SourceMap extends ParentClass
     /**
      * Returns a position map by a position in the generated source
      *
+     * @link https://github.com/axypro/sourcemap/blob/master/doc/search.md documentation
      * @param int $line
      *        zero-based line number in the generated source
      * @param int $column
@@ -70,6 +75,7 @@ class SourceMap extends ParentClass
     /**
      * Finds a position in the source files
      *
+     * @link https://github.com/axypro/sourcemap/blob/master/doc/search.md documentation
      * @param int $fileIndex
      * @param int $line
      * @param int $column
@@ -84,6 +90,7 @@ class SourceMap extends ParentClass
     /**
      * Finds positions that match to a filter
      *
+     * @link https://github.com/axypro/sourcemap/blob/master/doc/search.md documentation
      * @param \axy\sourcemap\PosMap|object|array $filter [optional]
      *        the filter (if not specified then returns all positions)
      * @return \axy\sourcemap\PosMap[]
@@ -114,6 +121,7 @@ class SourceMap extends ParentClass
     /**
      * Adds a position to the source map
      *
+     * @link https://github.com/axypro/sourcemap/blob/master/doc/build.md documentation
      * @param \axy\sourcemap\PosMap|array|object $position
      * @return \axy\sourcemap\PosMap
      * @throws \axy\sourcemap\errors\InvalidIndexed
@@ -146,6 +154,7 @@ class SourceMap extends ParentClass
     /**
      * Inserts a block in the generated content
      *
+     * @link https://github.com/axypro/sourcemap/blob/master/doc/blocks.md documentation
      * @param int $sLine
      *        the line of the block start
      * @param int $sColumn
@@ -163,6 +172,7 @@ class SourceMap extends ParentClass
     /**
      * Removes a block from the generated content
      *
+     * @link https://github.com/axypro/sourcemap/blob/master/doc/blocks.md documentation
      * @param int $sLine
      *        the line of the block start
      * @param int $sColumn
@@ -180,6 +190,7 @@ class SourceMap extends ParentClass
     /**
      * Concatenates two maps (this and other)
      *
+     * @link https://github.com/axypro/sourcemap/blob/master/doc/concat.md documentation
      * @param \axy\sourcemap\SourceMap|array|string $map
      *        the other map (an instance, a data array or a file name)
      * @param int $line
@@ -214,6 +225,7 @@ class SourceMap extends ParentClass
     /**
      * Merges a map to the current map
      *
+     * @link https://github.com/axypro/sourcemap/blob/master/doc/merge.md documentation
      * @param \axy\sourcemap\SourceMap|array|string $map
      *        the other map (an instance, a data array or a file name)
      * @param string $file [optional]

@@ -8,6 +8,8 @@ namespace axy\sourcemap;
 
 /**
  * Map a generated position to a source position
+ *
+ * @link https://github.com/axypro/sourcemap/blob/master/doc/PosMap.md documentation
  */
 class PosMap
 {

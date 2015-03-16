@@ -8,6 +8,8 @@ namespace axy\sourcemap;
 
 /**
  * Position in the source
+ *
+ * @link https://github.com/axypro/sourcemap/blob/master/doc/PosMap.md documentation
  */
 class PosSource
 {

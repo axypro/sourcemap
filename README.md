@@ -38,4 +38,5 @@ The library does not process the source files and does not generates the output 
 * [Insert/Remove Blocks](doc/blocks.md)
 * [Concatenation of Files](doc/concat.md)
 * [Merging](doc/merge.md)
+* [Other Methods](doc/other.md)
 * [Errors](doc/errors.md)

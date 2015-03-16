@@ -6,6 +6,8 @@
  * @author Oleg Grigoriev <go.vasac@gmail.com>
  * @license https://raw.github.com/axypro/sourcemap/master/LICENSE MIT
  * @link https://github.com/axypro/sourcemap repository
+ * @link https://packagist.org/packages/axy/sourcemap composer
+ * @link https://github.com/axypro/sourcemap/blob/master/README.md documentation
  * @uses PHP5.4+
  */
 
