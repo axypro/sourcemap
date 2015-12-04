@@ -1,5 +1,9 @@
 # axy\sourcemap
 
+[![Latest Stable Version](https://img.shields.io/packagist/v/axy/sourcemap.svg?style=flat-square)](https://packagist.org/packages/axy/sourcemap)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.4-8892BF.svg?style=flat-square)](https://php.net/)
+[![Build Status](https://img.shields.io/travis/axypro/sourcemap/master.svg?style=flat-square)](https://travis-ci.org/axypro/sourcemap)
+
 The library for work with Source Map files from PHP.
 
 * GitHub: [axypro/sourcemap](https://github.com/axypro/sourcemap)
