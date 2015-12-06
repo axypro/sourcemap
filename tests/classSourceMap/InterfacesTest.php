@@ -72,6 +72,7 @@ class InterfacesTest extends \PHPUnit_Framework_TestCase
         $unSerialized = unserialize($serialized);
         $this->assertInternalType('array', $unSerialized);
         $this->assertArrayHasKey('map', $unSerialized);
+        /** @var \axy\sourcemap\SourceMap $map2 */
         $map2 = $unSerialized['map'];
         $this->assertInstanceOf('axy\sourcemap\SourceMap', $map2);
         $this->assertNotSame($this->map, $map2);

@@ -63,7 +63,7 @@ class MagicTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['a.js', 'b.js'], $map->sources->getNames());
         $this->assertEquals(['one', 'two', 'three'], $map->names->getNames());
         $this->setExpectedException('axy\errors\PropertyReadOnly');
-        $map->sources = ['c.js'];
+        $map->__set('sources', ['c.js']);
     }
 
     /**
@@ -73,7 +73,7 @@ class MagicTest extends \PHPUnit_Framework_TestCase
     public function testMagicGet()
     {
         $map = new SourceMap();
-        return $map->abc;
+        $map->__get('abc');
     }
 
     /**
@@ -83,7 +83,7 @@ class MagicTest extends \PHPUnit_Framework_TestCase
     public function testMagicSet()
     {
         $map = new SourceMap();
-        $map->abc = 1;
+        $map->__set('abc', 1);
     }
 
     /**
