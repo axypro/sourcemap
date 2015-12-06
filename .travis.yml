@@ -1,14 +1,33 @@
 language: php
 
-php:
-  - 5.4
-  - 5.5
-  - 5.6
-  - 7.0
-  - hhvm
+matrix:
+  include:
+    - php: 5.4
+      env: CHECKS=yes
+    - php: 5.5
+    - php: 5.6
+    - php: 7.0
+    - php: hhvm
 
-before_script:
+sudo: false
+
+before_install:
   - composer self-update
-  - composer install --no-interaction --dev
 
-script: phpunit
+install:
+  - composer install
+  - if [ "$CHECKS" = "yes" ]; then composer require satooshi/php-coveralls --dev; fi;
+  - if [ "$CHECKS" = "yes" ]; then composer require squizlabs/php_codesniffer="~2.3" --dev; fi;
+
+script:
+  - if [ "$CHECKS" = "yes" ]; then mkdir -p build/logs; fi;
+  - if [ "$CHECKS" = "yes" ]; then phpunit --coverage-clover build/logs/clover.xml; else phpunit; fi;
+  - if [ "$CHECKS" = "yes" ]; then php vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 --ignore=vendor .; fi;
+
+after_success:
+  - if [ "$CHECKS" = "yes" ]; then php vendor/bin/coveralls -c .coveralls.yml; fi;
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
