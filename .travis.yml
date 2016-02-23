@@ -48,7 +48,6 @@ install:
   # Generate the coveralls config (not to keep it in the repo)
   - >
     if [ "$CHECKS" = "yes" ]; then 
-        echo "src_dir: ." > .coveralls.yml &&
         echo "json_path: coveralls-upload.json" >> .coveralls.yml &&
         echo "coverage_clover: clover.xml" >> .coveralls.yml;
     fi;
