@@ -49,6 +49,9 @@ class Context
         $this->data = $data;
         $this->sources = isset($data['sources']) ? $data['sources'] : [];
         $this->names = isset($data['names']) ? $data['names'] : [];
+        $this->mappings = isset($data['mappings_serialized']) && $data['mappings_serialized'] instanceof Mappings
+            ? $data['mappings_serialized']
+            : null;
     }
 
     /**

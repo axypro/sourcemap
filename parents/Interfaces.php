@@ -64,7 +64,9 @@ abstract class Interfaces extends Magic implements \IteratorAggregate, \ArrayAcc
      */
     public function serialize()
     {
-        return serialize($this->getData());
+        $data = $this->getData();
+        $data['mappings_serialized'] = $this->context->getMappings();
+        return serialize($data);
     }
 
     /**
