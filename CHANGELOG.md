@@ -1,5 +1,8 @@
 ### dev-master
 
+### 0.1.1 (08.04.2016)
+
+* #1 Serialize parsed mappings
 * Travis & Coveralls
 * Fix code style
 
