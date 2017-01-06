@@ -28,10 +28,19 @@ abstract class Base
      */
     public function __construct(array $data = null, $filename = null)
     {
-        $this->context = new Context(FormatChecker::check($data));
+        $data = FormatChecker::check($data);
+        $this->context = new Context($data);
         $this->sources = new Sources($this->context);
         $this->names = new Names($this->context);
         $this->outFileName = $filename;
+        if ((!empty($data['sourcesContent'])) && (!empty($data['sources']))) {
+            $contents = $data['sourcesContent'];
+            foreach ($data['sources'] as $index => $fn) {
+                if (isset($contents[$index])) {
+                    $this->sources->setContent($fn, $contents[$index]);
+                }
+            }
+        }
     }
 
     /**

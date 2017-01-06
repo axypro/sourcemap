@@ -1,8 +1,12 @@
 ### dev-master
 
+### 0.1.2 (06.01.2017)
+
+* Issue #3: Load `sourcesContent` from file
+
 ### 0.1.1 (08.04.2016)
 
-* #1 Serialize parsed mappings
+* Issue #1 Serialize parsed mappings
 * Travis & Coveralls
 * Fix code style
 
