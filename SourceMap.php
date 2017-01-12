@@ -206,8 +206,6 @@ class SourceMap extends ParentClass
         $map = MapBuilder::build($map);
         $mSources = [];
         foreach ($map->context->sources as $index => $name) {
-          echo "\nindex: " . $index . " name: " . $name . "\n";
-
             $new = $this->sources->add($name);
             $map_sources = $map->sources->getContents();
             if(count($map_sources) > $index ){
