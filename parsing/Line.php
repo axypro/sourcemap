@@ -486,7 +486,7 @@ class Line
                 $source->fileIndex = $mSources[$fi];
             }
             if ((isset($mNames[$ni])) && ($ni !== null)) {
-                $source->nameIndex = $mNames[$fi];
+                $source->nameIndex = $mNames[$ni];
             }
             $npos[$generated->column] = $position;
         }
