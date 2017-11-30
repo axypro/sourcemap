@@ -1,5 +1,10 @@
 ### dev-master
 
+### 0.1.3 (30.11.2017)
+
+* Fix https://github.com/axypro/sourcemap/pull/5
+* Fix Travis config for PHP 7+
+
 ### 0.1.2 (06.01.2017)
 
 * Issue #3: Load `sourcesContent` from file
