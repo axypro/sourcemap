@@ -252,6 +252,7 @@ class ConcatTest extends \PHPUnit_Framework_TestCase
 
     /**
      * covers ::concat
+     *
      * @expectedException \axy\sourcemap\errors\InvalidJSON
      */
     public function testConcatInvalidFormat()
@@ -260,18 +261,17 @@ class ConcatTest extends \PHPUnit_Framework_TestCase
         $map->concat(__DIR__.'/../tst/invalid.json.js.map', 0);
     }
 
-    public function testConcatSourcesContent(){
-      $file_path_a = __DIR__.'/../tst/concat/a_content.js.map';
-      $file_path_b = __DIR__.'/../tst/concat/bc_content.js.map';
-      $map = SourceMap::loadFromFile($file_path_a);
-      $map->concat($file_path_b, 1);
-      $raw_map_a = json_decode(file_get_contents($file_path_a));
-      $raw_map_b = json_decode(file_get_contents($file_path_b));
-      $all_sources_raw = array_merge($raw_map_a->sourcesContent, $raw_map_b->sourcesContent);
-      $serialized = json_encode($map);
-      $total_sources_content_count = count($raw_map_a->sourcesContent) + count($raw_map_b->sourcesContent);
-      $this->assertSame(json_decode($serialized)->sourcesContent, $all_sources_raw);
+    public function testConcatSourcesContent()
+    {
+        $file_path_a = __DIR__.'/../tst/concat/a_content.js.map';
+        $file_path_b = __DIR__.'/../tst/concat/bc_content.js.map';
+        $map = SourceMap::loadFromFile($file_path_a);
+        $map->concat($file_path_b, 1);
+        $raw_map_a = json_decode(file_get_contents($file_path_a));
+        $raw_map_b = json_decode(file_get_contents($file_path_b));
+        $all_sources_raw = array_merge($raw_map_a->sourcesContent, $raw_map_b->sourcesContent);
+        $serialized = json_encode($map);
+        $total_sources_content_count = count($raw_map_a->sourcesContent) + count($raw_map_b->sourcesContent);
+        $this->assertSame(json_decode($serialized)->sourcesContent, $all_sources_raw);
     }
-
-
 }

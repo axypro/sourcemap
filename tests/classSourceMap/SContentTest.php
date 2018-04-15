@@ -24,12 +24,13 @@ class SContentTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(['new content', 'The second file'], $json['sourcesContent']);
     }
 
-    public function testSourceContentJsonEncode(){
-      $filePath = __DIR__.'/../tst/scontent.js.map';
-      $map = SourceMap::loadFromFile($filePath);
-      $raw_map = json_decode(file_get_contents($filePath));
-      $serialized = json_encode($map);
-      $this->assertSame(json_decode($serialized)->sourcesContent, $raw_map->sourcesContent);
-      echo $serialized;
+    public function testSourceContentJsonEncode()
+    {
+        $filePath = __DIR__.'/../tst/scontent.js.map';
+        $map = SourceMap::loadFromFile($filePath);
+        $raw_map = json_decode(file_get_contents($filePath));
+        $serialized = json_encode($map);
+        $this->assertSame(json_decode($serialized)->sourcesContent, $raw_map->sourcesContent);
+        echo $serialized;
     }
 }
