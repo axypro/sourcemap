@@ -31,6 +31,5 @@ class SContentTest extends \PHPUnit_Framework_TestCase
         $raw_map = json_decode(file_get_contents($filePath));
         $serialized = json_encode($map);
         $this->assertSame(json_decode($serialized)->sourcesContent, $raw_map->sourcesContent);
-        echo $serialized;
     }
 }
