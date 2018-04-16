@@ -1,5 +1,9 @@
 ### dev-master
 
+### 0.1.4 (16.04.2018)
+
+* https://github.com/axypro/sourcemap/pull/4
+
 ### 0.1.3 (30.11.2017)
 
 * Fix https://github.com/axypro/sourcemap/pull/5
