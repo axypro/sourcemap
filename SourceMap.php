@@ -207,6 +207,10 @@ class SourceMap extends ParentClass
         $mSources = [];
         foreach ($map->context->sources as $index => $name) {
             $new = $this->sources->add($name);
+            $map_sources = $map->sources->getContents();
+            if (count($map_sources) > $index) {
+                $this->sources->setContent($name, $map_sources[$index]);
+            }
             if ($new !== $index) {
                 $mSources[$index] = $new;
             }
