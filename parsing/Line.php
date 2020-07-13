@@ -240,7 +240,17 @@ class Line
      */
     public function getPosition($column)
     {
-        return isset($this->positions[$column]) ? $this->positions[$column] : null;
+        if (isset($this->positions[$column])) {
+            return $this->positions[$column];
+        }
+        $prev = null;
+        foreach ($this->positions as $idx => $position) {
+            if ($position->generated->column > $column) {
+                return $prev;
+            }
+            $prev = $position;
+        }
+        return null;
     }
 
     /**
@@ -278,8 +288,9 @@ class Line
         $fg = $filter->generated;
         $positions = $this->positions;
         if ($fg->column !== null) {
-            if (isset($positions[$fg->column])) {
-                $positions = [$positions[$fg->column]];
+            $position = $this->getPosition($fg->column);
+            if ($position) {
+                $positions = [$position];
             }
         }
         $fs = $filter->source;
