@@ -35,7 +35,7 @@ class CloneTest extends \PHPUnit_Framework_TestCase
         $map2->removePosition(7, 18);
         $this->assertEquals($data, $map1->getData());
         $this->assertSame($pos1, $map1->getPosition(7, 18));
-        $this->assertNull($map2->getPosition(7, 18));
+        $this->assertNotSame($pos2, $map2->getPosition(7, 18));
         $this->assertEquals($map1->getPosition(7, 25)->generated, $map2->getPosition(7, 25)->generated);
         $this->assertNotSame($map1->getPosition(7, 25)->generated, $map2->getPosition(7, 25)->generated);
         $expected = [

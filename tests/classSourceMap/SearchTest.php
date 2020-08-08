@@ -38,7 +38,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         ];
         $this->assertEquals($expected, Represent::posMap($pos));
         $this->assertSame($pos, $map->getPosition(1, 21));
-        $this->assertNull($map->getPosition(2, 10));
+        $this->assertNull($map->getPosition(2, 22));
         $this->assertNull($map->getPosition(200, 10));
     }
 
