@@ -62,7 +62,7 @@ script:
   - if [ "$CHECKS" = "yes" ] && [ "$XDEBUG_ENABLED" = "yes" ]; then phpenv config-add xdebug.ini; fi;
   - if [ "$CHECKS" = "yes" ]; then $PU --coverage-clover clover.xml; fi;
   # Coveralls in `script` section instead `after_succes` for build fail if when error
-  - if [ "$CHECKS" = "yes" ]; then php vendor/bin/coveralls -c .coveralls.yml; fi;
+  - if [ "$CHECKS" = "yes" ]; then php vendor/bin/php-coveralls -c .coveralls.yml; fi;
 
 notifications:
   email:
