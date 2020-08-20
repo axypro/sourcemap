@@ -1,5 +1,9 @@
 ### dev-master
 
+### 0.1.5 (20.08.2020)
+
+* Find position closest to the requested column (see https://github.com/axypro/sourcemap/pull/6)
+
 ### 0.1.4 (16.04.2018)
 
 * https://github.com/axypro/sourcemap/pull/4
