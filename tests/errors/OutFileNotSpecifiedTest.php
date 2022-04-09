@@ -11,7 +11,7 @@ use axy\sourcemap\errors\OutFileNotSpecified;
 /**
  * coversDefaultClass axy\sourcemap\errors\OutFileNotSpecifiedTest
  */
-class OutFileNotSpecifiedTest extends \PHPUnit_Framework_TestCase
+class OutFileNotSpecifiedTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * covers ::__construct

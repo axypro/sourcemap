@@ -11,7 +11,7 @@ use axy\sourcemap\errors\IOError;
 /**
  * coversDefaultClass axy\sourcemap\errors\IOError
  */
-class IOErrorTest extends \PHPUnit_Framework_TestCase
+class IOErrorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * covers ::__construct

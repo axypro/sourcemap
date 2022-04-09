@@ -15,7 +15,7 @@ use axy\sourcemap\errors\InvalidIndexed;
 /**
  * coversDefaultClass axy\sourcemap\indexed\Sources
  */
-class SourcesTest extends \PHPUnit_Framework_TestCase
+class SourcesTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * covers ::__construct
@@ -128,7 +128,7 @@ class SourcesTest extends \PHPUnit_Framework_TestCase
         // by name + index (fail)
         $source->fileIndex = 2;
         $source->fileName = 'a.js';
-        $this->setExpectedException('axy\sourcemap\errors\InvalidIndexed');
+        $this->expectException(\axy\sourcemap\errors\InvalidIndexed::class);
         $s->fillSource($source);
     }
 

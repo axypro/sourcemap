@@ -11,7 +11,7 @@ use axy\sourcemap\errors\IncompleteData;
 /**
  * coversDefaultClass axy\sourcemap\errors\IncompleteData
  */
-class IncompleteDataTest extends \PHPUnit_Framework_TestCase
+class IncompleteDataTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * covers ::__construct

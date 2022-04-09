@@ -12,7 +12,7 @@ use axy\sourcemap\PosMap;
 /**
  * coversDefaultClass axy\sourcemap\parsing\SegmentParser
  */
-class SegmentParserTest extends \PHPUnit_Framework_TestCase
+class SegmentParserTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * covers ::nextLine
@@ -80,10 +80,11 @@ class SegmentParserTest extends \PHPUnit_Framework_TestCase
      * covers ::parse
      * @dataProvider providerParseError
      * @param string $segment
-     * @expectedException \axy\sourcemap\errors\InvalidMappings
+     *
      */
     public function testParseError($segment)
     {
+        $this->expectException(\axy\sourcemap\errors\InvalidMappings::class);
         $parser = new SegmentParser();
         $parser->parse($segment);
     }

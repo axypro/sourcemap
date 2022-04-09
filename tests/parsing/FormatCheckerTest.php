@@ -11,7 +11,7 @@ use axy\sourcemap\parsing\FormatChecker;
 /**
  * coversDefaultClass axy\sourcemap\parsing\FormatChecker
  */
-class FormatCheckerTest extends \PHPUnit_Framework_TestCase
+class FormatCheckerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * covers ::check
@@ -83,10 +83,11 @@ class FormatCheckerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * covers ::check
-     * @expectedException \axy\sourcemap\errors\UnsupportedVersion
+     *
      */
     public function testUnsupportedVersion()
     {
+        $this->expectException(\axy\sourcemap\errors\UnsupportedVersion::class);
         $data = [
             'version' => 5,
             'sources' => ['a.js', 'b.js'],
@@ -100,10 +101,11 @@ class FormatCheckerTest extends \PHPUnit_Framework_TestCase
      * @dataProvider providerInvalidSection
      * @param array $data
      * @param array $data
-     * @expectedException \axy\sourcemap\errors\InvalidSection
+     *
      */
     public function testInvalidSection(array $data)
     {
+        $this->expectException(\axy\sourcemap\errors\InvalidSection::class);
         FormatChecker::check($data);
     }
 

@@ -6,13 +6,14 @@
 
 namespace axy\sourcemap\tests\classSourceMap;
 
+use axy\sourcemap\errors\InvalidJSON;
 use axy\sourcemap\SourceMap;
 use axy\sourcemap\tests\Represent;
 
 /**
  * coversDefaultClass axy\sourcemap\SourceMap
  */
-class ConcatTest extends \PHPUnit_Framework_TestCase
+class ConcatTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * covers ::concat
@@ -253,10 +254,11 @@ class ConcatTest extends \PHPUnit_Framework_TestCase
     /**
      * covers ::concat
      *
-     * @expectedException \axy\sourcemap\errors\InvalidJSON
+     *
      */
     public function testConcatInvalidFormat()
     {
+        $this->expectException(InvalidJSON::class);
         $map = new SourceMap();
         $map->concat(__DIR__.'/../tst/invalid.json.js.map', 0);
     }

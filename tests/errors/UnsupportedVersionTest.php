@@ -11,7 +11,7 @@ use axy\sourcemap\errors\UnsupportedVersion;
 /**
  * coversDefaultClass axy\sourcemap\errors\UnsupportedVersion
  */
-class UnsupportedVersionTest extends \PHPUnit_Framework_TestCase
+class UnsupportedVersionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * covers ::__construct

@@ -11,7 +11,7 @@ use axy\sourcemap\SourceMap;
 /**
  * coversDefaultClass axy\sourcemap\SourceMap
  */
-class ChangeTest extends \PHPUnit_Framework_TestCase
+class ChangeTest extends \PHPUnit\Framework\TestCase
 {
     public function testFileRename()
     {

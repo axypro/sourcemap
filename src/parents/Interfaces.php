@@ -11,7 +11,7 @@ use Traversable;
 /**
  * Partition of the SourceMap class (interfaces implementations)
  */
-abstract class Interfaces extends Magic implements \IteratorAggregate, \ArrayAccess, \JsonSerializable
+abstract class Interfaces extends Magic implements \IteratorAggregate, \ArrayAccess, \JsonSerializable, \Serializable
 {
     /**
      * {@inheritdoc}
@@ -66,18 +66,34 @@ abstract class Interfaces extends Magic implements \IteratorAggregate, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function __serialize()
+    public function serialize()
     {
-        $data = $this->getData();
-        $data['mappings_serialized'] = $this->context->getMappings();
-        return serialize($data);
+        return serialize($this->__serialize());
     }
 
     /**
      * {@inheritdoc}
      */
-    public function __unserialize($serialized)
+    public function unserialize($serialized)
     {
         $this->__construct(unserialize($serialized));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __serialize(): array
+    {
+        $data = $this->getData();
+        $data['mappings_serialized'] = $this->context->getMappings();
+        return $data;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __unserialize(array $serialized): void
+    {
+        $this->__construct($serialized);
     }
 }

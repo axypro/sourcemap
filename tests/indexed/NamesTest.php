@@ -14,7 +14,7 @@ use axy\sourcemap\PosSource;
 /**
  * coversDefaultClass axy\sourcemap\indexed\Names
  */
-class NamesTest extends \PHPUnit_Framework_TestCase
+class NamesTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * covers ::__construct
@@ -129,7 +129,7 @@ class NamesTest extends \PHPUnit_Framework_TestCase
         // by name + index (fail)
         $source->nameIndex = 2;
         $source->name = 'one';
-        $this->setExpectedException('axy\sourcemap\errors\InvalidIndexed');
+        $this->expectException(\axy\sourcemap\errors\InvalidIndexed::class);
         $names->fillSource($source);
     }
 }

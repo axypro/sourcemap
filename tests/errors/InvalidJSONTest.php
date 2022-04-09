@@ -11,7 +11,7 @@ use axy\sourcemap\errors\InvalidJSON;
 /**
  * coversDefaultClass axy\sourcemap\errors\InvalidJSON
  */
-class InvalidJSONTest extends \PHPUnit_Framework_TestCase
+class InvalidJSONTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * covers ::__construct

@@ -13,7 +13,7 @@ use axy\sourcemap\parsing\Context;
  * coversDefaultClass axy\sourcemap\indexed\Base
  * Abstract class is tested using Names class
  */
-class BaseTest extends \PHPUnit_Framework_TestCase
+class BaseTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var array
