@@ -19,13 +19,11 @@
     "require": {
         "php": ">=7.3",
         "ext-json": "*",
-        "axy/errors": "^1.0.1",
-        "axy/codecs-base64vlq": "^1.0.0"
+        "axy/errors": "^3.0",
+        "axy/codecs-base64vlq": "^2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.0",
-        "axy/errors": "^1.x-dev",
-        "axy/codecs-base64vlq": "^1.x-dev"
+        "phpunit/phpunit": "^9.0"
     },
     "autoload": {
         "psr-4": {
@@ -37,20 +35,9 @@
             "axy\\sourcemap\\tests\\": "tests/"
         }
     },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../*/"
-        }
-    ],
     "scripts": {
         "test": "phpunit -c phpunit.xml.dist",
         "md": "phpmd --exclude vendor . text phpmd.xml.dist",
         "cs": "phpcs --standard=PSR2 --encoding=utf-8 --ignore=vendor ."
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-main": "1.x-dev"
-        }
     }
 }
