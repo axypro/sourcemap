@@ -1,0 +1,30 @@
+name: PHP Tests
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: [7.3, 7.4, 8.0, 8.1]
+
+    name: 'PHP ${{ matrix.php }}'
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: xdebug
+          extensions: curl, dom, gd, json, mbstring, openssl, pdo_mysql, tokenizer, zip
+          tools: phpunit, composer:v2
+          ini-values: display_errors=E_ALL
+
+      - name: Install Composer dependencies
+        run: composer install
+
+      - name: Run Composer tests
+        run: composer test

@@ -15,7 +15,7 @@ use axy\sourcemap\tests\Represent;
 /**
  * coversDefaultClass axy\sourcemap\parsing\Line
  */
-class LineTest extends \PHPUnit_Framework_TestCase
+class LineTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * covers ::__construct
@@ -182,11 +182,12 @@ class LineTest extends \PHPUnit_Framework_TestCase
     /**
      * covers ::loadFromMappings
      * @dataProvider providerErrorLoad
-     * @expectedException \axy\sourcemap\errors\InvalidMappings
+     *
      * @param string $lMappings
      */
     public function testErrorLoad($lMappings)
     {
+        $this->expectException(\axy\sourcemap\errors\InvalidMappings::class);
         $data = [
             'version' => 3,
             'sources' => ['a.js', 'b.js'],

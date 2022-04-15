@@ -12,7 +12,7 @@ use axy\sourcemap\tests\Represent;
 /**
  * coversDefaultClass axy\sourcemap\SourceMap
  */
-class CloneTest extends \PHPUnit_Framework_TestCase
+class CloneTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * covers ::__clone

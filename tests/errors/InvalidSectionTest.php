@@ -11,7 +11,7 @@ use axy\sourcemap\errors\InvalidSection;
 /**
  * coversDefaultClass axy\sourcemap\errors\InvalidSection
  */
-class InvalidSectionTest extends \PHPUnit_Framework_TestCase
+class InvalidSectionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * covers ::__construct

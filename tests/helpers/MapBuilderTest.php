@@ -12,7 +12,7 @@ use axy\sourcemap\SourceMap;
 /**
  * coversDefaultClass axy\sourcemap\helpers\MapsBuilder
  */
-class MapBuilderTest extends \PHPUnit_Framework_TestCase
+class MapBuilderTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * covers ::build
@@ -28,7 +28,7 @@ class MapBuilderTest extends \PHPUnit_Framework_TestCase
             $this->assertInstanceOf('axy\sourcemap\SourceMap', $map);
             $this->assertSame($file, $map->file);
         } else {
-            $this->setExpectedException($exception);
+            $this->expectException($exception);
             MapBuilder::build($pointer);
         }
     }
@@ -63,17 +63,17 @@ class MapBuilderTest extends \PHPUnit_Framework_TestCase
             [
                 __DIR__.'/../tst/notFound.js.map',
                 null,
-                'axy\sourcemap\errors\IOError',
+                \axy\sourcemap\errors\IOError::class,
             ],
             [
                 __DIR__.'/../tst/invalid.json.js.map',
                 null,
-                'axy\sourcemap\errors\InvalidFormat',
+                \axy\sourcemap\errors\InvalidFormat::class,
             ],
             [
                 5,
                 null,
-                'InvalidArgumentException',
+                \InvalidArgumentException::class,
             ],
         ];
     }

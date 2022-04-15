@@ -13,7 +13,7 @@ use axy\sourcemap\PosMap;
 /**
  * coversDefaultClass axy\sourcemap\helpers\PosBuilder
  */
-class PosBuilderTest extends \PHPUnit_Framework_TestCase
+class PosBuilderTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * covers ::build

@@ -6,6 +6,8 @@
 
 namespace axy\sourcemap\parents;
 
+use Traversable;
+
 /**
  * Partition of the SourceMap class (interfaces implementations)
  */
@@ -14,7 +16,7 @@ abstract class Interfaces extends Magic implements \IteratorAggregate, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return new \ArrayIterator($this->getData());
     }
@@ -22,7 +24,7 @@ abstract class Interfaces extends Magic implements \IteratorAggregate, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return $this->__isset($offset);
     }
@@ -30,6 +32,7 @@ abstract class Interfaces extends Magic implements \IteratorAggregate, \ArrayAcc
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->__get($offset);
@@ -38,7 +41,7 @@ abstract class Interfaces extends Magic implements \IteratorAggregate, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->__set($offset, $value);
     }
@@ -46,7 +49,7 @@ abstract class Interfaces extends Magic implements \IteratorAggregate, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         $this->__unset($offset);
     }
@@ -54,6 +57,7 @@ abstract class Interfaces extends Magic implements \IteratorAggregate, \ArrayAcc
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->getData();
@@ -64,9 +68,7 @@ abstract class Interfaces extends Magic implements \IteratorAggregate, \ArrayAcc
      */
     public function serialize()
     {
-        $data = $this->getData();
-        $data['mappings_serialized'] = $this->context->getMappings();
-        return serialize($data);
+        return serialize($this->__serialize());
     }
 
     /**
@@ -75,5 +77,23 @@ abstract class Interfaces extends Magic implements \IteratorAggregate, \ArrayAcc
     public function unserialize($serialized)
     {
         $this->__construct(unserialize($serialized));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __serialize(): array
+    {
+        $data = $this->getData();
+        $data['mappings_serialized'] = $this->context->getMappings();
+        return $data;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __unserialize(array $serialized): void
+    {
+        $this->__construct($serialized);
     }
 }

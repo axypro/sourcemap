@@ -3,7 +3,7 @@
 The library for work with Source Map files from PHP.
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/axy/sourcemap.svg?style=flat-square)](https://packagist.org/packages/axy/sourcemap)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.4-8892BF.svg?style=flat-square)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.3-8892BF.svg?style=flat-square)](https://php.net/)
 [![Build Status](https://img.shields.io/travis/axypro/sourcemap/master.svg?style=flat-square)](https://travis-ci.org/axypro/sourcemap)
 [![Coverage Status](https://coveralls.io/repos/axypro/sourcemap/badge.svg?branch=master&service=github)](https://coveralls.io/github/axypro/sourcemap?branch=master)
 [![License](https://poser.pugx.org/axy/sourcemap/license)](LICENSE)

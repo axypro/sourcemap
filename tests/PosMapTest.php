@@ -13,7 +13,7 @@ use axy\sourcemap\PosSource;
 /**
  * coversDefaultClass axy\sourcemap\PosMap
  */
-class PosMapTest extends \PHPUnit_Framework_TestCase
+class PosMapTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * covers ::__construct
@@ -116,11 +116,13 @@ class PosMapTest extends \PHPUnit_Framework_TestCase
 
     /**
      * covers ::__construct
-     * @expectedException \InvalidArgumentException
+     *
      * @return \axy\sourcemap\PosMap
      */
     public function testCreateInvalidArgument()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         return new PosMap(3);
     }
 

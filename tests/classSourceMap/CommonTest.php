@@ -6,12 +6,17 @@
 
 namespace axy\sourcemap\tests\classSourceMap;
 
+use axy\sourcemap\errors\InvalidFormat;
+use axy\sourcemap\errors\InvalidJSON;
+use axy\sourcemap\errors\IOError;
+use axy\sourcemap\errors\OutFileNotSpecified;
+use axy\sourcemap\errors\UnsupportedVersion;
 use axy\sourcemap\SourceMap;
 
 /**
  * coversDefaultClass axy\sourcemap\SourceMap
  */
-class CommonTest extends \PHPUnit_Framework_TestCase
+class CommonTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * covers ::__construct
@@ -30,7 +35,7 @@ class CommonTest extends \PHPUnit_Framework_TestCase
             'mappings' => '',
         ];
         $this->assertEquals($expected, $map->getData());
-        $this->setExpectedException('axy\sourcemap\errors\InvalidFormat');
+        $this->expectException(InvalidFormat::class);
         return new SourceMap(['version' => 5]);
     }
 
@@ -78,31 +83,37 @@ class CommonTest extends \PHPUnit_Framework_TestCase
 
     /**
      * covers ::loadFromFile
-     * @expectedException \axy\sourcemap\errors\IOError
+     *
      * @return \axy\sourcemap\SourceMap
      */
     public function testLoadFromFileNotFound()
     {
+        $this->expectException(IOError::class);
+
         return SourceMap::loadFromFile(__DIR__.'/../tst/notFound.js.map');
     }
 
     /**
      * covers ::loadFromFile
-     * @expectedException \axy\sourcemap\errors\InvalidJSON
+     *
      * @return \axy\sourcemap\SourceMap
      */
     public function testLoadFromFileInvalidJSON()
     {
+        $this->expectException(InvalidJSON::class);
+
         return SourceMap::loadFromFile(__DIR__.'/../tst/invalid.json.js.map');
     }
 
     /**
      * covers ::loadFromFile
-     * @expectedException \axy\sourcemap\errors\UnsupportedVersion
+     *
      * @return \axy\sourcemap\SourceMap
      */
     public function testLoadFromFileUnsupportedVersion()
     {
+        $this->expectException(UnsupportedVersion::class);
+
         return SourceMap::loadFromFile(__DIR__.'/../tst/version4.js.map');
     }
 
@@ -127,7 +138,7 @@ class CommonTest extends \PHPUnit_Framework_TestCase
         $map->save($fn);
         $this->assertFileExists($fn);
         $this->assertEquals($data, json_decode(file_get_contents($fn), true));
-        $this->setExpectedException('axy\sourcemap\errors\IOError', 'und/und.map');
+        $this->expectException(IOError::class);
         $map->save(__DIR__.'/../tmp/und/und.map');
     }
 
@@ -163,7 +174,7 @@ class CommonTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('/root/js/', $json1['sourceRoot']);
         $this->assertSame('/root/js/', $json2['sourceRoot']);
         $map3->outFileName = null;
-        $this->setExpectedException('axy\sourcemap\errors\OutFileNotSpecified');
+        $this->expectException(OutFileNotSpecified::class);
         $map3->save();
     }
 }
