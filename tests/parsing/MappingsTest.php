@@ -14,7 +14,7 @@ use axy\sourcemap\tests\Represent;
 /**
  * coversDefaultClass axy\sourcemap\parsing\Mappings
  */
-class MappingsTest extends \PHPUnit\Framework\TestCase
+class MappingsTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var array

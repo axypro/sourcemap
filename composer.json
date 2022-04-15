@@ -17,27 +17,14 @@
         }
     ],
     "require": {
-        "php": ">=7.3",
+        "php": ">=5.4.0",
         "ext-json": "*",
-        "axy/errors": "^3.0",
-        "axy/codecs-base64vlq": "^2.0"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.0"
+        "axy/errors": "~1.0.1",
+        "axy/codecs-base64vlq": "~1.0.0"
     },
     "autoload": {
         "psr-4": {
-            "axy\\sourcemap\\": "src/"
+            "axy\\sourcemap\\": ""
         }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "axy\\sourcemap\\tests\\": "tests/"
-        }
-    },
-    "scripts": {
-        "test": "phpunit -c phpunit.xml.dist",
-        "md": "phpmd --exclude vendor . text phpmd.xml.dist",
-        "cs": "phpcs --standard=PSR2 --encoding=utf-8 --ignore=vendor ."
     }
 }

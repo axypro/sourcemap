@@ -8,7 +8,7 @@ namespace axy\sourcemap\tests\classSourceMap;
 
 use axy\sourcemap\SourceMap;
 
-class SContentTest extends \PHPUnit\Framework\TestCase
+class SContentTest extends \PHPUnit_Framework_TestCase
 {
     public function testSourceContentLoad()
     {

@@ -11,7 +11,7 @@ use axy\sourcemap\errors\InvalidIndexed;
 /**
  * coversDefaultClass axy\sourcemap\errors\InvalidIndexed
  */
-class InvalidIndexedTest extends \PHPUnit\Framework\TestCase
+class InvalidIndexedTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * covers ::__construct

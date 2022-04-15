@@ -11,7 +11,7 @@ use axy\sourcemap\SourceMap;
 /**
  * coversDefaultClass axy\sourcemap\SourceMap
  */
-class OptimizeTest extends \PHPUnit\Framework\TestCase
+class OptimizeTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * covers ::optiomize

@@ -11,7 +11,7 @@ use axy\sourcemap\errors\InvalidMappings;
 /**
  * coversDefaultClass axy\sourcemap\errors\InvalidMappings
  */
-class InvalidMappingsTest extends \PHPUnit\Framework\TestCase
+class InvalidMappingsTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * covers ::__construct

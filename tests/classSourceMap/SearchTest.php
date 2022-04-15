@@ -12,7 +12,7 @@ use axy\sourcemap\tests\Represent;
 /**
  * coversDefaultClass axy\sourcemap\SourceMap
  */
-class SearchTest extends \PHPUnit\Framework\TestCase
+class SearchTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * covers ::getPosition
@@ -78,7 +78,7 @@ class SearchTest extends \PHPUnit\Framework\TestCase
     {
         $map = SourceMap::loadFromFile(__DIR__.'/../tst/app.js.map');
         $all = $map->find();
-        $this->assertIsArray($all);
+        $this->assertInternalType('array', $all);
         $this->assertCount(72, $all);
         $p23 = $all[23];
         $this->assertInstanceOf('axy\sourcemap\PosMap', $p23);

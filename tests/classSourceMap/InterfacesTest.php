@@ -6,13 +6,12 @@
 
 namespace axy\sourcemap\tests\classSourceMap;
 
-use axy\errors\ReadOnlyException;
 use axy\sourcemap\SourceMap;
 
 /**
  * coversDefaultClass axy\sourcemap\SourceMap
  */
-class InterfacesTest extends \PHPUnit\Framework\TestCase
+class InterfacesTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var array
@@ -34,7 +33,7 @@ class InterfacesTest extends \PHPUnit\Framework\TestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp(): void
+    public function setUp()
     {
         $this->map = new SourceMap($this->data);
     }
@@ -56,7 +55,7 @@ class InterfacesTest extends \PHPUnit\Framework\TestCase
         $this->map['file'] = 'out.js';
         $this->assertSame('out.js', $this->map['file']);
         $this->assertSame('out.js', $this->map->file);
-        $this->expectException(ReadOnlyException::class);
+        $this->setExpectedException('axy\errors\ReadOnly');
         unset($this->map['file']);
     }
 
@@ -71,7 +70,7 @@ class InterfacesTest extends \PHPUnit\Framework\TestCase
         $structure = ['map' => $this->map];
         $serialized = serialize($structure);
         $unSerialized = unserialize($serialized);
-        $this->assertIsArray($unSerialized);
+        $this->assertInternalType('array', $unSerialized);
         $this->assertArrayHasKey('map', $unSerialized);
         /** @var \axy\sourcemap\SourceMap $map2 */
         $map2 = $unSerialized['map'];

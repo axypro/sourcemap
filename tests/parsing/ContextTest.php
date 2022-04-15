@@ -12,7 +12,7 @@ use axy\sourcemap\tests\Represent;
 /**
  * coversDefaultClass axy\sourcemap\parsing\Context
  */
-class ContextTest extends \PHPUnit\Framework\TestCase
+class ContextTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * covers ::__construct

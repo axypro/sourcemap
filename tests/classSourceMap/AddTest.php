@@ -6,8 +6,6 @@
 
 namespace axy\sourcemap\tests\classSourceMap;
 
-use axy\sourcemap\errors\IncompleteData;
-use axy\sourcemap\errors\InvalidIndexed;
 use axy\sourcemap\SourceMap;
 use axy\sourcemap\PosMap;
 use axy\sourcemap\PosGenerated;
@@ -17,7 +15,7 @@ use axy\sourcemap\tests\Represent;
 /**
  * coversDefaultClass axy\sourcemap\SourceMap
  */
-class AddTest extends \PHPUnit\Framework\TestCase
+class AddTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var array
@@ -39,7 +37,7 @@ class AddTest extends \PHPUnit\Framework\TestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp(): void
+    public function setUp()
     {
         $this->map = new SourceMap($this->data);
     }
@@ -158,9 +156,8 @@ class AddTest extends \PHPUnit\Framework\TestCase
     public function testErrorIncompleteData($position, $error = true)
     {
         if ($error) {
-            $this->expectException(IncompleteData::class);
+            $this->setExpectedException('axy\sourcemap\errors\IncompleteData');
         }
-
         $this->map->addPosition($position);
     }
 
@@ -224,7 +221,7 @@ class AddTest extends \PHPUnit\Framework\TestCase
     public function testErrorInvalidIndexed($position, $error = true)
     {
         if ($error) {
-            $this->expectException(InvalidIndexed::class);
+            $this->setExpectedException('axy\sourcemap\errors\InvalidIndexed');
         }
         $this->map->addPosition($position);
     }

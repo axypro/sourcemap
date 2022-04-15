@@ -6,14 +6,12 @@
 
 namespace axy\sourcemap\tests\classSourceMap;
 
-use axy\errors\PropertyReadOnly;
-use axy\sourcemap\errors\UnsupportedVersion;
 use axy\sourcemap\SourceMap;
 
 /**
  * coversDefaultClass axy\sourcemap\SourceMap
  */
-class MagicTest extends \PHPUnit\Framework\TestCase
+class MagicTest extends \PHPUnit_Framework_TestCase
 {
     public function testPropertyVersion()
     {
@@ -23,7 +21,7 @@ class MagicTest extends \PHPUnit\Framework\TestCase
         $map->version = 3;
         $map->version = '3';
         $this->assertSame(3, $map->version);
-        $this->expectException(UnsupportedVersion::class);
+        $this->setExpectedException('axy\sourcemap\errors\UnsupportedVersion');
         $map->version = 5;
     }
 
@@ -64,39 +62,36 @@ class MagicTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('axy\sourcemap\indexed\Names', $map->names);
         $this->assertEquals(['a.js', 'b.js'], $map->sources->getNames());
         $this->assertEquals(['one', 'two', 'three'], $map->names->getNames());
-        $this->expectException(PropertyReadOnly::class);
+        $this->setExpectedException('axy\errors\PropertyReadOnly');
         $map->__set('sources', ['c.js']);
     }
 
     /**
      * covers ::__get
-     *
+     * @expectedException \axy\errors\FieldNotExist
      */
     public function testMagicGet()
     {
-        $this->expectException(\axy\errors\FieldNotExist::class);
         $map = new SourceMap();
         $map->__get('abc');
     }
 
     /**
      * covers ::__set
-     *
+     * @expectedException \axy\errors\FieldNotExist
      */
     public function testMagicSet()
     {
-        $this->expectException(\axy\errors\FieldNotExist::class);
         $map = new SourceMap();
         $map->__set('abc', 1);
     }
 
     /**
      * covers ::__unset
-     *
+     * @expectedException \axy\errors\ContainerReadOnly
      */
     public function testMagicUnset()
     {
-        $this->expectException(\axy\errors\ContainerReadOnly::class);
         $map = new SourceMap();
         unset($map->version);
     }

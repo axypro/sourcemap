@@ -118,7 +118,7 @@ abstract class Magic extends Base implements \Countable
     /**
      * {@inheritdoc}
      */
-    public function count(): int
+    public function count()
     {
         return count($this->getData());
     }

@@ -11,7 +11,7 @@ use axy\sourcemap\helpers\IO;
 /**
  * coversDefaultClass axy\sourcemap\helpers\IO
  */
-class IOTest extends \PHPUnit\Framework\TestCase
+class IOTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * covers ::load
@@ -24,13 +24,11 @@ class IOTest extends \PHPUnit\Framework\TestCase
 
     /**
      * covers ::load
-     *
-     *
+     * @expectedException \axy\sourcemap\errors\IOError
+     * @expectedExceptionMessage not.found.js.map
      */
     public function testLoadIOError()
     {
-        $this->expectExceptionMessage("not.found.js.map");
-        $this->expectException(\axy\sourcemap\errors\IOError::class);
         IO::load(__DIR__.'/../not.found.js.map');
     }
 
@@ -51,13 +49,11 @@ class IOTest extends \PHPUnit\Framework\TestCase
 
     /**
      * covers ::load
-     *
-     *
+     * @expectedException \axy\sourcemap\errors\IOError
+     * @expectedExceptionMessage tmp/und/und.txt
      */
     public function testSaveIOError()
     {
-        $this->expectExceptionMessage("tmp/und/und.txt");
-        $this->expectException(\axy\sourcemap\errors\IOError::class);
         $fn = __DIR__.'/../tmp/und/und.txt';
         IO::save($fn, 'Content');
     }

@@ -12,7 +12,7 @@ use axy\sourcemap\tests\Represent;
 /**
  * coversDefaultClass axy\sourcemap\SourceMap
  */
-class MergeTest extends \PHPUnit\Framework\TestCase
+class MergeTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * covers ::merge
@@ -80,11 +80,10 @@ class MergeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * covers ::merge
-     *
+     * @expectedException \axy\sourcemap\errors\InvalidJSON
      */
     public function testMergeInvalidFormat()
     {
-        $this->expectException(\axy\sourcemap\errors\InvalidJSON::class);
         $map = new SourceMap();
         $map->merge(__DIR__.'/../tst/invalid.json.js.map');
     }
