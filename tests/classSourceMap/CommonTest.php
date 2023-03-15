@@ -127,7 +127,7 @@ class CommonTest extends \PHPUnit\Framework\TestCase
             'mappings' => 'A',
         ];
         $map = new SourceMap($data);
-        $fn = __DIR__ . '/../../local/test.map';
+        $fn = __DIR__ . '/../../local/tmp/test.map';
         if (is_file($fn)) {
             unlink($fn);
         }
@@ -135,14 +135,14 @@ class CommonTest extends \PHPUnit\Framework\TestCase
         $this->assertFileExists($fn);
         $this->assertEquals($data, json_decode(file_get_contents($fn), true));
         $this->expectException(IOError::class);
-        $map->save(__DIR__ . '/../../local/und/und.map');
+        $map->save(__DIR__ . '/../../local/tmp/und/und.map');
     }
 
     public function testOutFileName()
     {
         $map1 = new SourceMap();
         $this->assertNull($map1->outFileName);
-        $fn = __DIR__ . '/../../local/test.map';
+        $fn = __DIR__ . '/../../local/tmp/test.map';
         if (is_file($fn)) {
             unlink($fn);
         }
@@ -155,7 +155,7 @@ class CommonTest extends \PHPUnit\Framework\TestCase
         $map3 = SourceMap::loadFromFile($fn);
         $this->assertSame($fn, $map3->outFileName);
         $this->assertSame('/root/js/', $map3->sourceRoot);
-        $fn2 = __DIR__ . '/../../local/test2.map';
+        $fn2 = __DIR__ . '/../../local/tmp/test2.map';
         if (is_file($fn2)) {
             unlink($fn2);
         }

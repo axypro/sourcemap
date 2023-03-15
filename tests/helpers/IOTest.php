@@ -35,7 +35,7 @@ class IOTest extends \PHPUnit\Framework\TestCase
      */
     public function testSave()
     {
-        $fn = __DIR__ . '/../../local/test.txt';
+        $fn = __DIR__ . '/../../local/tmp/test.txt';
         $content = 'The test content';
         if (is_file($fn)) {
             unlink($fn);
@@ -50,9 +50,9 @@ class IOTest extends \PHPUnit\Framework\TestCase
      */
     public function testSaveIOError()
     {
-        $this->expectExceptionMessage("local/und/und.txt");
+        $this->expectExceptionMessage("local/tmp/und/und.txt");
         $this->expectException(\axy\sourcemap\errors\IOError::class);
-        $fn = __DIR__ . '/../../local/und/und.txt';
+        $fn = __DIR__ . '/../../local/tmp/und/und.txt';
         IO::save($fn, 'Content');
     }
 }

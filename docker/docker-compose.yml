@@ -11,6 +11,8 @@ services:
             - '../vendor:/app/vendor'
             - '../composer.lock:/app/composer.lock'
             - '../local:/app/local'
+        tmpfs:
+            - '/app/local/tmp:uid=${USER_ID:-0}'
         user: "${USER_ID:-0}:${GROUP_ID:-0}"
         working_dir: '/app'
         environment:

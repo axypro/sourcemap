@@ -6,6 +6,6 @@ namespace axy\sourcemap\tests;
 
 require_once __DIR__ . '/../index.php';
 
-if (!file_exists(__DIR__ . '/../local')) {
-    mkdir(__DIR__ . '/../local');
+if (!file_exists(__DIR__ . '/../local/tmp')) {
+    mkdir(__DIR__ . '/../local/tmp', recursive: true);
 }
