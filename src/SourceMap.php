@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev
- */
 
 namespace axy\sourcemap;
 

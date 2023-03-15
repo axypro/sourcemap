@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\tests\classSourceMap;
 
@@ -18,7 +14,7 @@ class OptimizeTest extends \PHPUnit\Framework\TestCase
      */
     public function testOptimize()
     {
-        $map = SourceMap::loadFromFile(__DIR__.'/../tst/app.js.map');
+        $map = SourceMap::loadFromFile(__DIR__ . '/../tst/app.js.map');
         $filter1 = [
             'source' => [
                 'fileIndex' => 1,
@@ -51,8 +47,8 @@ class OptimizeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expectedBefore, $map->getData());
         $this->assertTrue($map->optimize());
         $mappingsA = [
-            'AAIA,SAAS,KAAK,CAAC,CAAQ;;QAEf,MAAM,CAAC,CAAC,GAAG,CAAC,CAAC;'.
-            'IACjB,CAAC;;;ACPL,IAAI,MAAM,GAAG,KAAK,CAAC,CAAC,CAAC,GAAG,IAAI,'.
+            'AAIA,SAAS,KAAK,CAAC,CAAQ;;QAEf,MAAM,CAAC,CAAC,GAAG,CAAC,CAAC;' .
+            'IACjB,CAAC;;;ACPL,IAAI,MAAM,GAAG,KAAK,CAAC,CAAC,CAAC,GAAG,IAAI,' .
             'CAAC,CAAC,CAAC,GAAG,IAAI,CAAC,CAAC,CAAC,CAAC;AAE1C,OAAO,CAAC,GAAG,CAAC,MAAM,CAAC,CAAC',
         ];
         $expectedAfter = [

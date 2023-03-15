@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\parsing;
 
@@ -69,7 +65,7 @@ class Line
                 if (isset($files[$fi])) {
                     $source->fileName = $files[$fi];
                 } else {
-                    $message = 'Invalid segment "'.$segment.'" (source offset '.$fi.')';
+                    $message = 'Invalid segment "' . $segment . '" (source offset ' . $fi . ')';
                     throw new InvalidMappings($message);
                 }
                 $ni = $source->nameIndex;
@@ -77,7 +73,7 @@ class Line
                     if (isset($names[$ni])) {
                         $source->name = $names[$ni];
                     } else {
-                        $message = 'Invalid segment "'.$segment.'" (name offset '.$ni.')';
+                        $message = 'Invalid segment "' . $segment . '" (name offset ' . $ni . ')';
                         throw new InvalidMappings($message);
                     }
                 }

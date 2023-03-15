@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\tests\parsing;
 
@@ -89,10 +85,7 @@ class SegmentParserTest extends \PHPUnit\Framework\TestCase
         $parser->parse($segment);
     }
 
-    /**
-     * @return array
-     */
-    public function providerParseError()
+    public static function providerParseError(): array
     {
         return [
             'empty' => [''],

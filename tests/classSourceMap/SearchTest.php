@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\tests\classSourceMap;
 
@@ -19,7 +15,7 @@ class SearchTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetPosition()
     {
-        $map = SourceMap::loadFromFile(__DIR__.'/../tst/app.js.map');
+        $map = SourceMap::loadFromFile(__DIR__ . '/../tst/app.js.map');
         $pos = $map->getPosition(1, 21);
         $this->assertInstanceOf('axy\sourcemap\PosMap', $pos);
         $expected = [
@@ -47,7 +43,7 @@ class SearchTest extends \PHPUnit\Framework\TestCase
      */
     public function testFindPositionInSource()
     {
-        $map = SourceMap::loadFromFile(__DIR__.'/../tst/app.js.map');
+        $map = SourceMap::loadFromFile(__DIR__ . '/../tst/app.js.map');
         $pos = $map->findPositionInSource(1, 1, 35);
         $this->assertInstanceOf('axy\sourcemap\PosMap', $pos);
         $expected = [
@@ -76,7 +72,7 @@ class SearchTest extends \PHPUnit\Framework\TestCase
      */
     public function testFind()
     {
-        $map = SourceMap::loadFromFile(__DIR__.'/../tst/app.js.map');
+        $map = SourceMap::loadFromFile(__DIR__ . '/../tst/app.js.map');
         $all = $map->find();
         $this->assertIsArray($all);
         $this->assertCount(72, $all);

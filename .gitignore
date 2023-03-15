@@ -1,8 +1,7 @@
-vendor
-composer.lock
-phpunit.xml
-phpmd.xml
-.idea
-tests/tmp/*
-!tests/tmp/.gitkeep
+/vendor
+/composer.lock
+/phpunit.xml
+/.idea
 .phpunit.result.cache
+/local
+/format.json

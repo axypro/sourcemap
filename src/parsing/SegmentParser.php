@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\parsing;
 
@@ -54,11 +50,11 @@ class SegmentParser
         try {
             $offsets = $this->encoder->decode($segment);
         } catch (VLQError $e) {
-            throw new InvalidMappings('Invalid segment "'.$segment.'"', $e);
+            throw new InvalidMappings('Invalid segment "' . $segment . '"', $e);
         }
         $count = count($offsets);
         if (!in_array($count, [1, 4, 5])) {
-            throw new InvalidMappings('Invalid segment "'.$segment.'"');
+            throw new InvalidMappings('Invalid segment "' . $segment . '"');
         }
         $generated->line = $this->gLine;
         $this->gColumn += $offsets[0];

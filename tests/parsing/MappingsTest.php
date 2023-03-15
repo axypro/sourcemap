@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\tests\parsing;
 
@@ -541,7 +537,7 @@ class MappingsTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetStat()
     {
-        $data = json_decode(file_get_contents(__DIR__.'/../tst/app.js.map'), true);
+        $data = json_decode(file_get_contents(__DIR__ . '/../tst/app.js.map'), true);
         $context = new Context($data);
         $mappings = new Mappings($data['mappings'], $context);
         $expected = [

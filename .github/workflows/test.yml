@@ -1,30 +1,42 @@
-name: PHP Tests
+name: Tests
 
 on: push
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+    test:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        php: [7.3, 7.4, 8.0, 8.1]
+        strategy:
+            matrix:
+                php: [8.1, 8.2]
 
-    name: 'PHP ${{ matrix.php }}'
-    steps:
-      - uses: actions/checkout@master
+        name: 'PHP ${{ matrix.php }}'
+        steps:
+            - uses: actions/checkout@master
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          coverage: xdebug
-          extensions: curl, dom, gd, json, mbstring, openssl, pdo_mysql, tokenizer, zip
-          tools: phpunit, composer:v2
-          ini-values: display_errors=E_ALL
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+                  coverage: xdebug
+                  tools: phpunit, composer:v2
+                  ini-values: display_errors=E_ALL
 
-      - name: Install Composer dependencies
-        run: composer install
+            - name: Install Composer dependencies
+              run: composer install
 
-      - name: Run Composer tests
-        run: composer test
+            - name: Run tests
+              if: ${{ matrix.php != '8.2' }}
+              run: vendor/bin/phpunit -c phpunit.xml.dist
+
+            - name: Run tests with coverage
+              if: ${{ matrix.php == '8.2' }}
+              run: vendor/bin/phpunit --coverage-clover local/clover.xml
+
+            - name: Upload coverage results to Coveralls
+              if: ${{ matrix.php == '8.2' }}
+              env:
+                COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                composer global require php-coveralls/php-coveralls
+                php-coveralls --coverage_clover=local/clover.xml -v --json_path=local/clover.json

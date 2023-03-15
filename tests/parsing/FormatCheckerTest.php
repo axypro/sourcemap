@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\tests\parsing;
 
@@ -24,10 +20,7 @@ class FormatCheckerTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($normalized, FormatChecker::check($origin));
     }
 
-    /**
-     * @return array
-     */
-    public function providerCheck()
+    public static function providerCheck(): array
     {
         return [
             [
@@ -109,10 +102,7 @@ class FormatCheckerTest extends \PHPUnit\Framework\TestCase
         FormatChecker::check($data);
     }
 
-    /**
-     * @return array
-     */
-    public function providerInvalidSection()
+    public static function providerInvalidSection(): array
     {
         return [
             [

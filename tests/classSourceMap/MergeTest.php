@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\tests\classSourceMap;
 
@@ -19,11 +15,11 @@ class MergeTest extends \PHPUnit\Framework\TestCase
      */
     public function testMerge()
     {
-        $dir = __DIR__.'/../tst/merge/';
-        $map = SourceMap::loadFromFile($dir.'out.js.map');
-        $this->assertTrue($map->merge($dir.'ab.js.map'));
-        $this->assertTrue($map->merge($dir.'cd.js.map'));
-        $this->assertFalse($map->merge($dir.'ab.js.map'));
+        $dir = __DIR__ . '/../tst/merge/';
+        $map = SourceMap::loadFromFile($dir . 'out.js.map');
+        $this->assertTrue($map->merge($dir . 'ab.js.map'));
+        $this->assertTrue($map->merge($dir . 'cd.js.map'));
+        $this->assertFalse($map->merge($dir . 'ab.js.map'));
         $expectedPositions = [
             0 => [
                 0 => '0,0,0,',
@@ -86,6 +82,6 @@ class MergeTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\axy\sourcemap\errors\InvalidJSON::class);
         $map = new SourceMap();
-        $map->merge(__DIR__.'/../tst/invalid.json.js.map');
+        $map->merge(__DIR__ . '/../tst/invalid.json.js.map');
     }
 }

@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\tests;
 
@@ -34,10 +30,7 @@ class PosMapTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($eSource, (array)$aSource);
     }
 
-    /**
-     * @return array
-     */
-    public function providerCreate()
+    public static function providerCreate(): array
     {
         $g = new PosGenerated();
         $g->line = 10;

@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\indexed;
 
@@ -136,14 +132,14 @@ abstract class Base
         $name = $source->$kn;
         if ($index !== null) {
             if (!isset($this->names[$index])) {
-                $message = 'Invalid index '.$this->contextKey.'#'.$index;
+                $message = 'Invalid index ' . $this->contextKey . '#' . $index;
                 throw new InvalidIndexed($message);
             }
             $newName = $this->names[$index];
             if ($name === null) {
                 $source->$kn = $newName;
             } elseif ($name !== $newName) {
-                $message = 'Mismatch '.$this->contextKey.'#'.$index.' and "'.$name.'"';
+                $message = 'Mismatch ' . $this->contextKey . '#' . $index . ' and "' . $name . '"';
                 throw new InvalidIndexed($message);
             }
             return true;

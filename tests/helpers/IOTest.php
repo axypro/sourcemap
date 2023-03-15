@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\tests\helpers;
 
@@ -18,7 +14,7 @@ class IOTest extends \PHPUnit\Framework\TestCase
      */
     public function testLoad()
     {
-        $content = IO::load(__DIR__.'/../tst/invalid.json.js.map');
+        $content = IO::load(__DIR__ . '/../tst/invalid.json.js.map');
         $this->assertSame('qwerty', trim($content));
     }
 
@@ -31,7 +27,7 @@ class IOTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectExceptionMessage("not.found.js.map");
         $this->expectException(\axy\sourcemap\errors\IOError::class);
-        IO::load(__DIR__.'/../not.found.js.map');
+        IO::load(__DIR__ . '/../not.found.js.map');
     }
 
     /**
@@ -39,7 +35,7 @@ class IOTest extends \PHPUnit\Framework\TestCase
      */
     public function testSave()
     {
-        $fn = __DIR__.'/../tmp/test.txt';
+        $fn = __DIR__ . '/../../local/test.txt';
         $content = 'The test content';
         if (is_file($fn)) {
             unlink($fn);
@@ -51,14 +47,12 @@ class IOTest extends \PHPUnit\Framework\TestCase
 
     /**
      * covers ::load
-     *
-     *
      */
     public function testSaveIOError()
     {
-        $this->expectExceptionMessage("tmp/und/und.txt");
+        $this->expectExceptionMessage("local/und/und.txt");
         $this->expectException(\axy\sourcemap\errors\IOError::class);
-        $fn = __DIR__.'/../tmp/und/und.txt';
+        $fn = __DIR__ . '/../../local/und/und.txt';
         IO::save($fn, 'Content');
     }
 }

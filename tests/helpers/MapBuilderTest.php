@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\tests\helpers;
 
@@ -33,10 +29,7 @@ class MapBuilderTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @return array
-     */
-    public function providerBuild()
+    public static function providerBuild(): array
     {
         $data = [
             'version' => 3,
@@ -57,16 +50,16 @@ class MapBuilderTest extends \PHPUnit\Framework\TestCase
                 'file.js',
             ],
             [
-                __DIR__.'/../tst/map.js.map',
+                __DIR__ . '/../tst/map.js.map',
                 'script.js',
             ],
             [
-                __DIR__.'/../tst/notFound.js.map',
+                __DIR__ . '/../tst/notFound.js.map',
                 null,
                 \axy\sourcemap\errors\IOError::class,
             ],
             [
-                __DIR__.'/../tst/invalid.json.js.map',
+                __DIR__ . '/../tst/invalid.json.js.map',
                 null,
                 \axy\sourcemap\errors\InvalidFormat::class,
             ],

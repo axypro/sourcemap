@@ -1,5 +1,9 @@
 ### dev-master
 
+* PHP 8.1+
+* Refactoring structure
+* Development in Docker
+
 ### 0.1.5 (20.08.2020)
 
 * Find position closest to the requested column (see https://github.com/axypro/sourcemap/pull/6)

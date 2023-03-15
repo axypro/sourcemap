@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+    php:
+        build:
+            context: ./build/php
+        restart: 'no'
+        profiles: ['console']
+        volumes:
+            - '..:/app:ro'
+            - '../vendor:/app/vendor'
+            - '../composer.lock:/app/composer.lock'
+            - '../local:/app/local'
+        user: "${USER_ID:-0}:${GROUP_ID:-0}"
+        working_dir: '/app'
+        environment:
+            XDEBUG_MODE: 'coverage'

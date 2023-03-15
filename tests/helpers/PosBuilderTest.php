@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\tests\helpers;
 
@@ -28,10 +24,7 @@ class PosBuilderTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, Represent::posMap($pos));
     }
 
-    /**
-     * @return array
-     */
-    public function providerBuild()
+    public static function providerBuild(): array
     {
         return [
             [

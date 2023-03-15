@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\parsing;
 
@@ -401,7 +397,7 @@ class Mappings
         foreach ($other->getLines() as $ln => $line) {
             foreach ($line->getPositions() as $cn => $pos) {
                 $s = $pos->source;
-                $key = $ln.':'.$cn;
+                $key = $ln . ':' . $cn;
                 if (!isset($mp[$key])) {
                     $mp[$key] = $s;
                 }
@@ -413,7 +409,7 @@ class Mappings
                 if ($s->fileIndex !== $sIndex) {
                     continue;
                 }
-                $key = $s->line.':'.$s->column;
+                $key = $s->line . ':' . $s->column;
                 if (!isset($mp[$key])) {
                     $line->removePosition($cn);
                     continue;

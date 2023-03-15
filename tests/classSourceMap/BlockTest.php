@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\tests\classSourceMap;
 
@@ -57,7 +53,7 @@ class BlockTest extends \PHPUnit\Framework\TestCase
                 ],
             ];
             $position = $this->map->addPosition($position);
-            $this->posList[$p[0].'-'.$p[1]] = (array)$position->source;
+            $this->posList[$p[0] . '-' . $p[1]] = (array)$position->source;
         }
     }
 
@@ -68,7 +64,7 @@ class BlockTest extends \PHPUnit\Framework\TestCase
     {
         $actual = [];
         foreach ($this->map->find() as $position) {
-            $key = $position->generated->line.'-'.$position->generated->column;
+            $key = $position->generated->line . '-' . $position->generated->column;
             $actual[$key] = (array)$position->source;
         }
         return $actual;

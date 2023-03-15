@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\tests\parsing;
 
@@ -199,10 +195,7 @@ class LineTest extends \PHPUnit\Framework\TestCase
         Line::loadFromMappings(2, $lMappings, $parser, $context);
     }
 
-    /**
-     * @return array
-     */
-    public function providerErrorLoad()
+    public static function providerErrorLoad(): array
     {
         return [
             'empty' => [''],

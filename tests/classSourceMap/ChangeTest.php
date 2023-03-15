@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\tests\classSourceMap;
 
@@ -15,7 +11,7 @@ class ChangeTest extends \PHPUnit\Framework\TestCase
 {
     public function testFileRename()
     {
-        $map = SourceMap::loadFromFile(__DIR__.'/../tst/app.js.map');
+        $map = SourceMap::loadFromFile(__DIR__ . '/../tst/app.js.map');
         $data = $map->getData();
         $map->sources->rename(0, 'new-carry.ts');
         $map->sources->rename(2, 'new-app.ts');
@@ -28,7 +24,7 @@ class ChangeTest extends \PHPUnit\Framework\TestCase
 
     public function testNameRename()
     {
-        $map = SourceMap::loadFromFile(__DIR__.'/../tst/map.js.map');
+        $map = SourceMap::loadFromFile(__DIR__ . '/../tst/map.js.map');
         $data = $map->getData();
         $map->names->rename(0, 'One');
         $map->names->rename(5, 'Two');

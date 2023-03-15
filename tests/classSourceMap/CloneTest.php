@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\tests\classSourceMap;
 
@@ -19,7 +15,7 @@ class CloneTest extends \PHPUnit\Framework\TestCase
      */
     public function testClone()
     {
-        $map1 = SourceMap::loadFromFile(__DIR__.'/../tst/map.js.map');
+        $map1 = SourceMap::loadFromFile(__DIR__ . '/../tst/map.js.map');
         $pos1 = $map1->getPosition(7, 18);
         $this->assertSame(2, $pos1->source->line);
         $map2 = clone $map1;

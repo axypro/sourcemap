@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\tests\classSourceMap;
 
@@ -67,7 +63,7 @@ class CommonTest extends \PHPUnit\Framework\TestCase
      */
     public function testLoadFromFile()
     {
-        $map = SourceMap::loadFromFile(__DIR__.'/../tst/map.js.map');
+        $map = SourceMap::loadFromFile(__DIR__ . '/../tst/map.js.map');
         $this->assertInstanceOf('axy\sourcemap\SourceMap', $map);
         $expected = [
             'version' => 3,
@@ -90,7 +86,7 @@ class CommonTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(IOError::class);
 
-        return SourceMap::loadFromFile(__DIR__.'/../tst/notFound.js.map');
+        return SourceMap::loadFromFile(__DIR__ . '/../tst/notFound.js.map');
     }
 
     /**
@@ -102,7 +98,7 @@ class CommonTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(InvalidJSON::class);
 
-        return SourceMap::loadFromFile(__DIR__.'/../tst/invalid.json.js.map');
+        return SourceMap::loadFromFile(__DIR__ . '/../tst/invalid.json.js.map');
     }
 
     /**
@@ -114,7 +110,7 @@ class CommonTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(UnsupportedVersion::class);
 
-        return SourceMap::loadFromFile(__DIR__.'/../tst/version4.js.map');
+        return SourceMap::loadFromFile(__DIR__ . '/../tst/version4.js.map');
     }
 
     /**
@@ -131,7 +127,7 @@ class CommonTest extends \PHPUnit\Framework\TestCase
             'mappings' => 'A',
         ];
         $map = new SourceMap($data);
-        $fn = __DIR__.'/../tmp/test.map';
+        $fn = __DIR__ . '/../../local/test.map';
         if (is_file($fn)) {
             unlink($fn);
         }
@@ -139,14 +135,14 @@ class CommonTest extends \PHPUnit\Framework\TestCase
         $this->assertFileExists($fn);
         $this->assertEquals($data, json_decode(file_get_contents($fn), true));
         $this->expectException(IOError::class);
-        $map->save(__DIR__.'/../tmp/und/und.map');
+        $map->save(__DIR__ . '/../../local/und/und.map');
     }
 
     public function testOutFileName()
     {
         $map1 = new SourceMap();
         $this->assertNull($map1->outFileName);
-        $fn = __DIR__.'/../tmp/test.map';
+        $fn = __DIR__ . '/../../local/test.map';
         if (is_file($fn)) {
             unlink($fn);
         }
@@ -159,7 +155,7 @@ class CommonTest extends \PHPUnit\Framework\TestCase
         $map3 = SourceMap::loadFromFile($fn);
         $this->assertSame($fn, $map3->outFileName);
         $this->assertSame('/root/js/', $map3->sourceRoot);
-        $fn2 = __DIR__.'/../tmp/test2.map';
+        $fn2 = __DIR__ . '/../../local/test2.map';
         if (is_file($fn2)) {
             unlink($fn2);
         }

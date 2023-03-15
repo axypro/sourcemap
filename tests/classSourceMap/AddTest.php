@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\tests\classSourceMap;
 
@@ -155,19 +151,16 @@ class AddTest extends \PHPUnit\Framework\TestCase
      * @param mixed $position
      * @param bool $error [optional]
      */
-    public function testErrorIncompleteData($position, $error = true)
+    public function testErrorIncompleteData(mixed $position, bool $error = true)
     {
         if ($error) {
             $this->expectException(IncompleteData::class);
         }
-
         $this->map->addPosition($position);
+        $this->assertTrue(true, 'not thrown, not risky');
     }
 
-    /**
-     * @return array
-     */
-    public function providerErrorIncompleteData()
+    public static function providerErrorIncompleteData(): array
     {
         return [
             [null],
@@ -221,18 +214,16 @@ class AddTest extends \PHPUnit\Framework\TestCase
      * @param mixed $position
      * @param bool $error [optional]
      */
-    public function testErrorInvalidIndexed($position, $error = true)
+    public function testErrorInvalidIndexed(mixed $position, bool $error = true)
     {
         if ($error) {
             $this->expectException(InvalidIndexed::class);
         }
         $this->map->addPosition($position);
+        $this->assertTrue(true, 'not thrown, not risky');
     }
 
-    /**
-     * @return array
-     */
-    public function providerErrorInvalidIndexed()
+    public static function providerErrorInvalidIndexed(): array
     {
         return [
             [

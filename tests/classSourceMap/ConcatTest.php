@@ -1,8 +1,4 @@
 <?php
-/**
- * @package axy\sourcemap
- * @author Oleg Grigoriev <go.vasac@gmail.com>
- */
 
 namespace axy\sourcemap\tests\classSourceMap;
 
@@ -29,7 +25,7 @@ class ConcatTest extends \PHPUnit\Framework\TestCase
         $map->file = 'out.js';
         $line = 0;
         foreach ($sizes as $name => $qLines) {
-            $filename = __DIR__.'/../tst/concat/'.$name.'.js.map';
+            $filename = __DIR__ . '/../tst/concat/' . $name . '.js.map';
             $map->concat($filename, $line);
             $line += $qLines;
         }
@@ -149,7 +145,7 @@ class ConcatTest extends \PHPUnit\Framework\TestCase
         $map->file = 'out.js';
         $line = 0;
         foreach ($sizes as $name => $qLines) {
-            $filename = __DIR__.'/../tst/concat/'.$name.'.js.map';
+            $filename = __DIR__ . '/../tst/concat/' . $name . '.js.map';
             $map->concat($filename, $line, $line ? 50 : 0);
             $line += $qLines - 1;
         }
@@ -260,13 +256,13 @@ class ConcatTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(InvalidJSON::class);
         $map = new SourceMap();
-        $map->concat(__DIR__.'/../tst/invalid.json.js.map', 0);
+        $map->concat(__DIR__ . '/../tst/invalid.json.js.map', 0);
     }
 
     public function testConcatSourcesContent()
     {
-        $file_path_a = __DIR__.'/../tst/concat/a_content.js.map';
-        $file_path_b = __DIR__.'/../tst/concat/bc_content.js.map';
+        $file_path_a = __DIR__ . '/../tst/concat/a_content.js.map';
+        $file_path_b = __DIR__ . '/../tst/concat/bc_content.js.map';
         $map = SourceMap::loadFromFile($file_path_a);
         $map->concat($file_path_b, 1);
         $raw_map_a = json_decode(file_get_contents($file_path_a));
