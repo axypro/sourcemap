@@ -7,6 +7,7 @@ In the minimization process is created the source map file `abc.min.js.map`.
 Example of such a file:
 
 ```json
+{
 "version": 3,
 "file": "abc.min.js",
 "sourceRoot": "",
@@ -14,6 +15,7 @@ Example of such a file:
 "sourcesContent": [null, null],
 "names": ["src", "maps", "are", "fun"],
 "mappings": "A,AAAB;;ABCDE;"
+}
 ```
 
 ## Basic Terms
@@ -24,14 +26,14 @@ Generated content is always single.
 **Generated position**: a position in the generated content.
 Is described by a line number and a column number.
 
-**Source**: a file of the original code. 
+**Source**: a file of the original code.
 One or more.
 Specific source is identified by an index of the "sources" field of the source map file.
 
 **Source position**: a position in the original content.
 Is described by a source index, a line number (in the source file) and a column number.
-Additional, it can contain information about a symbol name which located in this position.
- 
+Additionally, it can contain information about a symbol name which located in this position.
+
 **Symbol name**: an identifier (a function name, a variable name or etc) from a source content.
 
 **Position map** (or **position**): a relationship between a source position and a generated position.
