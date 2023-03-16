@@ -1,3 +1,7 @@
+### dev-master
+
+* Up axy/errors and axy/codecs-base64vlq to fix deprecations
+
 ### 1.0.0 (15.03.2023)
 
 * PHP 8.1+
