@@ -2,6 +2,7 @@
 
 * Up axy/errors and axy/codecs-base64vlq to fix deprecations
 * Dev: install unzip in docker for composer
+* Dev: tmpfs for composer cache
 
 ### 1.0.0 (15.03.2023)
 
