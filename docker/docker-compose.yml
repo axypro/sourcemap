@@ -16,5 +16,6 @@ services:
             - '/app/local/tmp:uid=${USER_ID:-0}'
         user: "${USER_ID:-0}:${GROUP_ID:-0}"
         working_dir: '/app'
+        network_mode: host
         environment:
             XDEBUG_MODE: 'coverage'
