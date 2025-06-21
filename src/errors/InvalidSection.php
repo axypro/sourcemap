@@ -15,12 +15,12 @@ final class InvalidSection extends Runtime implements InvalidFormat
     protected $defaultMessage = 'Source map section "{{ section }}" is invalid: "{{ errorMessage }}"';
 
     /**
-     * @param string $section
-     * @param string $errorMessage
-     * @param \Exception $previous [optional]
+     * @param string|null $section
+     * @param string|null $errorMessage
+     * @param \Exception|null $previous [optional]
      * @param mixed $thrower [optional]
      */
-    public function __construct($section = null, $errorMessage = null, \Exception $previous = null, $thrower = null)
+    public function __construct(?string $section = null, ?string $errorMessage = null, ?\Exception $previous = null, mixed $thrower = null)
     {
         $this->section = $section;
         $this->errorMessage = $errorMessage;

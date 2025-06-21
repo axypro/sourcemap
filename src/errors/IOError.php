@@ -17,12 +17,12 @@ class IOError extends Runtime implements Error
     /**
      * The constructor
      *
-     * @param string $filename [optional]
-     * @param string $errorMessage [optional]
-     * @param \Exception $previous [optional]
+     * @param string|null $filename [optional]
+     * @param string|null $errorMessage [optional]
+     * @param \Exception|null $previous [optional]
      * @param mixed $thrower [optional]
      */
-    public function __construct($filename = null, $errorMessage = null, \Exception $previous = null, $thrower = null)
+    public function __construct(?string $filename = null, ?string $errorMessage = null, ?\Exception $previous = null, mixed $thrower = null)
     {
         $this->filename = $filename;
         $this->errorMessage = $errorMessage;

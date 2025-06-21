@@ -13,14 +13,14 @@ class FormatChecker
     /**
      * Checks and normalizes the source map data
      *
-     * @param array $data [optional]
+     * @param array|null $data [optional]
      *        the original data
      * @return array $data
      *         the normalized data
      * @throws \axy\sourcemap\errors\InvalidFormat
      *         the data format is invalid
      */
-    public static function check(array $data = null)
+    public static function check(?array $data = null)
     {
         if ($data === null) {
             return self::$defaults;

@@ -16,10 +16,10 @@ final class UnsupportedVersion extends Runtime implements InvalidFormat
 
     /**
      * @param mixed $version
-     * @param \Exception $previous [optional]
+     * @param ?\Exception $previous [optional]
      * @param mixed $thrower [optional]
      */
-    public function __construct($version, \Exception $previous = null, $thrower = null)
+    public function __construct(mixed $version, ?\Exception $previous = null, mixed $thrower = null)
     {
         $this->version = $version;
         $message = [
