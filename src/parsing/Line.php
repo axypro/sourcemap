@@ -15,10 +15,10 @@ class Line
      *
      * @param int $num
      *        the line number
-     * @param \axy\sourcemap\PosMap[] $positions [optional]
+     * @param \axy\sourcemap\PosMap[]|null $positions [optional]
      *        a list of ordered positions
      */
-    public function __construct($num, array $positions = null)
+    public function __construct($num, ?array $positions = null)
     {
         $this->num = $num;
         $this->positions = $positions ?: [];
@@ -272,11 +272,11 @@ class Line
     /**
      * Finds positions that match to a filter
      *
-     * @param \axy\sourcemap\PosMap $filter [optional]
+     * @param \axy\sourcemap\PosMap|null $filter [optional]
      *        the filter (if not specified then returns all positions)
      * @return \axy\sourcemap\PosMap[]
      */
-    public function find(PosMap $filter = null)
+    public function find(?PosMap $filter = null)
     {
         if ($filter === null) {
             return array_values($this->positions);

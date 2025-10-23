@@ -15,11 +15,11 @@ final class IncompleteData extends Runtime implements InvalidFormat
     protected $defaultMessage = 'Input data is incomplete: "{{ errorMessage }}"';
 
     /**
-     * @param string $errorMessage
-     * @param \Exception $previous [optional]
+     * @param string|null $errorMessage
+     * @param \Exception|null $previous [optional]
      * @param mixed $thrower [optional]
      */
-    public function __construct($errorMessage = null, \Exception $previous = null, $thrower = null)
+    public function __construct(?string $errorMessage = null, ?\Exception $previous = null, mixed $thrower = null)
     {
         $this->errorMessage = $errorMessage;
         $message = [

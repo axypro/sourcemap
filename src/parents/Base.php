@@ -15,14 +15,14 @@ abstract class Base
     /**
      * The constructor
      *
-     * @param array $data [optional]
+     * @param array|null $data [optional]
      *        the map data
-     * @param string $filename [optional]
+     * @param string|null $filename [optional]
      *        the default file name of the map
      * @throws \axy\sourcemap\errors\InvalidFormat
      *         the map has an invalid format
      */
-    public function __construct(array $data = null, $filename = null)
+    public function __construct(?array $data = null, ?string $filename = null)
     {
         $data = FormatChecker::check($data);
         $this->context = new Context($data);

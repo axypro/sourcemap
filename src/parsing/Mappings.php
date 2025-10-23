@@ -209,11 +209,11 @@ class Mappings
     /**
      * Finds positions that match to a filter
      *
-     * @param \axy\sourcemap\PosMap $filter [optional]
+     * @param \axy\sourcemap\PosMap|null $filter [optional]
      *        the filter (if not specified then returns all positions)
      * @return \axy\sourcemap\PosMap[]
      */
-    public function find(PosMap $filter = null)
+    public function find(?PosMap $filter = null)
     {
         $lines = $this->getLines();
         if ($filter !== null) {

@@ -15,10 +15,10 @@ final class InvalidJSON extends Runtime implements InvalidFormat
     protected $defaultMessage = 'Source map JSON is invalid';
 
     /**
-     * @param \Exception $previous [optional]
+     * @param ?\Exception $previous [optional]
      * @param mixed $thrower [optional]
      */
-    public function __construct(\Exception $previous = null, $thrower = null)
+    public function __construct(?\Exception $previous = null, mixed $thrower = null)
     {
         parent::__construct([], 0, $previous, $thrower);
     }
