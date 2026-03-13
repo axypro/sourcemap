@@ -25,7 +25,7 @@ class BaseTest extends \PHPUnit\Framework\TestCase
      * @param array $data [optional]
      * @return \axy\sourcemap\indexed\Base
      */
-    private function createIndexed(array $data = null)
+    private function createIndexed(?array $data = null)
     {
         return new Names(new Context($data ?: $this->defaultData));
     }
