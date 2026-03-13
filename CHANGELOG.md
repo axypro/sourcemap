@@ -1,3 +1,7 @@
+### 1.1.0 (14.03.2026)
+
+* Compatibility with PHP 8.3-8.5
+
 ### 1.0.1 (16.03.2023)
 
 * Up axy/errors and axy/codecs-base64vlq to fix deprecations
