@@ -1,4 +1,4 @@
-FROM php:8.2.3-cli
+FROM php:8.4-cli
 
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
@@ -9,6 +9,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN docker-php-ext-install \
     zip
 
-RUN pecl install xdebug-3.2.0 && docker-php-ext-enable xdebug
+RUN pecl install xdebug-3.4.0 && docker-php-ext-enable xdebug
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
