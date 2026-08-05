@@ -1,3 +1,8 @@
+### 1.1.1 (05.08.2026)
+
+* [Issue 12](https://github.com/axypro/sourcemap/issues/12): Fix "using null as an array offset is deprecated"
+* Up phpunit schema and dev PHP to 8.5
+
 ### 1.1.0 (14.03.2026)
 
 * Compatibility with PHP 8.3-8.5
